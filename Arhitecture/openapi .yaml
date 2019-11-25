@@ -1,0 +1,461 @@
+openapi: 3.0.0
+info:
+  title: MUP API
+  description: Un instrument "inteligent" care automatizeaza alegerea muzicii difuzate la o petrecere.
+  version: V1
+paths:
+  
+  /login:
+    post:
+      summary: Login.
+      description: Login.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+           description: Autentificare cu succes
+           content:
+             application/json:
+              schema:
+                type: object
+                properties:
+                  status: 
+                    type: string
+                  message: 
+                    type: string
+                  token: 
+                    type: string
+        '400':
+           description: Nume/parola gresite
+           content:
+             application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  
+  /register:
+    post:
+      summary: Register
+      description: Register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                 type: string
+                nume:
+                  type: string
+                prenume:
+                  type: string
+                parola:
+                  type: string
+      responses:
+        '201':
+          description: Inregistrare cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+        '409':
+          description: E-mail-ul exista deja in baza de date
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  
+  /logout:
+    post:
+      summary: Log out
+      responses:
+        '200':
+          description: Log out cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                    
+  /statistic:
+    get:
+      summary: Statistici utilizator
+      responses:
+        '200':
+          description: Statistici preluate
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  dansTimp:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        stil:
+                          type: string
+                        procente:
+                          type: number
+        '404':
+          description: Token gresit
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  /event:
+    post:
+      summary: Creeaza o petrecere
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                latitudine:
+                  type: number
+                longitudine:
+                  type: number
+                nume:
+                  type: string
+                data:
+                  type: string
+      responses:
+        "201":
+          description: Party creat cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+    delete:
+      summary: Sterge o petrecere
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: ID-ul petrecerii
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Party sters cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+    get:
+      summary: Returneaza toate petrecerile
+      responses:
+        "200":
+          description: Petreceri returnate cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  latitudine:
+                    type: number
+                  longitudine:
+                    type: number
+                  nume:
+                    type: string
+                  data:
+                    type: string
+        "404":
+          description: Nu s-au gasit petreceri
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+    put:
+      summary: Modifica o petrecere
+      parameters:
+        - name: partyId
+          in: path
+          required: true
+          description: Id-ul petrecerii
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                latitudine:
+                  type: number
+                longitudine:
+                  type: number
+                nume:
+                  type: string
+                data:
+                  type: string
+      responses:
+        "201":
+          description: Party modificat cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  /joinParty:
+    get:
+      summary: Returneaza toate petrecerile la care ai dat join
+      responses:
+        "200":
+          description: Petreceri returnate cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  latitudine:
+                    type: number
+                  longitudine:
+                    type: number
+                  nume:
+                    type: string
+                  data:
+                    type: string
+        "404":
+          description: Nu s-au gasit petreceri
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+    post:
+        summary: User-ul da join la o petrecere
+        parameters:
+        - name: partyId
+          in: path
+          required: true
+          description: Id-ul petrecerii
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+        responses:
+          "201":
+            description: Join cu succes
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+          "404":
+            description: Nu s-a gasit petrecerea
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                    message:
+                      type: string
+    delete:
+          summary: Sterge un join
+          parameters: 
+            - name: id
+              in: path
+              required: true
+              description: ID-ul petrecerii
+              schema:
+                type: integer
+          responses:
+            "200":
+              description: Join sters cu succes
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                      message:
+                        type: string
+                        
+  /upload:
+    post:
+      summary: Incarca un cantec
+      responses:
+        "201":
+          description: Melodie incarcata cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  
+  /uploadStiluri:
+    post:
+      summary: Incarca stiluri
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                style:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "201":
+          description: Stiluri incarcate cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                    
+  /sendTimeDancing:
+    post:
+      summary: Trimite durata de timp in care user-ul a dansat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                durata:
+                  type: integer
+                idMelodie:
+                  type: integer
+      responses:
+        "201":
+          description: S-a actualizat cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                    
+  /sendLocation:
+    post:
+      summary: Trimite locatia
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                latitudine:
+                    type: number
+                longitudine:
+                    type: number
+      responses:
+        "201":
+          description: S-a trimis locatia cu succes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+    
+          
+                
+    
+            
+    
+    
+                  
+                    
+                      
+                        
+                    
+      
+      
+  
+                
+                  
+  
+     
+
+    
