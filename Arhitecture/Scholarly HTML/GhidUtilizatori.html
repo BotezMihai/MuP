@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="utf-8">
+    <title>MUP - Music Player Chooser</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1>Music Party Chooser</h1>
+    <section typeof="sa:AuthorsList">
+        <h2> Autori </h2>
+        <ul>
+            <li typeof="sa:ContributorRole" property="schema:author">
+                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
+                    <meta property="schema:givenName" content="Mihai">
+                    <meta property="schema:familyName" content="Botez">
+                    <span property="schema:name">Mihai Botez</span>
+                </span>
+                <ul> 
+                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                        <a href="mailto:mihai.botezz@gmail.com" property="schema:email">mihai.botezz@gmail.com</a>
+                    </li>
+                </ul>
+            </li>
+            <li typeof="sa:ContributorRole" property="schema:author">
+                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
+                    <meta property="schema:givenName" content="Bianca">
+                    <meta property="schema:familyName" content="Ciuraru">
+                    <span property="schema:name">Bianca Ciuraru</span>
+                </span>
+                <ul>
+                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                        <a href="mailto:biancaciuraru@yahoo.com" property="schema:email">biancaciuraru@yahoo.com</a>
+                    </li>
+                </ul>
+            </li>
+            <li typeof="sa:ContributorRole" property="schema:author">
+                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
+                    <meta property="schema:givenName" content="Ramona">
+                    <meta property="schema:familyName" content="Nechita">
+                    <span property="schema:name">Ramona Nechita</span>
+                </span>
+                <ul>
+                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                        <a href="mailto:ramona.nechita99@gmail.com" property="schema:email">ramona.nechita99@gmail.com</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    
+    <section>
+        <h4>Cuprins</h4>
+        <p> 
+                 <a href="#C1"> 1. Introducere</a>
+            <br> <a href="#C2"> 2. Inregistrare/Autentificare</a>
+            <br> <a href="#C3"> 3. Petreceri</a>
+            <br> <a href="#C4"> 4. Petrecerile Mele</a>
+            <br> <a href="#C5"> 5. Statistici</a>
+            <br> <a href="#C6"> 6. Setari</a>
+        </p>
+    </section>
+
+    <section id="C1">
+        <h4>1. Introducere</h4>
+        <p>
+            MUP se considera a fi un instrument "inteligent" care va automatiza alegerea muzicii difuzate la o petrecere.
+            Fiecare persoana care va merge la o petrecere aleasa de el va putea adauga melodii in playlistul petrecerii ori va putea alege unul sau mai multe genuri muzicale preferate.
+        </p>
+    </section>
+
+    <section id="C2">
+        <h4>2. Inregistrare/Autentificare</h4>
+        <p>
+            Primul contact cu aplicatia se realizeaza cu ajutorul sistemului de inregistrare si autentificare. Inregistrarea consta in completarea unor date personale si alegerea unei parole.
+            Accesul in aplicatie se face pe baza email-ului si a parolei alese la inregistrare. In urma autentificarii, utilizatorul are posibilitatea de a-si stearge contul creat din sectiunea de setari a meniului.
+        </p>
+    </section>
+
+    <section id="C3">
+        <h4>3. Petreceri</h4>
+        <p> 
+            Imediat dupa logare, utilizatorul va fi redirectionat pe pagina principala unde va avea acces la un meniu, una dintre optiunile sale fiind "Petreceri". In aceasta pagina vor fi listate toate petrecerile disponibile in viitor, in apropierea utilizatorului. 
+            Acesta va putea da join la una sau mai multe petreceri care nu au loc simultan sau va avea posibilitatea sa organizeze propria petrecere. Odata creata petrecerea, ea va fi disponibila in sectiunea de "Petrecerile Mele".
+        </p>
+    </section>
+
+    <section id="C4">
+        <h4>4. Petrecerile Mele</h4>
+        <p>
+            O alta optiune a meniului este cea de "Petrecerile Mele". Fiecarui utilizator ii vor aparea petrecerile la care a dat join sau cele pe care le organizeaza. <br>
+            Atunci cand se acceseaza o petrecere la care va participa, functionalitatile disponibile sunt incarcarea unei melodii in format MP3/FLAC si alegerea genurilor muzicale dintr-o lista de genuri, 
+            cu restrictia ca aceste functionalitati vor fi disponibile doar cu cateva minute inainte de inceperea petrecerii daca utilizatorul se afla la o anumita distanta de locatia acesteia. O alta functionalitate este cea de a sterge joinul la petrecerea respectiva. <br>
+            Daca petrecerea selectata este una pe care userul o organizeaza, functionalitatile sunt modificarea detaliilor petrecerii si stergerea acesteia, dar si vizualizarea playlistului creat prin incarcarile participantilor si genurile lor preferate.
+        </p>
+    </section>
+
+    <section id="C5">
+        <h4>5. Statistici</h4>
+        <p>
+            In meniu se regaseste optiunea de verificare a statisticilor disponibile pentru fiecare petrecere terminata la care utilizatorul a participat. 
+            Prin intermediul acestor statistici, utilizatorului ii vor fi sugerati alti utilizatori cu care imparte aceleasi gusturi muzicale.
+        </p>
+
+        <b>5.1 Individuale</b>
+        <p>
+            Aceasta functionalitate consta in afisarea unor detalii Individuale precum timpul petrecut dansand, melodia favorita/detestata, genul de muzica favorit/detestat.
+        </p>
+
+        <b>5.2 Globale</b>
+        <p>
+            Aceste statistici se vor face luand in considerare preferintele tuturor participantilor la petrecerea respectiva. Vor fi afisate melodiile si stilurile muzicale pe care au dansat cei mai multi utilizatori sau care au fost alese de catre acestia.
+        </p>
+    </section>
+
+    <section id="C6">
+        <h4>6. Setari</h4>
+        <p>
+            O alta functionalitate a aplicatiei consta in posibilitatea utilizatorului de a-si sterge contul creat in aplicatie. Odata sters, contul nu va mai putea fi recuperat, utilizatorul fiind nevoit sa isi creeze altul.
+        </p>
+    </section>
+    
+</body>
+</html>

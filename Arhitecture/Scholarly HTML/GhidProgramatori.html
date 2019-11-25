@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="utf-8">
+    <title>MUP - Music Player Chooser</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1>Music Party Chooser</h1>
+    <section typeof="sa:AuthorsList">
+        <h2> Autori </h2>
+        <ul>
+            <li typeof="sa:ContributorRole" property="schema:author">
+                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
+                    <meta property="schema:givenName" content="Mihai">
+                    <meta property="schema:familyName" content="Botez">
+                    <span property="schema:name">Mihai Botez</span>
+                </span>
+                <ul> 
+                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                        <a href="mailto:mihai.botezz@gmail.com" property="schema:email">mihai.botezz@gmail.com</a>
+                    </li>
+                </ul>
+            </li>
+            <li typeof="sa:ContributorRole" property="schema:author">
+                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
+                    <meta property="schema:givenName" content="Bianca">
+                    <meta property="schema:familyName" content="Ciuraru">
+                    <span property="schema:name">Bianca Ciuraru</span>
+                </span>
+                <ul>
+                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                        <a href="mailto:biancaciuraru@yahoo.com" property="schema:email">biancaciuraru@yahoo.com</a>
+                    </li>
+                </ul>
+            </li>
+            <li typeof="sa:ContributorRole" property="schema:author">
+                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
+                    <meta property="schema:givenName" content="Ramona">
+                    <meta property="schema:familyName" content="Nechita">
+                    <span property="schema:name">Ramona Nechita</span>
+                </span>
+                <ul>
+                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                        <a href="mailto:ramona.nechita99@gmail.com" property="schema:email">ramona.nechita99@gmail.com</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h4> Cuprins </h4>
+        <p> 
+                 <a href="#C1"> 1. Introducere</a>
+            <br> <a href="#C2"> 2. Inregistrare/Autentificare</a>
+            <br> <a href="#C3"> 3. Structura Aplicatiei</a>
+            <br> <a href="#C4"> 4. Functionalitati</a> 
+        </p>
+    </section>
+
+    <section id="C1">
+        <h4>1. Introducere</h4>
+        <p>
+            MUP se considera a fi un instrument "inteligent" care va automatiza alegerea muzicii difuzate la o petrecere.
+            Fiecare persoana care va merge la o petrecere aleasa de el va putea adauga melodii in playlistul petrecerii ori va putea alege unul sau mai multe genuri muzicale preferate.
+        </p>
+    </section>
+
+    <section id="C2">
+        <h4>2. Inregistrare/Autentificare</h4>
+        <p>
+            Pentru a avea acces la functionalitatile aplicatiei este necesar ca utilizatorul sa-si creeze un cont, fiind stocate in baza de date anumite informatii despre utilizator, precum: id, nume, prenume, email, parola.
+        </p>
+        <p>
+            Autentificarea utilizatorului se realizeaza prin jwt pentru o securitate sporita. Fiecare utilizator primeste un token unic la logare pe care aplicatia il foloseste 
+            pentru a accesa o resursă protejată (precum o API). In timpul logarii se va face o metoda de tip POST care va verifica daca datele introduse sunt corecte, in caz afirmativ utilizatorul primind aceesul in aplicatie.
+        </p>
+    </section>
+
+    <section id="C3">
+        <h4>3. Structura Aplicatiei</h4>
+        <p> 
+            Aplicatia va fi construita avand la baza pattern-ul MVC, de asemenea aceasta va respecta principiile REST API. Vom folosi typeorm pentru a genera entitatile bazei de date, 
+            astfel controller-ul va interactiona cu aceste entitati si nu direct cu baza de date. View-ul va primi ca raspuns JSON-uri. De asemenea, vom avea si layere de filtrare.
+            Vom folosi controllere pentru a grupa functionalitatile comune astfel:
+            <ul class="mvc">
+                <li>LoginController: cu functionalitatile de login, register, logout;</li>
+                <li>UploadController: upload melodii, genuri muzicale;</li>
+                <li>MonitorController: monitorizeaza aspecte ce tin de miscare;</li>
+                <li>StatisticController: responsabil de statistici;</li>
+                <li>PartyController: join party, leave party, create party.</li>
+            </ul>
+        </p>
+
+        <p>
+            Aplicatia va implementa si va folosi un algoritm specializat in alegerea melodiilor care are ca scop maximizarea numarului celor care danseaza (de exemplu, daca dupa schimbarea 
+            unei melodii numarul celor care danseaza scade, dupa terminarea melodiei se va trece la stilul de muzica al melodiei cu numarul de dansatori maxim din istoric, 
+            iar daca numarul de dansatori creste va creste si popularitatea stilului de muzica actual ceea ce va fi folosit la generarea urmatoarei melodii).
+        </p>
+
+        <p>
+            Stocarea datelor despre utilizatori, petreceri, dansatori si stiluri se va face intr-o baza de date nerelationala (MongoDB), iar melodiile incarcate de utilizatori vor fi stocate in foldere pe server.
+        </p>
+
+        <p>
+            Vom folosi o serie de API-uri externe pentru manipularea datelor necesare, API-uri precum:
+            <ul class="mvc">
+                <li>Youtube API - pentru a cauta pe youtube un video in functie de titlu/artist in scopul obtinerii id-ului;</li>
+                <li>Youtube player embedded API - pentru a manevra player-ul muzical si pentru a schimba melodia intr-un mod simplu si elegant;</li>
+                <li>Google Maps API - pentru a afla coordonatele utilizatorului, dar si pentru a putea afisa petrecerile din apropierea lui;</li>
+                <li>Gyroscope API -  pentru a detecta orientarea miscarii, a utilizatorilor care danseaza, date folosite de algoritm pentru alegerea melodiilor urmatoare, dar si pentru stabilirea statisticilor;</li>
+                <li>LastFM API - pentru a prelua toate metadatele despre un fisier.</li>
+            </ul>
+        </p>
+    </section>
+
+    <section id="C4">
+        <h4>4. Functionalitati</h4>
+
+        <b>4.1 Petreceri</b>
+        <p>
+            In aceasta pagina se va face o operatie de tip GET pentru listarea tuturor petrecerilor gasite in apropierea utilizatorului. Datele vor fi preluate din baza de date 
+            si vor fi returnate printr-un obiect de tip JSON care va contine locatia, numele si data fiecarei petreceri.<br>
+            De asemenea, utilizatorul va primi acces la un formular de creare a unei petreceri, parametrii POST-ului fiind locatia, numele si data petrecerii respective, aceste date urmand sa fie stocate in baza de date.
+        </p>
+
+        <b>4.2 Petrecerile Mele</b>
+        <p>
+            Toate petrecerile la care userul va participa sau pe care le va organiza vor fi afisate prin intermediul metodei GET care va folosi detalii din baza de date. 
+            Totodata, vor fi disponibile optiuni de stergere a unei petreceri (DELETE va primi ca parametru ID-ul petrecerii pentru a putea fi stearsa din baza de date), de modificare 
+            a acesteia (prin metoda PUT) si de anulare a participarii la o petrecere (DELETE va primi ca parametru ID-ul petrecerii la care utilizatorul vrea sa stearga joinul).
+        </p>
+
+        <p>
+            Atunci cand se face click pe o petrecere, continutul paginii va fi diferit in functie de tipul petrecerii (userul va fi participant sau organizator).<br>
+            In cazul in care acesta va participa la petrecerea respectiva, acesta va avea la dispozitie atat optiunea de a incarca un fisier audio in formal MP3/FLAC care va fi 
+            adaugat la playlistul petrecerii, cat si optiunea de a alege unul sau mai multe stiluri de muzica preferate avand la dispozitie un dropdown cu o multitudine de categorii muzicale (fiecare actiune fiind facuta prin intermediul unui POST).<br>
+            Daca userul va fi organizator al petrecerii, acesta va avea acces la o lista cu toate melodiile incarcate de catre participanti si la stilurile muzicale.
+        </p>
+
+        <b>4.3 Statistici</b>
+        <p>
+            Aceasta pagina va pune la dispozitia utilizatorului statistici privind activitatea sa la petrecerile la care a participat sau pe care le-a organizat. 
+            Detaliile despre timpul petrecut dansand vor fi preluate cu ajutorul API-ului Gyroscope, aceste date urmand a fi stocate in baza de date si afisate utilizatorului printr-o metoda GET.
+        </p>
+
+        <b>4.4 Setari</b>
+        <p>
+            Din pagina de setari, userul va putea alege sa renunte la contul creat in aplicatie prin stergerea lui, aceasta operatiune fiind ireversibila, datele contului fiind sterse din baza de date.
+        </p>
+    </section>
+
+</body>
+</html>
