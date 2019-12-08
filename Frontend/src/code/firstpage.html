@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Music Party Chooser</title>
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+    <style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
+ @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+ body, html {
+	 height: 100%;
+}
+ body {
+	 font-family: 'Open Sans';
+	 font-weight: 100;
+	 display: flex;
+	 overflow: hidden;
+   position:relative;
+   margin: 0 0 0 0;
+
+}
+body::after{
+  content: "";
+  background-image: url("./images/background.jpg");
+  background-size: cover;
+  opacity: 0.7;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+
+ input ::-webkit-input-placeholder {
+	 color: rgba(255, 255, 255, 0.7);
+}
+ input ::-moz-placeholder {
+	 color: rgba(255, 255, 255, 0.7);
+}
+ input :-ms-input-placeholder {
+	 color: rgba(255, 255, 255, 0.7);
+}
+ input:focus {
+	 outline: 0 transparent solid;
+}
+ input:focus ::-webkit-input-placeholder {
+	 color: rgba(0, 0, 0, 0.7);
+}
+ input:focus ::-moz-placeholder {
+	 color: rgba(0, 0, 0, 0.7);
+}
+ input:focus :-ms-input-placeholder {
+	 color: rgba(0, 0, 0, 0.7);
+}
+ .login-form {
+	 min-height: 10rem;
+	 margin: auto;
+	 max-width: 50%;
+	 padding: 0.5rem;
+     
+     display:flex;
+     flex-direction: column;
+     justify-content:center;
+     
+
+}
+ .login-text {
+	 color: white;
+	 font-size: 1.5rem;
+	 margin: 0 auto;
+	 max-width: 50%;
+	 padding: 0.5rem;
+	 text-align: center;
+}
+ .login-text .fa-stack-1x {
+	 color: black;
+}
+ .login-username, .login-password {
+	 background: transparent;
+	 border: 0 solid;
+	 border-bottom: 1px solid rgba(255, 255, 255, .5);
+	 color: white;
+	 display: block;
+	 margin: 1rem;
+	 padding: 0.5rem;
+	 transition: 250ms background ease-in;
+	 width: calc(100% - 3rem);
+}
+ .login-username:focus, .login-password:focus {
+	 background: white;
+	 color: black;
+	 transition: 250ms background ease-in;
+}
+ .login-forgot-pass {
+	 bottom: 0;
+	 color: white;
+	 cursor: pointer;
+	 display: block;
+	 font-size: 75%;
+	 left: 0;
+	 opacity: 0.6;
+	 padding: 0.5rem;
+	 position: absolute;
+	 text-align: center;
+	 width: 100%;
+}
+ .login-forgot-pass:hover {
+	 opacity: 1;
+}
+.myButton {
+	background-color:#ddf0e2;
+	border-radius:17px;
+	border:2px solid #307d37;
+	display:inline-block;
+	cursor:pointer;
+	color:#0f0d0f;
+	font-family:Trebuchet MS;
+	font-size:16px;
+	padding:7px 35px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #0c5e1d;
+    text-align: center;
+    margin: 0 auto;
+}
+.myButton:hover {
+	background-color:#6ee088;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+ @keyframes hue-rotate {
+	 from {
+		 -webkit-filter: grayscale(30%) hue-rotate(0deg);
+	}
+	 to {
+		 -webkit-filter: grayscale(30%) hue-rotate(360deg);
+	}
+}
+.loginModal{
+    width:400px;
+    height:auto;
+    background-color:black;
+    color:white;
+    display:none;
+    z-index:1;
+
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-right:20px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+.modal-content {
+  background-color:#1a1b1b;
+  margin: 5% auto 15% auto; 
+  border: 1px solid #888;
+  width: 400px;
+  height:auto; 
+}
+.center{
+  display:flex;
+  width:50%;
+  margin:auto;
+  flex-direction: column;
+  text-align: center;
+}
+h1{
+  font-family:'Monoton',cursive;
+  font-size:50px;
+  color:#0c0c0c;
+}
+h2{
+  font-size:25px;
+
+}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  margin: 4px 2px;
+  width:20%;
+
+}
+
+.button1 {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.btns{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+    </style>
+</head>
+<body>
+  <div class="center">
+    <h1>Music Party Chooser</h1>
+    <h2>Please login  to access  all of our features!</h2>
+    <div class="btns">
+    <button id="myBtn" class="button button1">Login</button>
+    <button id="myBtnr" class="button button1">Register</button>
+  </div>
+  </div>
+    <div  id ="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+        <form class="login-form">
+                <p class="login-text">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-lock fa-stack-1x"></i>
+                  </span>
+                </p>
+                <input type="email" class="login-username" autofocus="true" required="true" placeholder="Email" />
+                <input type="password" class="login-password" required="true" placeholder="Password" />
+                <a class="myButton" href="/homepage.html" >Login</a>
+              </form>
+              </div>
+        </div>
+        <div  id ="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+            <form class="login-form">
+                    <p class="login-text">
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-lock fa-stack-1x"></i>
+                      </span>
+                    </p>
+                    <input type="email" class="login-username" autofocus="true" required="true" placeholder="Email" />
+                    <input type="password" class="login-password" required="true" placeholder="Password" />
+                    <a class="myButton" href="/loggedIn.html" >Login</a>
+                  </form>
+                  </div>
+            </div>
+    <script>
+var modal = document.getElementById("loginModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+    </script>
+</body>
+</html>

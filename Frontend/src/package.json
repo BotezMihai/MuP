@@ -1,0 +1,33 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "Initialise frontend",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BotezMihai/MuP.git"
+  },
+  "keywords": [
+    "Mup",
+    "music",
+    "party",
+    "choser",
+    "DAWJS"
+  ],
+  "author": "Ramona Nechita",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BotezMihai/MuP/issues"
+  },
+  "homepage": "https://github.com/BotezMihai/MuP#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
