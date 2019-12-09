@@ -4,7 +4,7 @@
 ## FRONTEND
 Use the following commands for the first time:
 ```bash
-npm install:
+npm install
 ```
 ```bash
  nodemon --ext js,css,html,json:
