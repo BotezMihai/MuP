@@ -38,8 +38,6 @@ exports.upload_song = (req, res) => {
                         message: err
                     })
                 })
-
-
             })
             .catch(err => {
                 console.error(err.message);
@@ -51,6 +49,4 @@ exports.upload_song = (req, res) => {
             code: "500"
         })
     })
-
-
 }

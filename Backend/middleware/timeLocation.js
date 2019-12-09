@@ -1,5 +1,5 @@
 const geolib = require('geolib');
-// mock
+// nu e terminat
 module.exports = (req, res, next) => {
 
     console.log(geolib.getDistance(

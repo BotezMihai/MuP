@@ -45,11 +45,9 @@ exports.user_register = (req, res) => {
                         })
                     })
                 }
-
             })
         }
     });
-
 };
 
 // Login function
@@ -91,9 +89,7 @@ exports.user_login = (req, res) => {
                 }
             })
         }
-
     })
-
 }
 
 // Delete user
