@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
     <style>
     @import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
- @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+    @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
  body, html {
 	 height: 100%;
 }
@@ -58,12 +58,10 @@ body::after{
  .login-form {
 	 min-height: 10rem;
 	 margin: auto;
-	 max-width: 50%;
 	 padding: 0.5rem;
-     
-     display:flex;
-     flex-direction: column;
-     justify-content:center;
+   display:flex;
+   flex-direction: column;
+   justify-content:center;
      
 
 }
@@ -151,16 +149,15 @@ body::after{
     z-index:1;
 
 }
-.close {
+.close,.closer {
   color: #aaa;
-  float: right;
   font-size: 28px;
   font-weight: bold;
-  margin-right:20px;
+  margin-left:10px;
 }
 
 .close:hover,
-.close:focus {
+.close:focus,.closer:hover,.closer:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -254,9 +251,9 @@ h2{
               </form>
               </div>
         </div>
-        <div  id ="loginModal" class="modal">
+        <div  id ="registerModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="closer">&times;</span>
             <form class="login-form">
                     <p class="login-text">
                       <span class="fa-stack fa-lg">
@@ -264,25 +261,41 @@ h2{
                         <i class="fa fa-lock fa-stack-1x"></i>
                       </span>
                     </p>
+                    <input type="text" class="login-username" autofocus="true" require="true" placeholder="First name"/>
+                    <input type="text" class="login-username" autofocus="true" require="true" placeholder="Last name"/>
                     <input type="email" class="login-username" autofocus="true" required="true" placeholder="Email" />
                     <input type="password" class="login-password" required="true" placeholder="Password" />
-                    <a class="myButton" href="/loggedIn.html" >Login</a>
+                    <a class="myButton" href="/loggedIn.html" >Register</a>
                   </form>
                   </div>
             </div>
     <script>
-var modal = document.getElementById("loginModal");
-var btn = document.getElementById("myBtn");
+var modalL = document.getElementById("loginModal");
+var btnL = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
-btn.onclick = function() {
-  modal.style.display = "block";
+btnL.onclick = function() {
+  modalL.style.display = "block";
 }
 span.onclick = function() {
-  modal.style.display = "none";
+  modalL.style.display = "none";
 }
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target == modalL) {
+    modalL.style.display = "none";
+  }
+}
+var modalR=document.getElementById('registerModal');
+var btnR = document.getElementById("myBtnr");
+var span = document.getElementsByClassName("closer")[0];
+btnR.onclick = function() {
+  modalR.style.display = "block";
+}
+span.onclick = function() {
+  modalR.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modalR) {
+    modalR.style.display = "none";
   }
 }
     </script>
