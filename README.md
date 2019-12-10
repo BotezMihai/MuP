@@ -2,7 +2,7 @@
 
 ## How to run the project:
 ## FRONTEND
-Use the following commands for the first time:
+Make sure you are in Frontend/src folder(in cmd), then use the following commands for the first time:
 ```bash
 npm install
 ```
