@@ -7,6 +7,7 @@ const Sequelize = require('sequelize');
 
 const userRoutes = require("./routes/user");
 const uploadRoutes=require("./routes/uploads");
+const eventRoutes=require("./routes/events");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -23,6 +24,7 @@ db
 
 app.use("/user", userRoutes);
 app.use("/upload",uploadRoutes);
+app.use("/event", eventRoutes);
 
 
 app.listen(5000, () => console.log('Server started on port 5000'));
