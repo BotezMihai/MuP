@@ -35,10 +35,36 @@
             </form>
         </div>
     </div>
+
+    <div id ="createPartyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form class="delete-form">
+                <div>
+                    <label for="party-name">Party Name</label>
+                    <input id="party-name" type="text" required="true" placeholder="Enter Name" />
+                </div>
+                <div>
+                    <label for="location">Party Location</label>
+                    <input id="location" type="text" required="true" autocomplete="off" placeholder="Enter Address" />
+                </div>
+                <div class="date">
+                    <label for="date">Date</label>
+                    <input id="date" type="date" required="true" />
+                </div>
+                <div>
+                    <label for="start-hour">Start Hour</label>
+                    <input id="start-hour" type="text" required="true" placeholder="Enter Address" />
+                </div>
+                <button class="delButton">Create Party</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 <script>
-    var modal = document.getElementById("confirmModal");
+    // var modal = document.getElementById("confirmModal");
+    var modal = document.getElementById("createPartyModal");
     var btn = document.getElementById("delete-acc");
     var span = document.getElementsByClassName("close")[0];
     btn.onclick = function() {

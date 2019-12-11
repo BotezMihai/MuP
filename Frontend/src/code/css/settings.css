@@ -3,7 +3,8 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-  }
+    background-color:rgb(32, 32, 32)
+}
 
 .container {
     display: flex;
@@ -53,6 +54,7 @@ body {
   .delete-account p {
     font-weight: bold;
     font-size: 20px;
+    color: white;
   }
 
   .delete-account button {
@@ -80,7 +82,7 @@ body {
     height: 100%; 
     overflow: auto; 
     background-color: rgba(0,0,0,0.4);
-    padding-top: 70px;
+    padding-top: 3%;
     color: white;
   }
 
@@ -92,19 +94,19 @@ body {
     height: auto; 
   }
 
-  .delButton {
-	background-color: #ddf0e2;
-	border-radius: 17px;
-	border: 2px solid #16b553;
-	cursor: pointer;
-	color: #0f0d0f;
-	font-family: Trebuchet MS;
-	font-size: 18px;
-	padding: 7px 30px;
-	text-decoration: none;
-    text-align: center;
-    margin: 0 auto;
-    outline: none;
+.delButton {
+  background-color: #ddf0e2;
+  border-radius: 17px;
+  border: 2px solid #16b553;
+  cursor: pointer;
+  color: #0f0d0f;
+  font-family: Trebuchet MS;
+  font-size: 18px;
+  padding: 7px 30px;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 auto;
+  outline: none;
 }
 
 .delButton:hover {
@@ -130,15 +132,16 @@ body {
     min-height: 10rem;
     margin: 1rem auto;
     max-width: 55%;
-    padding: 0.5rem;
+    padding: 0.5rem 0 0.5rem 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
 }
 
 .delete-form label{
-    margin: auto 1rem;
+    margin: 0;
     font-size: 20px;
+    text-align: left;
 }
 
 .delete-form input{
@@ -147,10 +150,10 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, .5);
     color: white;
     display: block;
-    margin: 1rem;
+    margin-bottom: 1rem;
     padding: 0.5rem;
     transition: 250ms background ease-in;
-    width: calc(100% - 3rem);
+    /* width: calc(100% - 3rem); */
 }
 
 .delete-form input:focus {
@@ -158,4 +161,13 @@ body {
     color: black;
     transition: 250ms background ease-in;
     outline: 0 transparent solid;
+}
+
+.date {
+    width: 100%;
+    margin-left: 2.5rem;
+}
+
+input[type="data"] {
+  width: 100px;
 }
