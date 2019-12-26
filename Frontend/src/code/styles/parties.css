@@ -2,14 +2,47 @@ body{
     background-color:rgb(32, 32, 32);
     margin:0;
 }
+.sidenav {
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    width:25%;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #16b553;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
 .parties{
     width:70%;
-    float:right;
-    margin-right:9%;
-    z-index:1;
     display:flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-center;
     
 }
 .card {
@@ -19,7 +52,8 @@ transition: 0.3s;
 z-index:1;
 background-image:url('../images/secondbg.jpg');
 background-size:cover;
-width:27%;
+width:30%;
+height:fit-content;
 border: 8px solid white;
 border-style:double;
 margin : 10px 10px 10px 10px ;
@@ -92,3 +126,73 @@ font-family: fantasy;
 font-size:25px;
 color:black;
 }
+.responsive-parties{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width:100%;
+    
+}
+#logo{
+    width:150px;
+    height:150px;
+    margin-left:10%;
+    margin-right:10%;
+}
+
+@media only screen and (max-width:980px){
+    .card{
+        width:35%;
+    }
+    .container p{
+        font-size:20px;
+    }
+    .btn{
+        padding:10px 30px;
+    }
+}
+@media only screen and (max-width:650px){
+    .parties{
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+    .sidenav{
+        width:30%;
+        text-align:center;
+
+    }
+    .card{
+        width:80%;
+        margin-left:10%;
+        margin-right:10%;
+    }
+}
+@media only screen and (max-width:490px){
+    .sidenav{
+        height:auto;
+        left:none;
+        width:100%;
+ 
+    }
+     .responsive-parties{
+         display:flex;
+         flex-direction: column;
+     }
+     .parties{
+         flex-direction: column;
+         width:100%;
+         justify-content: center;
+     }
+     .card{
+         width:80%;
+         margin-left:10%;
+         margin-right:10%;
+     }
+     .sidenav a{
+         text-align:center;
+     }
+     #logo{
+         margin-left:30%;
+     }
+ }

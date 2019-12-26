@@ -8,14 +8,12 @@
     <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
 
     <style>
-
-     @import url("./styles/navbar.css");
      @import url("./styles/myparties.css");
     </style>
 </head>
 <body>
+  <div class="together">
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
         <a href="parties.html">Parties nearby</a>
         <a href="#">My Parties</a>
@@ -25,9 +23,12 @@
       </div>
       <div class="create" id="creation">
           <div class="first">
-              <button class="add">Create new party</button>
-              <span class="title">Parties created</span>
-              <button class="switch" onclick="Switch();">Upcoming parties</button>
+              <p class="title">Parties created</p>
+              <div class="buttons">
+                  <button class="add">Create new party</button>
+                  <button class="switch" onclick="Switch();">Upcoming parties</button>
+              </div>
+           
           </div>
           <div class="second">
                 <div class="card">
@@ -145,6 +146,22 @@
                         </div>
         </div>
     </div>
+  </div>
+   <!-- <div class="currentParty" style="float:right">
+      <form id        =  "uploadForm"
+      enctype   =  "multipart/form-data"
+      action    =  "/api/photo"
+      method    =  "post"
+ >
+ <input type="file" name="userPhoto" />
+ <input type="submit" value="Upload Image" name="submit">
+ </form>
+ <audio controls>
+  <source src="./uploads/Dikanda - Ederlezi (Pascal Junior Remix).mp3" type="audio/mpeg">
+
+Your browser does not support the audio element.
+</audio> 
+    </div> -->
     <script>
      var creation=document.getElementById('creation');
      var partiesAttend=document.getElementById('future');

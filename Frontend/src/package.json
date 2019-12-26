@@ -25,7 +25,10 @@
   },
   "homepage": "https://github.com/BotezMihai/MuP#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.15.2",
+    "express": "^4.17.1",
+    "multer": "^1.2.0",
+    "music-metadata": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.1"
