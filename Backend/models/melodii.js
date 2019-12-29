@@ -1,32 +1,43 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('melodii_user', {
+  return sequelize.define('melodii', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    id_user: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      references: {
-        model: 'users',
-        key: 'id'
-      }
-    },
-    titlu_melodie: {
+    titlu: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      
+    },
+    artist: {
+      type: DataTypes.STRING(100),
+     
+    },
+    an: {
+      type: DataTypes.STRING(100),
+      
+    },
+    durata: {
+      type: DataTypes.INTEGER(11),
+     
+    },
+    album: {
+      type: DataTypes.STRING(100),
+      
+    },
+    path: {
+      type: DataTypes.STRING(100),
+     
     },
     id_petrecere: {
       type: DataTypes.INTEGER(11),
       allowNull: false
     }
-
   }, {
-    tableName: 'melodii_user',
+    tableName: 'melodii',
     timestamps: false
   });
 };
