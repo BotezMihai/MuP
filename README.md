@@ -1,5 +1,6 @@
 # MuP
 
+
 ## How to run the project:
 ## FRONTEND
 Make sure you are in Frontend/src folder(in cmd), then use the following commands for the first time:
@@ -16,4 +17,7 @@ npm install
  ```bash
  nodemon server.js
  ```
-							
+# Backend
+# npm install => pentru a descarca dependentele
+# npm run start => pentru a porni server-ul cu nodemon
+
