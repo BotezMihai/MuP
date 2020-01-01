@@ -33,39 +33,27 @@
     </form>
     <script>
 
-        // if (window.Worker) {
-        //     console.log("aici");
-        //     let myWorker=new Worker('worker.js');
-        //     myWorker.postMessage("start");
+        if (window.Worker) {
+            console.log("aici");
+            let myWorker=new Worker('worker.js');
+            myWorker.postMessage("start");
 
-        // }
+        }
 
         // var i = 0;
 
         // var socket = new WebSocket("ws://localhost:8081");
         // socket.onopen = function () {
         //     console.log('Connected!');
-        //     setInterval(() => {
-
-        //         if (socket.bufferedAmount < 6400) {
-        //             socket.send(i);
-        //         }
-        //         else {
-        //             console.log("plin");
-
-        //             //socket.send(i);
-        //             i = i + 1;
-        //         }
-
-
-        //     }, 1000);
 
         // };
+
         // socket.onmessage = function (event) {
         //     console.log('Received data: ' + event.data);
         //     socket.send("hehe");
         //     // socket.close();
         // };
+        
         // socket.onclose = function () {
         //     console.log('Lost connection!');
 

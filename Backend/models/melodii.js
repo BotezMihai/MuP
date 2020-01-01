@@ -10,27 +10,27 @@ module.exports = function(sequelize, DataTypes) {
     },
     titlu: {
       type: DataTypes.STRING(100),
-      
+      allowNull: true
     },
     artist: {
       type: DataTypes.STRING(100),
-     
+      allowNull: true
     },
     an: {
       type: DataTypes.STRING(100),
-      
-    },
-    durata: {
-      type: DataTypes.INTEGER(11),
-     
+      allowNull: true
     },
     album: {
       type: DataTypes.STRING(100),
-      
+      allowNull: true
     },
     path: {
       type: DataTypes.STRING(100),
-     
+      allowNull: false
+    },
+    durata: {
+      type: "DOUBLE",
+      allowNull: true
     },
     id_petrecere: {
       type: DataTypes.INTEGER(11),

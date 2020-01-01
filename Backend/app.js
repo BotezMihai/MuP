@@ -12,6 +12,8 @@ const eventRoutes = require("./routes/events");
 const userPartyRoutes = require("./routes/UserParty");
 const manageRoutes = require("./routes/manage");
 
+const mySocket=require("./controllers/websocket");
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

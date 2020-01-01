@@ -16,19 +16,16 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    id_dansator: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      references: {
-        model: 'dansatori',
-        key: 'id'
-      }
-    },
     start: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    id_petrecere: {
+      type: DataTypes.INTEGER(11),
       allowNull: false
     }
   }, {
-    tableName: 'playing'
+    tableName: 'playing',
+    timestamps: false
   });
 };

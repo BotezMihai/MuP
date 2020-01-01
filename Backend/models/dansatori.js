@@ -19,8 +19,13 @@ module.exports = function(sequelize, DataTypes) {
     durata: {
       type: DataTypes.INTEGER(11),
       allowNull: false
-    }
+    },
+    id_playing: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false
+    },
   }, {
-    tableName: 'dansatori'
+    tableName: 'dansatori',
+    timestamps: false
   });
 };
