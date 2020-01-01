@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Music Party Choser</title>
+    <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="/css/statistics.css">
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div id="mySidenav" class="sidenav">
+            <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
+            <a href="#">Parties nearby</a>
+            <a href="#">My Parties</a>
+            <a href="#">Settings</a>
+            <a href="#">Statistics</a>
+            <a href="#">Log out</a>
+        </div>
+        <div class="statistics">
+            <span class="title">Statistics for '90 Party</span>
+            <div class="row1">
+                <div class="dance">
+                    <span class="number">190</span><span class="minutes">min</span>
+                </div>
+
+                <div class="fav-song">
+                    <img src="./images/song-cover.jpg" />
+                </div>
+
+                <div class="hated-song">
+                    <img src="./images/song-cover.jpg" />
+                </div>
+            </div>
+
+            <div class="row2">
+                <div class="dance">
+                    <p>You danced</p>
+                    <hr/>
+                </div>
+
+                <div class="fav-song">
+                    <p>Your favorite song</p>
+                    <hr/>
+                </div>
+
+                <div class="hated-song">
+                    <p>Your hated song</p>
+                    <hr/>
+                </div>
+            </div>
+
+            <hr class="hr-div" />
+            <div class="individual">
+                <p>Individual Statistics</p>
+            </div>
+
+            <div>
+                <div class="perfect">
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>20%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>30%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>10%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>70%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>100%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>50%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>60%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>55%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>70%</span>
+                        </div>
+                    </div>
+                    <div class="bar">
+                        <div class="slideup">
+                            <span>70%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row3" style="display: flex; flex-direction: row; ">
+                    <p style="transform-origin: 0 0;
+                    transform: rotate(60deg); margin:2px 0px 0 30px;">Rap</p>
+                    <p style="transform-origin: 0 0;
+                   transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
+                    <p style="transform-origin: 0 0;
+                     transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
+                    <p style="transform-origin: 0 0;
+                      transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
+                    <p style="transform-origin: 0 0;
+                       transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
+                    <p style="transform-origin: 0 0;
+                        transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
+                    <p style="transform-origin: 0 0;
+                         transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
+                    <p style="transform-origin: 0 0;
+                          transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
+                </div>
+            </div>
+
+        </div>
+</body>
+<script>
+    var slide = document.getElementsByClassName("slideup");
+    var a = document.getElementsByTagName("span");
+    console.log(slide);
+    console.log(a);
+    var arrayLength = slide.length;
+    for (var i = 0; i < arrayLength; i++) {
+        slide[i].style.height = a[i + 3].textContent;
+    }
+</script>
+
+</html>
