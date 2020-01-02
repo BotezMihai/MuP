@@ -1,0 +1,4 @@
+Application name	mup
+API key	4d7c7783c33be71fec00763625260dc8
+Shared secret	7d5f87a70d52deaeaff79e56a54780b0
+Registered to	mihai_botez

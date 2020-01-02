@@ -65,7 +65,7 @@ exports.user_login = (req, res) => {
         } else {
             bcrypt.compare(req.body.parola, users[0].parola, (err, result) => {
                 if (err) {
-                    return res.status(500).json({
+                    return res.status(400).json({
                         message: "Authentification failed"
                     })
                 }
