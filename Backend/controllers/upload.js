@@ -21,8 +21,8 @@ const Stiluri = StiluriModel(config, bd);
 
 exports.upload_style = async (req, res) => {
     // numele din formularul html
-    // const { style } = req.body;
-    const style = ['rock', 'pop'];
+    const { style } = req.body;
+    // const style = ['rock', 'pop'];
     var data = [];
     for (let el of style) {
         let l = {};
@@ -54,14 +54,9 @@ exports.upload_song = async (req, res) => {
 
     form.on('field', function (name, value) {
         field[name] = value;
-        console.log(name, value);
-        console.log(field);
     });
 
     form.on("end", function () {
-
-        console.log("Gata");
-
         mm.parseFile(song)
             .then(metadata => {
                 console.log(util.inspect(metadata, { showHidden: false, depth: null }));
@@ -184,6 +179,7 @@ exports.time_location = async (req, res) => {
         + time_now.getMinutes() + ":"
         + time_now.getSeconds();
     time_now = new Date(datetime);
+    
     for (let i = 0; i < results.length; i++) {
         var date_event = results[i].petreceri.data.split(" ");
         var date = date_event[0].split("-");
@@ -198,15 +194,11 @@ exports.time_location = async (req, res) => {
             })
         }
         else {
-            console.log("E ok");
             var latitude = results[i].petreceri.dataValues.latitudine
             var longitude = results[i].petreceri.dataValues.longitudine;
-            console.log(latitude, longitude);
             let event_location = { "latitude": latitude, "longitude": longitude };
             console.log(event_location);
             let my_location = { "latitude": req.body.latitude, "longitude": req.body.longitude };
-            console.log("?????????", req.body.latitude);
-            console.log(event_location, my_location);
             var distance = geolib.getDistance(event_location, my_location);
             console.log(distance);
             if (distance < 1000) {

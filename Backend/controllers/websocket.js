@@ -47,7 +47,6 @@ wss.on('connection', (ws, req) => {
                         "durata": total
                     });
                 } else {
-                    console.log("update");
                     let id = await Dansatori.update(
                         { durata: total },
                         { where: { id_user: decoded.userID, id_playing: id_playing } });                    
