@@ -1,19 +1,26 @@
-body {
+body,
+html {
     height: 100%;
     width: 100%;
+}
+
+body {
     margin: 0;
     padding: 0;
-    background-color:rgb(32, 32, 32)
+    background-color: rgb(32, 32, 32);
 }
 
 .container {
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+    justify-content: flex-start;
 }
 
 .sidenav {
     height: 100%;
-    width: 300px;
+    display: block;
+    width: 20%;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -21,43 +28,44 @@ body {
     background-color: #111;
     overflow-x: hidden;
     padding-top: 60px;
-  }
-  
-  .sidenav a {
+}
+
+.sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: #16b553;
     display: block;
     transition: 0.3s;
-  }
-  
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
+}
 
-  .delete-account {
-    margin-left: 300px;
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.delete-account {
+    margin-left: 20%;
     padding: 12% 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+}
 
-  .delete-account h1 {
+.delete-account h1 {
     font-family: 'Megrim', cursive;
     font-size: 40px;
     color: #16b553;
     text-align: center;
-  }
+}
 
-  .delete-account p {
+.delete-account p {
     font-weight: bold;
     font-size: 20px;
     color: white;
-  }
+    text-align: center;
+}
 
-  .delete-account button {
+.delete-account #delete-acc {
     background-color: #16b553;
     border: none;
     border-radius: 5px;
@@ -70,47 +78,49 @@ body {
     margin: 4px 2px;
     cursor: pointer;
     outline: none;
-  }
+}
 
-  .modal {
-    display: none; 
+.modal {
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 3%;
-    color: white;
-  }
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 10%;
+}
 
-  .modal-content {
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     background-color: #1a1b1b;
-    margin: 5% auto 15% auto; 
     border: 1px solid #888;
     width: 400px;
-    height: auto; 
-  }
+    height: auto;
+    transform: translate(-50%, -50%);
+}
 
 .delButton {
-  background-color: #ddf0e2;
-  border-radius: 17px;
-  border: 2px solid #16b553;
-  cursor: pointer;
-  color: #0f0d0f;
-  font-family: Trebuchet MS;
-  font-size: 18px;
-  padding: 7px 30px;
-  text-decoration: none;
-  text-align: center;
-  margin: 0 auto;
-  outline: none;
+    background-color: #16b553;
+    border-radius: 17px;
+    border: 2px solid #307d37;
+    cursor: pointer;
+    color: #0f0d0f;
+    font-family: Trebuchet MS;
+    font-size: 20px;
+    padding: 8px 15px;
+    text-decoration: none;
+    text-align: center;
+    margin: 10px 20px;
+    outline: none;
 }
 
 .delButton:hover {
-	background-color:#16b553;
+    background-color: #6ee088;
 }
 
 .close {
@@ -118,7 +128,7 @@ body {
     float: right;
     font-size: 28px;
     font-weight: bold;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 .close:hover,
@@ -129,22 +139,24 @@ body {
 }
 
 .delete-form {
+    color: white;
     min-height: 10rem;
-    margin: 1rem auto;
+    margin: auto;
     max-width: 55%;
-    padding: 0.5rem 0 0.5rem 2rem;
+    padding: 1.5rem 0 1.5rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.delete-form label{
+.delete-form label {
     margin: 0;
-    font-size: 20px;
-    text-align: left;
+    padding: 3px 15px 5px 15px;
+    font-size: 22px;
+    text-align: center;
 }
 
-.delete-form input{
+.delete-form input {
     background: transparent;
     border: 0 solid;
     border-bottom: 1px solid rgba(255, 255, 255, .5);
@@ -152,22 +164,111 @@ body {
     display: block;
     margin-bottom: 1rem;
     padding: 0.5rem;
-    transition: 250ms background ease-in;
-    /* width: calc(100% - 3rem); */
 }
 
 .delete-form input:focus {
+    background: #1a1b1b;
+    color: white;
+    outline: none;
+}
+
+.delete-account .menu {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    cursor: pointer;
+    width: 40px;
+    height: 30px;
+    opacity: 0;
+    z-index: 2;
+    -webkit-touch-callout: none;
+}
+
+.delete-account span {
+    display: none;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
     background: white;
-    color: black;
-    transition: 250ms background ease-in;
-    outline: 0 transparent solid;
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 0.55s ease;
 }
 
-.date {
-    width: 100%;
-    margin-left: 2.5rem;
+.delete-account .unu {
+    transform-origin: 0% 0%;
+    position: fixed;
+    top: 10px;
+    left: 20px;
 }
 
-input[type="data"] {
-  width: 100px;
+.delete-account .doi {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+.delete-account .trei {
+    transform-origin: 0% 100%;
+    position: fixed;
+    top: 30px;
+    left: 20px;
+}
+
+@media only screen and (max-width:920px) {
+    .sidenav {
+        width: 30%;
+    }
+    .delete-account {
+        margin-left: 30%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .delete-account #delete-acc {
+        padding: 15px 10px;
+    }
+    .modal-content {
+        width: 350px;
+    }
+    .delButton {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .delete-form {
+        padding: 1.2rem 0 1.2rem 1.8rem;
+    }
+    .delete-form label {
+        padding: 3px 0px 5px 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .sidenav {
+        width: 0%;
+    }
+    .delete-account {
+        margin-top: 60px;
+        margin-left: 0;
+    }
+    .delete-account .menu,
+    .delete-account span {
+        display: block;
+    }
+    .modal-content {
+        width: 300px;
+    }
+    .delButton {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 8px;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav a {
+        font-size: 18px;
+    }
 }

@@ -8,6 +8,7 @@
     <title>Music Party Choser</title>
     <link rel="stylesheet" href="/css/settings.css">
     <link rel="stylesheet" href="/css/statistics.css">
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
 </head>
 
@@ -15,133 +16,241 @@
     <div class="container">
         <div id="mySidenav" class="sidenav">
             <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
-            <a href="#">Parties nearby</a>
-            <a href="#">My Parties</a>
-            <a href="#">Settings</a>
-            <a href="#">Statistics</a>
+            <a href="parties.html" class="active">Parties nearby</a>
+            <a href="myparties.html">My Parties</a>
+            <a href="settings.html">Settings</a>
+            <a href="statistics.html">Statistics</a>
             <a href="#">Log out</a>
         </div>
-        <div class="statistics">
+        <div class="statistics" id="individuals">
+            <button class="menu" id="menuu" onclick="myFunction()"></button>
+            <span class="unu"></span>
+            <span class="doi"></span>
+            <span class="trei"></span>
             <span class="title">Statistics for '90 Party</span>
-            <div class="row1">
+            <div class="row">
                 <div class="dance">
                     <span class="number">190</span><span class="minutes">min</span>
-                </div>
-
-                <div class="fav-song">
-                    <img src="./images/song-cover.jpg" />
-                </div>
-
-                <div class="hated-song">
-                    <img src="./images/song-cover.jpg" />
-                </div>
-            </div>
-
-            <div class="row2">
-                <div class="dance">
                     <p>You danced</p>
                     <hr/>
                 </div>
 
                 <div class="fav-song">
+                    <img src="./images/song-cover.jpg" />
                     <p>Your favorite song</p>
                     <hr/>
                 </div>
 
                 <div class="hated-song">
+                    <img src="./images/song-cover.jpg" />
                     <p>Your hated song</p>
                     <hr/>
                 </div>
             </div>
 
             <hr class="hr-div" />
-            <div class="individual">
-                <p>Individual Statistics</p>
+            <div class="buttons">
+                <button class="switch" onclick="Switch();">Go To Global Statistics</button>
             </div>
 
-            <div>
-                <div class="perfect">
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>20%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>30%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>10%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>70%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>100%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>50%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>60%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>55%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>70%</span>
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="slideup">
-                            <span>70%</span>
-                        </div>
-                    </div>
+            <div id="piechart"></div>
+        </div>
+
+        <div class="statistics" id="globals">
+            <button class="menu" id="menuu" onclick="myFunction1()"></button>
+            <span class="unu"></span>
+            <span class="doi"></span>
+            <span class="trei"></span>
+            <span class="title">Statistics for '90 Party</span>
+            <div class="row">
+                <div class="fav-song">
+                    <img src="./images/song-cover.jpg" />
+                    <p>The most liked song</p>
+                    <hr/>
                 </div>
-                <div class="row3" style="display: flex; flex-direction: row; ">
-                    <p style="transform-origin: 0 0;
-                    transform: rotate(60deg); margin:2px 0px 0 30px;">Rap</p>
-                    <p style="transform-origin: 0 0;
-                   transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
-                    <p style="transform-origin: 0 0;
-                     transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
-                    <p style="transform-origin: 0 0;
-                      transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
-                    <p style="transform-origin: 0 0;
-                       transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
-                    <p style="transform-origin: 0 0;
-                        transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
-                    <p style="transform-origin: 0 0;
-                         transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
-                    <p style="transform-origin: 0 0;
-                          transform: rotate(60deg); margin:2px 0px 0 23px;">Rap</p>
+
+                <div class="hated-song">
+                    <img src="./images/song-cover.jpg" />
+                    <p>The most hated song</p>
+                    <hr/>
                 </div>
             </div>
 
+            <hr class="hr-div" />
+            <div class="buttons">
+                <button class="switch" onclick="SwitchAdd();">Go To Individual Statistics</button>
+            </div>
+
+            <div id="piechart1"></div>
         </div>
 </body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="js/side_menu.js"></script>
 <script>
-    var slide = document.getElementsByClassName("slideup");
-    var a = document.getElementsByTagName("span");
-    console.log(slide);
-    console.log(a);
-    var arrayLength = slide.length;
-    for (var i = 0; i < arrayLength; i++) {
-        slide[i].style.height = a[i + 3].textContent;
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart1);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Rock', 8],
+            ['Rap', 3],
+            ['Hip-Hop', 4],
+            ['Trap', 1]
+        ]);
+        var width = window.matchMedia("(max-width: 670px)");
+        console.log(width);
+        if (width.matches) {
+            var options = {
+                'backgroundColor': 'rgb(32, 32, 32)',
+                'pieSliceBorderColor': 'rgb(32, 32, 32)',
+                'title': 'Popular music styles at the party',
+                'titleTextStyle': {
+                    color: '#16b553',
+                    fontSize: 22
+                },
+                'width': 700,
+                'height': 400,
+                'pieSliceTextStyle': {
+                    color: 'black',
+                    fontSize: 18
+                },
+                'tooltip': {
+                    text: 'percentage',
+                    textStyle: {
+                        color: 'black',
+                        fontSize: 15
+                    }
+                },
+                'legend': {
+                    position: 'none'
+                }
+            };
+        } else {
+            var options = {
+                'backgroundColor': 'rgb(32, 32, 32)',
+                'pieSliceBorderColor': 'rgb(32, 32, 32)',
+                'title': 'Popular music styles at the party',
+                'titleTextStyle': {
+                    color: '#16b553',
+                    fontSize: 25
+                },
+                'width': 700,
+                'height': 400,
+                'pieSliceTextStyle': {
+                    color: 'black',
+                    fontSize: 18
+                },
+                'tooltip': {
+                    text: 'percentage',
+                    textStyle: {
+                        color: 'black',
+                        fontSize: 15
+                    }
+                },
+                'legend': {
+                    alignment: 'center',
+                    textStyle: {
+                        color: '#16b553',
+                        fontSize: 15
+                    }
+                }
+            };
+        }
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+
+    function drawChart1() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Rock', 8],
+            ['Rap', 3],
+            ['Hip-Hop', 4],
+            ['Trap', 1]
+        ]);
+        var width = window.matchMedia("(max-width: 670px)");
+        console.log(width);
+        if (width.matches) {
+            var options = {
+                'backgroundColor': 'rgb(32, 32, 32)',
+                'pieSliceBorderColor': 'rgb(32, 32, 32)',
+                'title': 'Popular music styles at the party',
+                'titleTextStyle': {
+                    color: '#16b553',
+                    fontSize: 25
+                },
+                'width': 700,
+                'height': 400,
+                'pieSliceTextStyle': {
+                    color: 'black',
+                    fontSize: 18
+                },
+                'tooltip': {
+                    text: 'percentage',
+                    textStyle: {
+                        color: 'black',
+                        fontSize: 15
+                    }
+                },
+                'legend': {
+                    position: 'none'
+                }
+            };
+        } else {
+            var options = {
+                'backgroundColor': 'rgb(32, 32, 32)',
+                'pieSliceBorderColor': 'rgb(32, 32, 32)',
+                'title': 'Popular music styles at the party',
+                'titleTextStyle': {
+                    color: '#16b553',
+                    fontSize: 25
+                },
+                'width': 700,
+                'height': 400,
+                'pieSliceTextStyle': {
+                    color: 'black',
+                    fontSize: 18
+                },
+                'tooltip': {
+                    text: 'percentage',
+                    textStyle: {
+                        color: 'black',
+                        fontSize: 15
+                    }
+                },
+                'legend': {
+                    alignment: 'center',
+                    textStyle: {
+                        color: '#16b553',
+                        fontSize: 15
+                    }
+                }
+            };
+        }
+        console.log(options);
+        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+        chart.draw(data, options);
+    }
+    var individual = document.getElementById('individuals');
+    var global = document.getElementById('globals');
+    global.style.display = 'none';
+
+    function Switch() {
+        individual.style.display = "none";
+        global.style.display = "flex";
+    }
+
+    function SwitchAdd() {
+        global.style.display = "none";
+        individual.style.display = "flex";
     }
 </script>
 
