@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Music Party Choser</title>
-    <link rel="stylesheet" href="/css/settings.css">
-    <link rel="stylesheet" href="/css/statistics.css">
+    <style>
+        @import url("./styles/settings.css");
+        @import url("./styles/statistics.css");
+    </style>
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
 </head>
@@ -15,18 +17,17 @@
 <body>
     <div class="container">
         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
             <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
-            <a href="parties.html" class="active">Parties nearby</a>
+            <a href="parties.html">Parties nearby</a>
             <a href="myparties.html">My Parties</a>
+            <a href="party.html">Current party</a>
             <a href="settings.html">Settings</a>
             <a href="statistics.html">Statistics</a>
             <a href="#">Log out</a>
         </div>
         <div class="statistics" id="individuals">
-            <button class="menu" id="menuu" onclick="myFunction()"></button>
-            <span class="unu"></span>
-            <span class="doi"></span>
-            <span class="trei"></span>
+            <span class="menu" onclick="openNav()">&#9776;</span>
             <span class="title">Statistics for '90 Party</span>
             <div class="row">
                 <div class="dance">
@@ -52,15 +53,12 @@
             <div class="buttons">
                 <button class="switch" onclick="Switch();">Go To Global Statistics</button>
             </div>
-
+            <h2 class="titlee">Popular music styles at the party</h2>
             <div id="piechart"></div>
         </div>
 
         <div class="statistics" id="globals">
-            <button class="menu" id="menuu" onclick="myFunction1()"></button>
-            <span class="unu"></span>
-            <span class="doi"></span>
-            <span class="trei"></span>
+            <span class="menu" onclick="openNav()">&#9776;</span>
             <span class="title">Statistics for '90 Party</span>
             <div class="row">
                 <div class="fav-song">
@@ -80,43 +78,36 @@
             <div class="buttons">
                 <button class="switch" onclick="SwitchAdd();">Go To Individual Statistics</button>
             </div>
-
+            <h2 class="titlee">Popular music styles at the party</h2>
             <div id="piechart1"></div>
         </div>
 </body>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<script src="js/side_menu.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/chart.js"></script>
 <script>
-    google.charts.load('current', {
+    google.charts.load("visualization", "1", {
         'packages': ['corechart']
     });
     google.charts.setOnLoadCallback(drawChart);
-    google.charts.load('current', {
-        'packages': ['corechart']
-    });
-    google.charts.setOnLoadCallback(drawChart1);
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
+            ['Style', 'Number of songs'],
             ['Rock', 8],
             ['Rap', 3],
             ['Hip-Hop', 4],
+            ['Manele', 3],
             ['Trap', 1]
         ]);
         var width = window.matchMedia("(max-width: 670px)");
-        console.log(width);
         if (width.matches) {
             var options = {
                 'backgroundColor': 'rgb(32, 32, 32)',
                 'pieSliceBorderColor': 'rgb(32, 32, 32)',
-                'title': 'Popular music styles at the party',
-                'titleTextStyle': {
-                    color: '#16b553',
-                    fontSize: 22
-                },
-                'width': 700,
+                'titlePosition': 'none',
+                'width': 500,
                 'height': 400,
                 'pieSliceTextStyle': {
                     color: 'black',
@@ -131,17 +122,19 @@
                 },
                 'legend': {
                     position: 'none'
+                },
+                'chartArea': {
+                    left: 100,
+                    top: 6,
+                    width: "80px",
+                    height: "100px"
                 }
             };
         } else {
             var options = {
                 'backgroundColor': 'rgb(32, 32, 32)',
                 'pieSliceBorderColor': 'rgb(32, 32, 32)',
-                'title': 'Popular music styles at the party',
-                'titleTextStyle': {
-                    color: '#16b553',
-                    fontSize: 25
-                },
+                'titlePosition': 'none',
                 'width': 700,
                 'height': 400,
                 'pieSliceTextStyle': {
@@ -161,6 +154,12 @@
                         color: '#16b553',
                         fontSize: 15
                     }
+                },
+                'chartArea': {
+                    left: 200,
+                    top: 6,
+                    width: "100%",
+                    height: "100px"
                 }
             };
         }
@@ -168,87 +167,34 @@
         chart.draw(data, options);
     }
 
-    function drawChart1() {
-        var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Rock', 8],
-            ['Rap', 3],
-            ['Hip-Hop', 4],
-            ['Trap', 1]
-        ]);
-        var width = window.matchMedia("(max-width: 670px)");
-        console.log(width);
-        if (width.matches) {
-            var options = {
-                'backgroundColor': 'rgb(32, 32, 32)',
-                'pieSliceBorderColor': 'rgb(32, 32, 32)',
-                'title': 'Popular music styles at the party',
-                'titleTextStyle': {
-                    color: '#16b553',
-                    fontSize: 25
-                },
-                'width': 700,
-                'height': 400,
-                'pieSliceTextStyle': {
-                    color: 'black',
-                    fontSize: 18
-                },
-                'tooltip': {
-                    text: 'percentage',
-                    textStyle: {
-                        color: 'black',
-                        fontSize: 15
-                    }
-                },
-                'legend': {
-                    position: 'none'
-                }
-            };
-        } else {
-            var options = {
-                'backgroundColor': 'rgb(32, 32, 32)',
-                'pieSliceBorderColor': 'rgb(32, 32, 32)',
-                'title': 'Popular music styles at the party',
-                'titleTextStyle': {
-                    color: '#16b553',
-                    fontSize: 25
-                },
-                'width': 700,
-                'height': 400,
-                'pieSliceTextStyle': {
-                    color: 'black',
-                    fontSize: 18
-                },
-                'tooltip': {
-                    text: 'percentage',
-                    textStyle: {
-                        color: 'black',
-                        fontSize: 15
-                    }
-                },
-                'legend': {
-                    alignment: 'center',
-                    textStyle: {
-                        color: '#16b553',
-                        fontSize: 15
-                    }
-                }
-            };
-        }
-        console.log(options);
-        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
-        chart.draw(data, options);
+    function debounce(func, time) {
+        var time = time || 100; // 100 by default if no param
+        var timer;
+        return function(event) {
+            if (timer) clearTimeout(timer);
+            timer = setTimeout(func, time, event);
+        };
     }
+
+    function resizeContent() {
+        drawChart();
+    }
+
+    window.addEventListener("resize", debounce(resizeContent, 150));
+
+
     var individual = document.getElementById('individuals');
     var global = document.getElementById('globals');
     global.style.display = 'none';
 
     function Switch() {
+        // window.location.reload();
         individual.style.display = "none";
         global.style.display = "flex";
     }
 
     function SwitchAdd() {
+        // window.location.reload();
         global.style.display = "none";
         individual.style.display = "flex";
     }

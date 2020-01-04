@@ -16,21 +16,23 @@
 <body>
     <div class="together">
         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
             <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
             <a href="parties.html">Parties nearby</a>
-            <a href="#">My Parties</a>
-            <a href="#">Settings</a>
-            <a href="#">Statistics</a>
+            <a href="myparties.html">My Parties</a>
+            <a href="party.html">Current party</a>
+            <a href="settings.html">Settings</a>
+            <a href="statistics.html">Statistics</a>
             <a href="#">Log out</a>
         </div>
         <div class="create" id="creation">
+            <span class="menu" onclick="openNav()">&#9776;</span>
             <div class="first">
                 <p class="title">Parties created</p>
                 <div class="buttons">
                     <button class="add" id="createParty">Create new party</button>
                     <button class="switch" onclick="Switch();">Upcoming parties</button>
                 </div>
-
             </div>
             <div class="second">
                 <div class="card">
@@ -87,11 +89,13 @@
                 </div>
             </div>
         </div>
+
         <!--Upcoming parties-->
         <div class="create" id="future">
+            <span class="menu" onclick="openNav()">&#9776;</span>
             <div class="first">
-                <span class="title">Upcoming   Parties</span>
-                <button class="switch" onclick="SwitchAdd();">Create a party</button>
+                <span class="title">Upcoming Parties</span>
+                <button class="upcoming" onclick="SwitchAdd();">Parties created</button>
             </div>
             <div class="second">
                 <div class="card">
@@ -104,7 +108,6 @@
                     </div>
                     <div class="button_container">
                         <button class="btn"><span>Can't go</span></button>
-
                     </div>
                 </div>
                 <div class="card">
@@ -117,7 +120,6 @@
                     </div>
                     <div class="button_container">
                         <button class="btn"><span>Can't go</span></button>
-
                     </div>
                 </div>
                 <div class="card">
@@ -130,7 +132,6 @@
                     </div>
                     <div class="button_container">
                         <button class="btn"><span>Delete</span></button>
-
                     </div>
                 </div>
                 <div class="card">
@@ -143,12 +144,13 @@
                     </div>
                     <div class="button_container">
                         <button class="btn"><span>Delete</span></button>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--Create Party Modal-->
     <div id="createPartyModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -177,6 +179,7 @@
             </form>
         </div>
     </div>
+
     <script>
         var creation = document.getElementById('creation');
         var partiesAttend = document.getElementById('future');
@@ -184,11 +187,11 @@
 
         function Switch() {
             creation.style.display = "none";
-            future.style.display = "flex";
+            future.style.display = "block";
         }
 
         function SwitchAdd() {
-            creation.style.display = "flex";
+            creation.style.display = "block";
             future.style.display = "none";
         }
 
@@ -210,6 +213,7 @@
         var today = new Date().toISOString().substr(0, 10);
         document.querySelector("#date").value = today;
     </script>
+    <script src="js/ui.js"></script>
 </body>
 
 </html>

@@ -6,25 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Music Party Choser</title>
-    <link rel="stylesheet" href="/css/settings.css">
+    <link rel="stylesheet" href="/styles/settings.css">
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
 </head>
 
 <body>
     <div class="container">
         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
             <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
-            <a href="parties.html" class="active">Parties nearby</a>
+            <a href="parties.html">Parties nearby</a>
             <a href="myparties.html">My Parties</a>
+            <a href="party.html">Current party</a>
             <a href="settings.html">Settings</a>
             <a href="statistics.html">Statistics</a>
             <a href="#">Log out</a>
         </div>
         <div class="delete-account">
-            <button class="menu" id="menuu" onclick="myFunction()"></button>
-            <span class="unu"></span>
-            <span class="doi"></span>
-            <span class="trei"></span>
+            <span class="menu" onclick="openNav()">&#9776;</span>
             <h1>Delete your account</h1>
             <p>Once you delete this account there is no going back. Please be certain.</p>
             <button id="delete-acc">Delete My Account</button>
@@ -43,7 +42,7 @@
     </div>
 </body>
 
-<script src="js/side_menu.js"></script>
+<script src="js/ui.js"></script>
 <script>
     var modal = document.getElementById("confirmModal");
     var btn = document.getElementById("delete-acc");
