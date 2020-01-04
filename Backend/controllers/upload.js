@@ -18,7 +18,7 @@ const Tag = TagModel(config, bd);
 
 const StiluriModel = require("../models/stiluri");
 const Stiluri = StiluriModel(config, bd);
-
+// de schimbat raza si ora din time_location
 exports.upload_style = async (req, res) => {
     // numele din formularul html
     const { style } = req.body;
@@ -125,7 +125,7 @@ exports.upload_song = async (req, res) => {
                             titlu: track_name,
                             artist: artist,
                             durata: duration,
-                            path: song.user_party,
+                            path: song,
                             id_petrecere: field['id_petrecere']
                         }).then(result => {
                             return res.json({
@@ -203,8 +203,9 @@ exports.time_location = async (req, res) => {
             console.log(distance);
             if (distance < 1000) {
                 req.user_party = results[i].petreceri.dataValues.id;
-                console.log("if locatie");
-                return next();
+                return res.status(200).json({
+                    id_party: results[i].petreceri.dataValues.id
+                });
             }
         }
     }

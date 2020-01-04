@@ -10,6 +10,10 @@ module.exports = new Sequelize('mup', 'mihai', '1234', {
         min: 0,
         acquire: 30000,
         idle: 10000
-    }
-});
+    },
+    dialectOptions: {
+        useUTC: false, // for reading from database
+      },
+      timezone: '+02:00', // for writing to database
+}); 
 

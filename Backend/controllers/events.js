@@ -18,23 +18,31 @@ exports.create_party = (req, res) => {
         }).catch(err => {
             return res.status(500).json({
                 status: "500",
-                message: "Err"
+                message: "Error"
             })
         });
     })
 }
 
-exports.delete_party = (req, res) => {
-    Party.destroy(
-        { where: { id: req.body.id } },
-        { truncate: true }
-    ).then(result => {
-        res.status(200).json({
-            status: "200",
-            message: "Deleted successfully"
-        })
+exports.delete_party =async (req, res) => {
+    var my_party = await Party.findAll(
+        { where: { id_user: req.userData.userData } }
+    );
+    if (my_party.length != 0) {
+        Party.destroy(
+            { where: { id: req.body.id } },
+            { truncate: true }
+        ).then(result => {
+            res.status(200).json({
+                status: "200",
+                message: "Deleted successfully"
+            })
+        });
     }
-    )
+    return res.status(400).json({
+        status: "400",
+        message: "It's not your party"
+    });
 }
 
 exports.get_parties = (req, res) => {
@@ -45,24 +53,33 @@ exports.get_parties = (req, res) => {
     })
 }
 
-exports.put_party = (req, res) => {
-    var rows_to_update = {};
-    if (req.body.nume != null)
-        rows_to_update['nume'] = req.body.nume;
-    if (req.body.data != null)
-        rows_to_update['data'] = req.body.data;
-    if (req.body.latitudine != null)
-        rows_to_update['latitudine'] = req.body.latitudine;
-    if (req.body.longitudine != null)
-        rows_to_update['longitudine'] = req.body.longitudine;
+exports.put_party = async (req, res) => {
+    var my_party = await Party.findAll(
+        { where: { id_user: req.userData.userData } }
+    );
+    if (my_party.length != 0) {
+        var rows_to_update = {};
+        if (req.body.nume != null)
+            rows_to_update['nume'] = req.body.nume;
+        if (req.body.data != null)
+            rows_to_update['data'] = req.body.data;
+        if (req.body.latitudine != null)
+            rows_to_update['latitudine'] = req.body.latitudine;
+        if (req.body.longitudine != null)
+            rows_to_update['longitudine'] = req.body.longitudine;
 
-    Party.update(
-        rows_to_update,
-        { where: { id: req.userData.userID } }
-    ).then(affectedRows => {
-        return res.status(201).json({
-            status: "201",
-            message: "Modified ok"
+        Party.update(
+            rows_to_update,
+            { where: { id_user: req.userData.userID, id: req.body.idPetrecere } }
+        ).then(affectedRows => {
+            return res.status(201).json({
+                status: "201",
+                message: "Modified ok"
+            })
         })
-    })
+    }
+    return res.status(400).json({
+        status: "400",
+        message: "It's not your party"
+    });
 }
