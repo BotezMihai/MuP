@@ -18,6 +18,23 @@ const Tag = TagModel(config, bd);
 
 const StiluriModel = require("../models/stiluri");
 const Stiluri = StiluriModel(config, bd);
+
+async function insert_new_song(title, artist, duration, song, album, id_petrecere, tag, an = '-') {
+    var inserted_row = await Melodii.create({
+        titlu: title,
+        artist: artist,
+        durata: duration,
+        path: song,
+        album: album,
+        id_petrecere: id_petrecere,
+        an: an
+    });
+    var inserted_row_tag = await Tag.create({
+        id_melodie: inserted_row.id,
+        tag: tag
+    });
+}
+
 // de schimbat raza si ora din time_location
 exports.upload_style = async (req, res) => {
     // numele din formularul html
@@ -74,7 +91,8 @@ exports.upload_song = async (req, res) => {
                     let duration = metadata.format.duration;
                     var artist = null;
                     var track_name = null;
-
+                    var album = '-';
+                    var genre = null;
                     if (title.search("–") > 0) {
                         let split_array = title.split("–");
                         artist = split_array[0];
@@ -84,36 +102,68 @@ exports.upload_song = async (req, res) => {
                         artist = metadata.common.artist;
                         track_name = metadata.common.title;
                     }
-
+                    if ('album' in metadata.common) {
+                        album = metadata.common.album;
+                    }
+                    if ('genre' in metadata.common) {
+                        let arr = metadata.common.genre[0];
+                        let first_genre = arr.split(';')[0];
+                        try {
+                            await insert_new_song(title, artist, duration, song, album, field['id_petrecere'], first_genre);
+                        }
+                        catch (error) {
+                            return res.json({
+                                message: "Insert successfully"
+                            });
+                        }
+                        return res.json({
+                            message: "Insert successfully"
+                        });
+                    }
                     try {
+                        if (artist !== null && title !== null) {
+                            const URL_GET_INFO_TRACK = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + API_KEY + "&artist=" + artist + "&track=" + title + "&format=json";
+                            var response = await fetch(encodeURI(URL_GET_INFO_TRACK));
+                            var json = await response.json();
+                            console.log(json.track.toptags.tag[0].name, "??????");
+                            try {
+                                var genre = json.track.toptags.tag[0].name;
+                                if (album === '-') {
+                                    album = json.track.album.title;
+                                }
+                                var an = json.track.wiki.published;
+
+                            } catch (error) {
+                                console.log('Nu s a gasit genul, albumul, anul!!!');
+                            }
+                            try {
+                                await insert_new_song(title, artist, duration, song, album, field['id_petrecere'], genre, an);
+                                return res.json({
+                                    message: "Insert successfully"
+                                });
+                            } catch (err) {
+                                return res.json({
+                                    message: "Insert successfully"
+                                });
+                            }
+                        }
                         const URL_SEARCH = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=" + title + "&api_key=" + API_KEY + "&format=json";
                         var response = await fetch(encodeURI(URL_SEARCH));
                         var json = await response.json();
                         if (artist == null)
                             artist = json.results.trackmatches.track[0].artist;
                         let name = json.results.trackmatches.track[0].name;
-
                         const URL_TOP_TAGS = "http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=" + artist + "&api_key=" + API_KEY + "&format=json";
                         response = await fetch(encodeURI(URL_TOP_TAGS));
                         json = await response.json();
-                        var inserted_row = await Melodii.create({
-                            titlu: name,
-                            artist: artist,
-                            durata: duration,
-                            path: song,
-                            id_petrecere: field['id_petrecere']
-                        });
-
-                        var inserted_row_tag = await Tag.create({
-                            id_melodie: inserted_row.id,
-                            tag: json.toptags.tag[0].name
-                        });
-
-                        var inserted_row_tag_1 = await Tag.create({
-                            id_melodie: inserted_row.id,
-                            tag: json.toptags.tag[1].name
-                        })
-
+                        try {
+                            await insert_new_song(name, artist, duration, song, album, field['id_petrecere'], json.toptags.tag[0].name, an);
+                        }
+                        catch (err) {
+                            return res.json({
+                                message: "Insert successfully"
+                            });
+                        }
                         return res.json({
                             message: "Insert successfully"
                         });
@@ -128,6 +178,10 @@ exports.upload_song = async (req, res) => {
                             path: song,
                             id_petrecere: field['id_petrecere']
                         }).then(result => {
+                            return res.json({
+                                message: "Insert successfully without extern data"
+                            });
+                        }).catch(err => {
                             return res.json({
                                 message: "Insert successfully without extern data"
                             });
@@ -179,7 +233,7 @@ exports.time_location = async (req, res) => {
         + time_now.getMinutes() + ":"
         + time_now.getSeconds();
     time_now = new Date(datetime);
-    
+
     for (let i = 0; i < results.length; i++) {
         var date_event = results[i].petreceri.data.split(" ");
         var date = date_event[0].split("-");
