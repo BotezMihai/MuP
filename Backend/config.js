@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 // PARAMS: BD+USER+PASS
-module.exports = new Sequelize('mup', 'mihai', '1234', {
+module.exports = new Sequelize('mup', 'ramona', '12345', {
     host: 'localhost',
     port: '3306',
     dialect: 'mysql',

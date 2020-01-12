@@ -37,6 +37,7 @@ exports.user_register = (req, res) => {
 
                     }).then(result => {
                         return res.json({
+                            status:"OK",
                             message: "Insert successfully"
                         });
                     }).catch(err => {

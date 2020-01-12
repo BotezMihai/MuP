@@ -4,14 +4,14 @@ const bodyParser = require('body-parser');
 const app = express();
 const db = require('./config.js');
 const Sequelize = require('sequelize');
-
+const cors=require('cors');
 const userRoutes = require("./routes/user");
 const uploadRoutes=require("./routes/uploads");
 const eventRoutes=require("./routes/events");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(cors())
 db
     .authenticate()
     .then(() => {
