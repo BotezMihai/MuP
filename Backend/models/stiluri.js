@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('melodii_user', {
+module.exports = function (sequelize, DataTypes) {
+  return sequelize.define('stiluri', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    titlu_melodie: {
+    stil: {
       type: DataTypes.STRING(100),
       allowNull: false
     },
@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     }
 
   }, {
-    tableName: 'melodii_user',
+    tableName: 'stiluri',
     timestamps: false
   });
 };

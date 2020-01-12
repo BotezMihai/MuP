@@ -9,5 +9,6 @@ router.delete("/delete-party", checkAuth, EventsController.delete_party);
 router.get("/get-parties", checkAuth, EventsController.get_parties);
 router.put("/modify-party", checkAuth, EventsController.put_party);
 
+
 module.exports = router;
 
