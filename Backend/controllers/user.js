@@ -81,6 +81,7 @@ exports.user_login = (req, res) => {
                             expiresIn: "10h"
                         })
                     return res.status(200).json({
+                        message:'OK',
                         token: token
                     })
                 } else {
