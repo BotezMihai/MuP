@@ -1,22 +1,22 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('melodii_user', {
+  return sequelize.define('playing', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    id_user: {
+    id_melodie: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       references: {
-        model: 'users',
+        model: 'melodii',
         key: 'id'
       }
     },
-    titlu_melodie: {
+    start: {
       type: DataTypes.STRING(100),
       allowNull: false
     },
@@ -24,9 +24,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false
     }
-
   }, {
-    tableName: 'melodii_user',
+    tableName: 'playing',
     timestamps: false
   });
 };
