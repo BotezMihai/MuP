@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     start: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.DATE,
       allowNull: false
     },
     id_petrecere: {

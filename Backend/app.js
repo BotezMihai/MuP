@@ -11,6 +11,7 @@ const uploadRoutes = require("./routes/uploads");
 const eventRoutes = require("./routes/events");
 const userPartyRoutes = require("./routes/UserParty");
 const manageRoutes = require("./routes/manage");
+const statisticRoutes=require("./routes/statistic");
 
 const mySocket=require("./controllers/websocket");
 var corsOptions = {
@@ -31,11 +32,12 @@ db
     console.error('Unable to connect to the database:', err);
   });
 
-app.use("/user",userRoutes);
-app.use("/upload",uploadRoutes);
-app.use("/event",eventRoutes);
-app.use("/party",userPartyRoutes);
-app.use("/manage",manageRoutes);
+app.use("/user", userRoutes);
+app.use("/upload", uploadRoutes);
+app.use("/event", eventRoutes);
+app.use("/party", userPartyRoutes);
+app.use("/manage", manageRoutes);
+app.use("/statistic",statisticRoutes);
 app.use(express.static('pages'));
 
 app.listen(5000, () => console.log('Server started on port 5000'));
