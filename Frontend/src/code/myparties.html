@@ -97,56 +97,8 @@
                 <span class="title">Upcoming Parties</span>
                 <button class="upcoming" onclick="SwitchAdd();">Parties created</button>
             </div>
-            <div class="second">
-                <div class="card">
-                    <div class="container">
-                        <p>Party: fffff</p>
-                        <p>Organizer: Liidid</p>
-                        <p>Location : Str. llslldg </p>
-                        <p style="color:white;">Date : 14/12/2019</p>
-                        <p style="color:white;">Starts at : 20:00</p>
-                    </div>
-                    <div class="button_container">
-                        <button class="btn"><span>Can't go</span></button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="container">
-                        <p>Party: fffff</p>
-                        <p>Organizer: Liidid</p>
-                        <p>Location : Str. llslldg </p>
-                        <p style="color:white;">Date : 14/12/2019</p>
-                        <p style="color:white;">Starts at : 20:00</p>
-                    </div>
-                    <div class="button_container">
-                        <button class="btn"><span>Can't go</span></button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="container">
-                        <p>Party: fffff</p>
-                        <p>Organizer: Liidid</p>
-                        <p>Location : Str. llslldg </p>
-                        <p style="color:white;">Date : 14/12/2019</p>
-                        <p style="color:white;">Starts at : 20:00</p>
-                    </div>
-                    <div class="button_container">
-                        <button class="btn"><span>Delete</span></button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="container">
-                        <p>Party: fffff</p>
-                        <p>Organizer: Liidid</p>
-                        <p>Location : Str. llslldg </p>
-                        <p style="color:white;">Date : 14/12/2019</p>
-                        <p style="color:white;">Starts at : 20:00</p>
-                    </div>
-                    <div class="button_container">
-                        <button class="btn"><span>Delete</span></button>
-                    </div>
-                </div>
-            </div>
+            <div class="second" id='petreceri'></div>
+            
         </div>
     </div>
 
@@ -214,6 +166,106 @@
         document.querySelector("#date").value = today;
     </script>
     <script src="js/ui.js"></script>
+    <script>
+    var attented=document.getElementById('petreceri');
+    document.addEventListener('DOMContentLoaded',getPartiesJoined);
+    let token=window.localStorage.getItem('userToken');
+    async function getPartiesJoined(){
+        let response=await fetch('http://localhost:5000/party/get-parties',{
+            method:'GET',
+            headers: {
+                'Accept': '*/*',
+            'Content-Type': 'application/json',
+            'Authorization':'Bearer '+token
+            }
+        })
+        let rezultat= await response.json();
+        return rezultat.message;
+    }
+    getPartiesJoined().then(result=>{
+        let copy=result;
+   for(let i=0;i<result.length;i++){
+     let latitude=result[i].latitudine;
+     var longitudine=result[i].longitudine;
+     let request=latitude+"%2C"+longitudine;
+   
+     getVals(request).then(resultat=>{
+        
+             copy[i].street=resultat;
+         
+            //  result[i].street=resultat;
+            var card=document.createElement('div');
+        card.className='card';
+        card.id=copy[i].id_petrecere;
+        var container=document.createElement('div'); 
+        container.className='container';
+        var pName=document.createElement('p');
+        pName.innerText='Party : '+ copy[i].nume;
+        var date=document.createElement('p');
+        date.innerHTML="Date :  " + copy[i].data;
+        var location=document.createElement('p');
+        location.innerHTML="Location :  "+ copy[i].street;
+        
+        var button=document.createElement('div');
+        button.className='button_container';
+        var buttonel=document.createElement('button');
+        buttonel.className='btn';
+        buttonel.onclick=function(){
+            partyId=copy[i].id_petrecere;
+            var object={
+                'id_petrecere':partyId
+            }
+            console.log(object);
+            fetch('http://localhost:5000/party/join-party',{
+                method:'POST',
+                headers:  {
+            'Accept': '*/*',
+            'Content-Type': 'application/json',
+            'Authorization':'Bearer '+token
+           
+        },
+        body:JSON.stringify(object)
+
+            })
+            .then(resp=>resp.json())
+            .then(response=>{
+                console.log(response);
+                alert("Party attented! ");
+                var attented=document.getElementById(partyId);
+                attented.parentNode.removeChild(attented);
+            })
+        }
+        var span=document.createElement('span');
+        span.innerHTML="Can't go";
+        buttonel.appendChild(span);
+        button.appendChild(buttonel);
+        container.appendChild(pName);
+        container.appendChild(date);
+        container.appendChild(location);
+        card.appendChild(container);
+        card.appendChild(button);
+       attented.appendChild(card);
+        
+     })
+       
+     
+    }
+  
+    
+   
+
+ });
+  
+
+    async function getVals(request){
+
+    let response= await fetch('https://api.opencagedata.com/geocode/v1/json?q='+request+'&key=466c09a776ed417b8ace9ad07c6527d9')
+    let resp= await response.json();
+    return resp.results[0].formatted;
+}
+    
+    
+    </script>
 </body>
 
 </html>

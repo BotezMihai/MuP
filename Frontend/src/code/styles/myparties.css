@@ -153,7 +153,7 @@ body {
     border: 8px solid white;
     border-style: double;
     margin: 10px;
-    color: black;
+    color:white;
     font-size: 15px;
 }
 
@@ -218,7 +218,7 @@ body {
 .container p {
     font-family: fantasy;
     font-size: 20px;
-    color: black;
+    color: white;
 }
 
 
