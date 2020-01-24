@@ -41,7 +41,7 @@ body {
 }
 
 .sidenav .close {
-    display: none;
+  
     position: absolute;
     top: 0;
     right: 25px;
@@ -54,8 +54,8 @@ body {
 }
 
 .parties {
-    width: 80%;
-    margin-left: 20%;
+    width: 90%;
+    margin-left: 5%;
     padding: 2%;
 }
 
@@ -76,7 +76,7 @@ body {
 }
 
 .menu {
-    display: none;
+ 
     position: absolute;
     top: 10px;
     left: 20px;
@@ -92,7 +92,7 @@ body {
     transition: 0.3s;
     background-image: url('../images/secondbg.jpg');
     background-size: cover;
-    width: max-content;
+    width: 30%;
     border: 8px solid white;
     border-style: double;
     margin: 10px;
@@ -159,7 +159,7 @@ body {
 .container p {
     font-family: fantasy;
     font-size: 25px;
-    color: black;
+    color: white;
 }
 
 #logo {
@@ -173,11 +173,9 @@ body {
     .sidenav {
         width: 25%;
     }
-    .parties {
-        margin-left: 25%;
-    }
+    
     .card {
-        width: auto;
+        width: 30%;
     }
     .container p {
         font-size: 20px;
@@ -187,10 +185,8 @@ body {
     }
 }
 
-@media only screen and (max-width:650px) {
-    .parties {
-        margin-left: 30%;
-    }
+@media only screen and (max-width:670px) {
+    
     .sidenav {
         width: 30%;
     }
