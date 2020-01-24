@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Music Party Choser</title>
     <link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet">
-<style>
-@import url("./styles/navbar.css");
-@import url("./styles/homepage.css");
-</style>
+    <style>
+        @import url("./styles/navbar.css");
+        @import url("./styles/homepage.css");
+    </style>
 </head>
+
 <body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <img src="./images/logo_transparent.png">
+        <a href="parties.html"> All parties</a>
+        <a href="myparties.html">My Parties</a>
+        <a href="party.html">Current party</a>
+        <a href="settings.html">Settings</a>
+        <a href="statistics.html">Statistics</a>
+        <a href="#">Log out</a>
+    </div>
 
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
-  <a href="parties.html">Parties nearby</a>
-  <a href="myparties.html">My Parties</a>
-  <a href="settings.html">Settings</a>
-  <a href="#">Statistics</a>
-  <a href="#">Log out</a>
-</div>
+    <canvas id="canvas"></canvas>
+    <span onclick="openNav()">&#9776; Menu</span>
+    <h1 id="canvh1">Welcome to MuP</h1>
 
-
-
-<canvas id="canvas"></canvas>
-<span style="font-size:30px;cursor:pointer;color:#43b4a5;position: absolute;top:20px;left:30px;" onclick="openNav()">&#9776; Menu</span>
-
-<h1 id="canvh1">Welcome to MuP</h1>
-<script type="text/javascript" src="./js/ui.js"></script>
-
-<script type="text/javascript" src="js/canvas.js"></script>
-
+    <script type="text/javascript" src="./scripts/ui.js"></script>
+    <script type="text/javascript" src="scripts/canvas.js"></script>
 </body>
-</html> 
+
+</html>

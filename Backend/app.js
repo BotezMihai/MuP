@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const db = require('./config.js');
 const Sequelize = require('sequelize');
+const cors=require('cors');
 const socket = require('socket.io');
-
 const userRoutes = require("./routes/user");
 const uploadRoutes = require("./routes/uploads");
 const eventRoutes = require("./routes/events");
@@ -14,9 +14,14 @@ const manageRoutes = require("./routes/manage");
 const statisticRoutes=require("./routes/statistic");
 
 const mySocket=require("./controllers/websocket");
+var corsOptions = {
+  origin: '*',
+  credentials: true };
 
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors(corsOptions));
 
 db
   .authenticate()

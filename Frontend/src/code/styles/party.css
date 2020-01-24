@@ -1,10 +1,11 @@
-
 .sidenav{
   width:25%;
+  text-align:center;
 }
  .options{
    color:white;
    width:70%;
+   margin-left:25%;
  }
  #stiluri{
    display:flex;
@@ -180,6 +181,7 @@ width:35%;
 }
 .options{
 width:65%;
+margin-left:35%;
 }
 .upload-flex{
 margin:auto;

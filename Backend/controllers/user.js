@@ -37,6 +37,7 @@ exports.user_register = (req, res) => {
 
                     }).then(result => {
                         return res.json({
+                            status:"OK",
                             message: "Insert successfully"
                         });
                     }).catch(err => {
@@ -80,6 +81,7 @@ exports.user_login = (req, res) => {
                             expiresIn: "10h"
                         })
                     return res.status(200).json({
+                        message:'OK',
                         token: token
                     })
                 } else {
