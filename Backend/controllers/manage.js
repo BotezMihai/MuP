@@ -33,9 +33,9 @@ async function get_stiluri_desc(id) {
 
 function get_time_now() {
     var currentdate = new Date();
-    var datetime = currentdate.getDate() + "/"
-        + (currentdate.getMonth() + 1) + "/"
-        + currentdate.getFullYear() + " "
+    var datetime = currentdate.getFullYear() + "-"
+        + ('0' + (currentdate.getMonth() + 1)).slice(-2) + "-"
+        + ('0' + currentdate.getDate()).slice(-2) + " "
         + currentdate.getHours() + ":"
         + currentdate.getMinutes() + ":"
         + currentdate.getSeconds();
@@ -125,8 +125,9 @@ async function search_new_song(res, id_melodie, id_petrecere) {
 
 // parametrii id_petrecere
 exports.get_new_song = async (req, res) => {
+    var id_petrecere = req.query.id_petrecere;
     var playList = await Playing.findAll({
-        where: { id_petrecere: { [bd.Op.eq]: req.body.id_petrecere } },
+        where: { id_petrecere: { [bd.Op.eq]: id_petrecere } },
         raw: true
     });
     if (playList.length == 0) {
@@ -135,7 +136,7 @@ exports.get_new_song = async (req, res) => {
         console.log(style);
         var result_info_songs_unused = await config.query(`select * from melodii_user left join melodii on melodii_user.titlu_melodie=melodii.titlu 
     left join tag on tag.id_melodie=melodii.id where melodii_user.id_petrecere=:id_petrecere`,
-            { replacements: { id_petrecere: req.body.id_petrecere }, type: config.QueryTypes.SELECT, raw: true }
+            { replacements: { id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true }
         );
         for (let i = 0; i < style.length; i++) {
             let tag = style[i].stil;
@@ -177,12 +178,13 @@ exports.get_new_song = async (req, res) => {
         var results = await Playing.findAll({
             include: [Dansatori],
             attributes: { include: [[bd.fn(('count'), bd.col("start")), "nr"]] },
-            group: ['id_petrecere', 'id', 'dansatoris.id'],
+            group: ['id_petrecere', 'id_melodie'],
             order: bd.literal('nr DESC'),
-            where: { id_petrecere: req.body.id_petrecere },
+            where: { id_petrecere: id_petrecere },
             raw: true
         });
-        var new_song = await search_new_song(res, results[0].id_melodie, req.body.id_petrecere);
+        console.log(results);
+        var new_song = await search_new_song(res, results[0].id_melodie, id_petrecere);
     }
 }
 

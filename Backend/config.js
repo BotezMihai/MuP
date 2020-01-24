@@ -13,7 +13,9 @@ module.exports = new Sequelize('mup', 'mihai', '1234', {
     },
     dialectOptions: {
         useUTC: false, // for reading from database
-      },
-      timezone: '+02:00', // for writing to database
-}); 
+        dateStrings: true,
+        typeCast: true
+    },
+    timezone: '+02:00', // for writing to database
+});
 

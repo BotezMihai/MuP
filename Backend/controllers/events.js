@@ -23,14 +23,15 @@ exports.create_party = (req, res) => {
         });
     })
 }
-
-exports.delete_party =async (req, res) => {
+// parametrul pe care il iau din query e id
+exports.delete_party = async (req, res) => {
+    var id = req.query.id;
     var my_party = await Party.findAll(
-        { where: { id_user: req.userData.userData } }
+        { where: { id_user: req.userData.userID } }
     );
     if (my_party.length != 0) {
         Party.destroy(
-            { where: { id: req.body.id } },
+            { where: { id: id } },
             { truncate: true }
         ).then(result => {
             res.status(200).json({
@@ -39,10 +40,11 @@ exports.delete_party =async (req, res) => {
             })
         });
     }
-    return res.status(400).json({
-        status: "400",
-        message: "It's not your party"
-    });
+    else
+        return res.status(400).json({
+            status: "400",
+            message: "It's not your party"
+        });
 }
 
 exports.get_parties = (req, res) => {
