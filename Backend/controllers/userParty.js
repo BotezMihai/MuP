@@ -25,7 +25,7 @@ exports.join_party = (req, res) => {
 
 exports.get_parties = async (req, res) => {
     var id_user = req.userData.userID;
-    var results = await config.query(`select distinct * from participanti pa join petreceri pe on pa.id_petrecere=pe.id where
+    var results = await config.query(`select pe.nume, pe.latitudine, pe.longitudine, pe.data, pa.id_user, pa.id_petrecere from participanti pa join petreceri pe on pa.id_petrecere=pe.id where
                                     pa.id_user= :id `, { replacements: { id: id_user }, type: config.QueryTypes.SELECT, raw: true })
     if (results.length == 0) {
         return res.status(404).json({
