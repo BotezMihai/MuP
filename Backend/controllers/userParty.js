@@ -27,7 +27,7 @@ exports.join_party = (req, res) => {
 exports.get_parties = (req, res) => {
     UserParty.findAll({
         where: {
-            id: req.userData.userID
+            id_user: req.userData.userID
         }
     }).then(result => {
         if (result.length == 0) {
@@ -42,16 +42,17 @@ exports.get_parties = (req, res) => {
 };
 
 exports.delete_party = (req, res) => {
+    var id = req.query.id;
     console.log("aici");
     UserParty.destroy(
-        { where: { id_user: req.userData.userID, id_petrecere:req.body.id_petrecere } },
+        { where: { id_user: req.userData.userID, id_petrecere: id } },
         { truncate: true }
     ).then(result => {
         res.status(200).json({
             message: "Deleted successfully"
         })
     }
-    ).catch(err=>console.log(err))
+    ).catch(err => console.log(err))
 
 }
 
