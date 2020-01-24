@@ -1,4 +1,4 @@
-const UserPartyModel = require("../models/participanti");
+const UserPartyModel = require("../models/petreceri");
 const config = require("../config");
 const bd = require("sequelize");
 const UserParty = UserPartyModel(config, bd);

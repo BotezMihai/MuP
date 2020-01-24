@@ -2,7 +2,7 @@ self.addEventListener('message', (e) => {
     console.log(e.data);
 
     var i = 0;
-    var socket = new WebSocket("ws://localhost:8081?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdpZ2VsQHlhaG9vLnJvIiwidXNlcklEIjoxLCJpYXQiOjE1Nzc3MTYyNjksImV4cCI6MTU3Nzc1MjI2OX0.viaSeXu1pPpuX8nXtn7yzN4vqOAbimjrH2xXkyueaXk");
+    var socket = new WebSocket("ws://localhost:8081?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdpZ2VsQHlhaG9vLnJvIiwidXNlcklEIjoxLCJpYXQiOjE1NzgwNjg0NjksImV4cCI6MTU3ODEwNDQ2OX0.lk38WFIvWh2F3hmX51xJTWEwB1D-PZkXudGoZcpDpb0");
     socket.onopen = function () {
         setInterval(() => {
             socket.send("3,11,100");
