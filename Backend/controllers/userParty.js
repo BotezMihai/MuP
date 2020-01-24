@@ -27,7 +27,7 @@ exports.join_party = (req, res) => {
 exports.get_parties = (req, res) => {
     UserParty.findAll({
         where: {
-            id: req.userData.userID
+            id_user: req.userData.userID
         }
     }).then(result => {
         if (result.length == 0) {
