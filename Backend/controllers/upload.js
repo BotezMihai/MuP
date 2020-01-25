@@ -19,6 +19,12 @@ const Tag = TagModel(config, bd);
 const StiluriModel = require("../models/stiluri");
 const Stiluri = StiluriModel(config, bd);
 
+const PetreceriModel = require("../models/petreceri");
+const Petreceri = PetreceriModel(config, bd);
+
+const ParticipantiModel = require("../models/participanti");
+const Participanti = ParticipantiModel(config, bd);
+
 async function insert_new_song(title, artist, duration, song, album, id_petrecere, tag, an = '-') {
     var inserted_row = await Melodii.create({
         titlu: title,
@@ -198,10 +204,10 @@ exports.upload_song = async (req, res) => {
             });
     });
 }
-
+// lungimea <=1000 de m si ora <=15 minute
 exports.time_location = async (req, res) => {
-    console.log("Sunt in middleware");
-    console.log(req.files);
+    var latitudineURL=req.params.latitudine;
+    var longitudineURL=req.params.longitudine;
     Petreceri.hasMany(Participanti, {
         foreignKey: 'id_petrecere'
     });
@@ -240,7 +246,7 @@ exports.time_location = async (req, res) => {
         var time = date_event[1];
         var new_date = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
         date_event = new Date(new_date);
-        if (date_event - time_now >= 1500 * 60000) {
+        if (date_event - time_now <=15 * 60000) {
             console.log("Nu e inca timpul potrivit");
             return res.status(400).json({
                 message: "Nu poti uploada inca melodii",
@@ -252,7 +258,7 @@ exports.time_location = async (req, res) => {
             var longitude = results[i].petreceri.dataValues.longitudine;
             let event_location = { "latitude": latitude, "longitude": longitude };
             console.log(event_location);
-            let my_location = { "latitude": req.body.latitude, "longitude": req.body.longitude };
+            let my_location = { "latitude": latitudineURL, "longitude": longitudineURL };
             var distance = geolib.getDistance(event_location, my_location);
             console.log(distance);
             if (distance < 1000) {
