@@ -1,11 +1,12 @@
 .sidenav{
-  width:25%;
+  width:0;
   text-align:center;
 }
  .options{
    color:white;
-   width:70%;
-   margin-left:25%;
+   width:80%;
+   margin-left:10%;
+  
  }
  #stiluri{
    display:flex;
@@ -152,6 +153,9 @@ justify-content:flex-start;
 display: flex;
 
 }
+.menu{
+  display:block;
+}
 @media only screen and (max-width:600px){
 .currentParty{
 flex-direction: column;
@@ -175,13 +179,11 @@ width:15px;
 height:15px;
 left:25%;
 }
-.sidenav{
-width:35%;
 
-}
 .options{
-width:65%;
-margin-left:35%;
+width:80%;
+margin-left:10%;
+margin-top:20%;
 }
 .upload-flex{
 margin:auto;

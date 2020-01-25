@@ -16,6 +16,7 @@
 <body>
   <div class="together">
     <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
         <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
         <a href="parties.html">Parties nearby</a>
         <a href="#">My Parties</a>
@@ -27,6 +28,7 @@
         </a>
       </div>
       <div class="options">
+        <span class="menu" onclick="openNav()">&#9776;</span>
           <div class="title" >
               <p style="text-align: center;">Current Party : Party Name</p>
           </div>
@@ -82,5 +84,6 @@
 </div>
       </div>
       </div>
+      <script src="js/ui.js"></script>
       </body>
       </html>
