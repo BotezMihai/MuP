@@ -42,7 +42,7 @@ exports.get_parties = async (req, res) => {
 };
 
 exports.delete_party = (req, res) => {
-    var id = req.query.id;
+    var id =req.params.id;
     UserParty.destroy(
         { where: { id_user: req.userData.userID, id_petrecere: id } },
         { truncate: true }

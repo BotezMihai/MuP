@@ -13,7 +13,7 @@ const DansatoriModel = require("../models/dansatori");
 const Dansatori = DansatoriModel(config, bd);
 
 const wss = new WebSocket.Server({
-    port: 8081,
+    port: 8085,
 });
 function get_time_now() {
     var currentdate = new Date();
