@@ -252,7 +252,7 @@ exports.time_location = async (req, res) => {
             return res.status(400).json({
                 message: "Nu poti uploada inca melodii",
                 code: "400"
-            })
+            });
         }
         else {
             var latitude = results[i].petreceri.dataValues.latitudine
@@ -266,6 +266,7 @@ exports.time_location = async (req, res) => {
                 req.user_party = results[i].petreceri.dataValues.id;
                 return res.status(200).json({
                     id_party: results[i].petreceri.dataValues.id,
+                    name_party: results[i].petreceri.dataValues.nume,
                     status: "OK"
                 });
             }
