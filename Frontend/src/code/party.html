@@ -40,10 +40,10 @@
           <div>
             <form id  =  "uploadForm"
              enctype   =  "multipart/form-data"
-             method    =  "post"
+            
             >
-           <label id="song">Choose a file<input type="file" size="70"></label>
-           <label id="incarca">Upload<input type="submit" value="Upload" class="upload" name="submit"></label>
+           <label id="song">Choose a file<input type="file"  id="myFileInput" size="70"></label>
+           <label id="incarca">Upload<input type="submit" value="Upload" id="submit" class="upload" name="submit"></label>
            </form>
           </div>    
       
@@ -101,6 +101,8 @@
 function showPosition(position) {
   let latitude=position.coords.latitude ;
   let longitude=position.coords.longitude;
+  console.log(latitude)
+  console.log(longitude);
   fetch("http://localhost:5000/upload/timeLocation/"+latitude+"/"+longitude,{
     method:'GET',
     headers:{
@@ -111,7 +113,21 @@ function showPosition(position) {
   })
   .then(response=>response.json())
   .then(resp=>{
-    console.log(resp)
+  
+    if (resp.message==='OK'){
+      currentParty.style.display="flex";
+      let submit= document.getElementById('uploadForm');
+      submit.addEventListener('submit',function(){
+        event.preventDefault();
+        var file = document.getElementById('myFileInput').files[0];
+      console.log(file);
+      })
+
+    
+    }
+    else{
+      alert(resp.message);
+    }
   })
 }
 getLocation();

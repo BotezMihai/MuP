@@ -255,6 +255,7 @@ exports.time_location = async (req, res) => {
             })
         }
         else {
+            console.log(time_difference)
             var latitude = results[i].petreceri.dataValues.latitudine
             var longitude = results[i].petreceri.dataValues.longitudine;
             let event_location = { "latitude": latitude, "longitude": longitude };
@@ -265,7 +266,8 @@ exports.time_location = async (req, res) => {
             if (distance < 1000) {
                 req.user_party = results[i].petreceri.dataValues.id;
                 return res.status(200).json({
-                    id_party: results[i].petreceri.dataValues.id
+                    id_party: results[i].petreceri.dataValues.id,
+                    message:'OK'
                 });
             }
         }
