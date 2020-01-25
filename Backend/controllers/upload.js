@@ -246,7 +246,8 @@ exports.time_location = async (req, res) => {
         var time = date_event[1];
         var new_date = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
         date_event = new Date(new_date);
-        if (date_event - time_now <=15 * 60000) {
+        let time_difference=date_event-time_now;
+        if (time_difference>=15 * 60000) {
             console.log("Nu e inca timpul potrivit");
             return res.status(400).json({
                 message: "Nu poti uploada inca melodii",
