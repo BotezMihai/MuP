@@ -85,5 +85,20 @@
       </div>
       </div>
       <script src="js/ui.js"></script>
+      <script>
+      function getLocation() {
+  if (navigator.geolocation) {
+   navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+   console.log("No navigator")
+  }
+}
+
+function showPosition(position) {
+  console.log("lati "+ position.coords.latitude +
+  "Longitude: " + position.coords.longitude);
+}
+getLocation();
+      </script>
       </body>
       </html>
