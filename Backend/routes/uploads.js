@@ -8,6 +8,6 @@ const UploadsController = require('../controllers/upload');
 
 router.post("/song", checkAuth, UploadsController.upload_song);
 router.post("/style", checkAuth, UploadsController.upload_style);
-router.get("/timeLocation", checkAuth, UploadsController.time_location);
+router.get("/timeLocation/:latitudine/:longitudine", checkAuth, UploadsController.time_location);
 
 module.exports = router;
