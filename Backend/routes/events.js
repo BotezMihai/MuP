@@ -7,6 +7,7 @@ const EventsController = require('../controllers/events');
 router.post("/add-party", checkAuth, EventsController.create_party);
 router.delete("/delete-party", checkAuth, EventsController.delete_party);
 router.get("/get-parties", checkAuth, EventsController.get_parties);
+router.get("/my-parties",checkAuth,EventsController.get_my_parties);
 router.put("/modify-party", checkAuth, EventsController.put_party);
 
 

@@ -54,10 +54,27 @@ exports.get_parties = (req, res) => {
         });
     })
 }
+exports.get_my_parties =async (req, res) => {
+    var my_party = await Party.findAll(
+        { where: { id_user: req.userData.userID } }
+    );
+    if (my_party.length == 0) {
+        return res.status(404).json({
+            message: "Nu ai creat nicio petrecere pana in acest moment!",
+            code: "404"
+        })
+    }
+    else {
+        return res.status(200).json({
+            message: my_party
+        });
+    }
+
+}
 
 exports.put_party = async (req, res) => {
     var my_party = await Party.findAll(
-        { where: { id_user: req.userData.userData } }
+        { where: { id_user: req.userData.userID } }
     );
     if (my_party.length != 0) {
         var rows_to_update = {};
