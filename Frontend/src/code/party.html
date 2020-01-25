@@ -32,20 +32,20 @@
           <div class="title" >
               <p style="text-align: center;">Current Party : Party Name</p>
           </div>
-            <div class="currentParty" >
+            <div class="currentParty" id="petrecereNow" >
               <div class="upload-flex">
                 <div>
                   <p class="second-title">Upload a song</p>
                 </div>
           <div>
             <form id  =  "uploadForm"
-      enctype   =  "multipart/form-data"
-      method    =  "post"
-      >
- <label id="song">Choose a file<input type="file" size="70"></label>
- <label id="incarca">Upload<input type="submit" value="Upload" class="upload" name="submit"></label>
- </form>
-</div>    
+             enctype   =  "multipart/form-data"
+             method    =  "post"
+            >
+           <label id="song">Choose a file<input type="file" size="70"></label>
+           <label id="incarca">Upload<input type="submit" value="Upload" class="upload" name="submit"></label>
+           </form>
+          </div>    
       
  </div>
  <div class="upload-flex">
@@ -82,21 +82,37 @@
          </div>
         </form>
 </div>
-      </div>
+      </d iv>
       </div>
       <script src="js/ui.js"></script>
       <script>
+        let token = window.localStorage.getItem('userToken');
+        var currentParty=document.getElementById('petrecereNow');
+        currentParty.style.display="none";
+
       function getLocation() {
-  if (navigator.geolocation) {
-   navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-   console.log("No navigator")
-  }
-}
+        if (navigator.geolocation) {
+           navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                    console.log("No navigator")
+            }
+            }
 
 function showPosition(position) {
-  console.log("lati "+ position.coords.latitude +
-  "Longitude: " + position.coords.longitude);
+  let latitude=position.coords.latitude ;
+  let longitude=position.coords.longitude;
+  fetch("http://localhost:5000/upload/timeLocation/"+latitude+"/"+longitude,{
+    method:'GET',
+    headers:{
+      'Accept': '*/*',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+token
+    }
+  })
+  .then(response=>response.json())
+  .then(resp=>{
+    console.log(resp)
+  })
 }
 getLocation();
       </script>

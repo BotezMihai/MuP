@@ -162,7 +162,7 @@
                             'id_petrecere': partyId
                         }
                         console.log(object);
-                        fetch('http://localhost:5000/party/delete-party?id=' + partyId, {
+                        fetch('http://localhost:5000/party/delete-party/' + partyId, {
                             method: 'DELETE',
                             headers: {
                                 'Accept': '*/*',

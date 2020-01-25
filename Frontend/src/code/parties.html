@@ -120,13 +120,7 @@ getData().then(result=>{
         wrapper.appendChild(card);
         
      })
-       
-     
     }
-  
-    
-   
-
  });
 
  async function getVals(request){
@@ -134,12 +128,6 @@ getData().then(result=>{
      let response= await fetch('https://api.opencagedata.com/geocode/v1/json?q='+request+'&key=466c09a776ed417b8ace9ad07c6527d9')
      let resp= await response.json();
      return resp.results[0].formatted;
-    }
-
-         
-           
-
-
-
+ }
 </script>
 </html>
