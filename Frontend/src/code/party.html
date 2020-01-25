@@ -114,7 +114,7 @@ function showPosition(position) {
   .then(response=>response.json())
   .then(resp=>{
   
-    if (resp.message==='OK'){
+    if (resp.status==='OK'){
       currentParty.style.display="flex";
       let submit= document.getElementById('uploadForm');
       submit.addEventListener('submit',function(){
@@ -122,8 +122,6 @@ function showPosition(position) {
         var file = document.getElementById('myFileInput').files[0];
       console.log(file);
       })
-
-    
     }
     else{
       alert(resp.message);
