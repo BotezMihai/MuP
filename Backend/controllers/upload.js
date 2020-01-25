@@ -265,7 +265,8 @@ exports.time_location = async (req, res) => {
             if (distance < 1000) {
                 req.user_party = results[i].petreceri.dataValues.id;
                 return res.status(200).json({
-                    id_party: results[i].petreceri.dataValues.id
+                    id_party: results[i].petreceri.dataValues.id,
+                    status: "OK"
                 });
             }
         }
