@@ -51,8 +51,8 @@ exports.upload_style = async (req, res) => {
         let l = {};
         l['stil'] = el;
         l['id_user'] = req.userData.userID;
-        l['id_petrecere'] = req.user_party;
-        data.push(l);
+        l['id_petrecere'] = req.body.user_party;
+        data.push(l); 
     }
     var results = await Stiluri.bulkCreate(data);
     return res.json({
