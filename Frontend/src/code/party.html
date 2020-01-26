@@ -19,10 +19,10 @@
       <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
         <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
         <a href="parties.html">Parties nearby</a>
-        <a href="#">My Parties</a>
+        <a href="myparties.html">My Parties</a>
         <a href="#">Current party</a>
-        <a href="#">Settings</a>
-        <a href="#">Statistics</a>
+        <a href="settings.html">Settings</a>
+        <a href="statistics.html">Statistics</a>
         <a href="#">Log out</a>
         <a href="#" style="color:black;margin:auto"><label class="stil-submit" style="width:70%;margin:auto">Start dancing<input type="submit" class="stil-submit"></label>
         </a>
@@ -81,10 +81,11 @@
          </div>
         </form>
 </div>
-      </d iv>
+      </div>
       </div>
       <script src="js/ui.js"></script>
       <script>
+       
         let token = window.localStorage.getItem('userToken');
         var currentParty=document.getElementById('petrecereNow');
         currentParty.style.display="none";

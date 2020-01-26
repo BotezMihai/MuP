@@ -319,10 +319,13 @@
                                 element.parentNode.removeChild(element);
                             })
                     }
+                    update_party.onclick=function(){
+                        window.open('http://localhost:3000/player.html');
+                    }
                     var span = document.createElement('span');
                     span.innerHTML = "Delete";
                     var update_span=document.createElement('span');
-                    update_span.innerHTML="Update";
+                    update_span.innerHTML="Start";
                     update_party.appendChild(update_span);
                     button.appendChild(update_party);
                     delete_party.appendChild(span);
