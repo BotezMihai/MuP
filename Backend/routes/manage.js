@@ -6,6 +6,6 @@ const checkTimeLocation = require(__dirname + './../middleware/timeLocation');
 const manageController = require('../controllers/manage');
 
 
-router.get("/new-song", manageController.get_new_song);
+router.get("/new-song/:id_petrecere", manageController.get_new_song);
 
 module.exports = router;
