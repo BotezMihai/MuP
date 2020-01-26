@@ -55,6 +55,10 @@ exports.upload_style = async (req, res) => {
         data.push(l);
     }
     var results = await Stiluri.bulkCreate(data);
+    return res.json({
+        code: "200",
+        message: "Insert successfully"
+    });
 }
 
 exports.upload_song = async (req, res) => {
@@ -208,8 +212,8 @@ exports.upload_song = async (req, res) => {
 }
 // lungimea <=1000 de m si ora <=15 minute
 exports.time_location = async (req, res) => {
-    var latitudineURL=req.params.latitudine;
-    var longitudineURL=req.params.longitudine;
+    var latitudineURL = req.params.latitudine;
+    var longitudineURL = req.params.longitudine;
     Petreceri.hasMany(Participanti, {
         foreignKey: 'id_petrecere'
     });
@@ -248,8 +252,8 @@ exports.time_location = async (req, res) => {
         var time = date_event[1];
         var new_date = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
         date_event = new Date(new_date);
-        let time_difference=date_event-time_now;
-        if (time_difference>=15 * 60000) {
+        let time_difference = date_event - time_now;
+        if (time_difference >= 15 * 60000) {
             console.log("Nu e inca timpul potrivit");
             return res.status(400).json({
                 message: "Nu poti uploada inca melodii",
