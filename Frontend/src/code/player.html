@@ -8,14 +8,14 @@
 </head>
 <body>
     <audio controls muted="True" autoplay="True" loop="True">
-        <source src="" type="audio/mpeg">
+        <source src="../../../Backend/uploads/OneRepublic, Seeb - Rich Love.mp3" type="audio/mpeg">
         Hai salut asculti asta !
     </audio>
     <script>
         let partyId=window.localStorage.getItem('id_party');
         let token= window.localStorage.getItem('userToken');
         document.addEventListener('DOMContentLoaded',function(){
-            fetch("http://localhost:5000/manage/new-song/id_petrecere="+partyId,{
+            fetch("http://localhost:5000/manage/new-song/"+partyId,{
             headers:{
                 'Accept': '*/*',
       'Content-Type': 'application/json',

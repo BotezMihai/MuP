@@ -6,6 +6,7 @@ const port = 3000;
 app.use(express.static('code'));
 app.use(express.static('images'))
 app.use(express.static("scripts"));
+app.use(express.static('../Backend/uploads'))
 
 app.listen(port, () => console.log(`listening on port ${port}!`));
  

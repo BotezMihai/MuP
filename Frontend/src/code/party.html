@@ -89,8 +89,8 @@
         let token = window.localStorage.getItem('userToken');
         var currentParty=document.getElementById('petrecereNow');
         currentParty.style.display="none";
-
-      function getLocation() {
+        document.addEventListener('DOMContentLoaded',function(){
+          function getLocation() {
         if (navigator.geolocation) {
            navigator.geolocation.getCurrentPosition(showPosition);
             } else {
@@ -178,6 +178,8 @@ fetch("http://localhost:5000/upload/style",{
   alert("Styles updated!")
 })
 })
+        })
+      
       </script>
       </body>
       </html>
