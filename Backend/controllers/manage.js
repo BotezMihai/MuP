@@ -125,7 +125,7 @@ async function search_new_song(res, id_melodie, id_petrecere) {
 
 // parametrii id_petrecere
 exports.get_new_song = async (req, res) => {
-    var id_petrecere = req.query.id_petrecere;
+    var id_petrecere = req.params.id_petrecere;
     var playList = await Playing.findAll({
         where: { id_petrecere: { [bd.Op.eq]: id_petrecere } },
         raw: true
@@ -157,8 +157,8 @@ exports.get_new_song = async (req, res) => {
         if (result_info_songs_unused.length != 0) {
             var datetime = get_time_now();
             var result_insert = await Playing.create({
-                id_melodie: result_info_songs_unused[j].id_melodie,
-                id_petrecere: result_info_songs_unused[j].id_petrecere,
+                id_melodie: result_info_songs_unused[0].id_melodie,
+                id_petrecere: result_info_songs_unused[0].id_petrecere,
                 start: datetime
             });
             return res.status(200).json({
