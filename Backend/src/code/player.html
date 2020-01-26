@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <audio controls muted="True" autoplay="True" loop="True">
+        <source src="../../../Backend/uploads/OneRepublic, Seeb - Rich Love.mp3" type="audio/mpeg">
+        Hai salut asculti asta !
+    </audio>
+    <script>
+        let partyId=window.localStorage.getItem('id_party');
+        let token= window.localStorage.getItem('userToken');
+        document.addEventListener('DOMContentLoaded',function(){
+            fetch("http://localhost:5000/manage/new-song/"+partyId,{
+            headers:{
+                'Accept': '*/*',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+token
+            }
+        })
+        .then(resp=>resp.json())
+        .then(resp=>{
+            console.log(resp)
+        })
+        })
+        
+
+        </script>
+</body>
+</html>

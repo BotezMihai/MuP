@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Parties</title>
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+
+    <style>
+        @import url("myparties.css");
+    </style>
+</head>
+
+<body>
+    <div class="together">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
+            <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
+            <a href="parties.html">Parties nearby</a>
+            <a href="myparties.html">My Parties</a>
+            <a href="party.html">Current party</a>
+            <a href="settings.html">Settings</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="#">Log out</a>
+        </div>
+        <div class="create" id="creation">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <div class="first">
+                <p class="title">Parties created</p>
+                <div class="buttons">
+                    <button class="add" id="createParty">Create new party</button>
+                    <button class="switch" onclick="Switch();">Upcoming parties</button>
+                </div>
+            </div>
+            <div class="second">
+                <div class="card">
+                    <div class="container">
+                        <p>Party: fffff</p>
+                        <p>Organizer: Liidid</p>
+                        <p>Location : Str. llslldg </p>
+                        <p style="color:white;">Date : 14/12/2019</p>
+                        <p style="color:white;">Starts at : 20:00</p>
+                    </div>
+                    <div class="button_container">
+                        <button class="btn"><span>Delete</span></button>
+                        <button class="btn"><span>Update</span></button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="container">
+                        <p>Party: fffff</p>
+                        <p>Organizer: Liidid</p>
+                        <p>Location : Str. llslldg </p>
+                        <p style="color:white;">Date : 14/12/2019</p>
+                        <p style="color:white;">Starts at : 20:00</p>
+                    </div>
+                    <div class="button_container">
+                        <button class="btn"><span>Delete</span></button>
+                        <button class="btn"><span>Update</span></button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="container">
+                        <p>Party: fffff</p>
+                        <p>Organizer: Liidid</p>
+                        <p>Location : Str. llslldg </p>
+                        <p style="color:white;">Date : 14/12/2019</p>
+                        <p style="color:white;">Starts at : 20:00</p>
+                    </div>
+                    <div class="button_container">
+                        <button class="btn"><span>Delete</span></button>
+                        <button class="btn"><span>Update</span></button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="container">
+                        <p>Party: fffff</p>
+                        <p>Organizer: Liidid</p>
+                        <p>Location : Str. llslldg </p>
+                        <p style="color:white;">Date : 14/12/2019</p>
+                        <p style="color:white;">Starts at : 20:00</p>
+                    </div>
+                    <div class="button_container">
+                        <button class="btn"><span>Delete</span></button>
+                        <button class="btn"><span>Update</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Upcoming parties-->
+        <div class="create" id="future">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <div class="first">
+                <span class="title">Upcoming Parties</span>
+                <button class="upcoming" onclick="SwitchAdd();">Parties created</button>
+            </div>
+            <div class="second">
+                <div class="card">
+                    <div class="container">
+                        <p>Party: fffff</p>
+                        <p>Organizer: Liidid</p>
+                        <p>Location : Str. llslldg </p>
+                        <p style="color:white;">Date : 14/12/2019</p>
+                        <p style="color:white;">Starts at : 20:00</p>
+                    </div>
+                    <div class="button_container">
+                        <button class="btn"><span>Can't go</span></button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="container">
+                        <p>Party: fffff</p>
+                        <p>Organizer: Liidid</p>
+                        <p>Location : Str. llslldg </p>
+                        <p style="color:white;">Date : 14/12/2019</p>
+                        <p style="color:white;">Starts at : 20:00</p>
+                    </div>
+                    <div class="button_container">
+                        <button class="btn"><span>Can't go</span></button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="container">
+                        <p>Party: fffff</p>
+                        <p>Organizer: Liidid</p>
+                        <p>Location : Str. llslldg </p>
+                        <p style="color:white;">Date : 14/12/2019</p>
+                        <p style="color:white;">Starts at : 20:00</p>
+                    </div>
+                    <div class="button_container">
+                        <button class="btn"><span>Delete</span></button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="container">
+                        <p>Party: fffff</p>
+                        <p>Organizer: Liidid</p>
+                        <p>Location : Str. llslldg </p>
+                        <p style="color:white;">Date : 14/12/2019</p>
+                        <p style="color:white;">Starts at : 20:00</p>
+                    </div>
+                    <div class="button_container">
+                        <button class="btn"><span>Delete</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Create Party Modal-->
+    <div id="createPartyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form class="create-form">
+                <div>
+                    <label for="party-name">Party Name</label>
+                    <input id="party-name" type="text" required="true" placeholder="Enter Name" />
+                </div>
+                <div>
+                    <label for="location">Party Location</label>
+                    <input id="location" type="text" required="true" autocomplete="off" placeholder="Enter Address" />
+                </div>
+                <div class="date">
+                    <label for="date">Date</label>
+                    <input id="date" type="date" required="true" />
+                </div>
+                <div class="start-hour">
+                    <label for="start-hour">Start Hour</label>
+                    <div class="time">
+                        <input id="start-hour" type="number" min="0" max="23" placeholder="00" required="true">
+                        <span>:</span>
+                        <input id="start-min" type="number" min="0" max="59" placeholder="00" required="true">
+                    </div>
+                </div>
+                <button class="createButton">Create Party</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var creation = document.getElementById('creation');
+        var partiesAttend = document.getElementById('future');
+        future.style.display = 'none';
+
+        function Switch() {
+            creation.style.display = "none";
+            future.style.display = "block";
+        }
+
+        function SwitchAdd() {
+            creation.style.display = "block";
+            future.style.display = "none";
+        }
+
+        var modal = document.getElementById("createPartyModal");
+        var btn = document.getElementById("createParty");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        var today = new Date().toISOString().substr(0, 10);
+        document.querySelector("#date").value = today;
+    </script>
+  
+</body>
+
+</html>

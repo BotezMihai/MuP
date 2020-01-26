@@ -1,0 +1,199 @@
+.sidenav{
+  width:25%;
+  text-align:center;
+}
+ .options{
+   color:white;
+   width:70%;
+   margin-left:25%;
+ }
+ #stiluri{
+   display:flex;
+   flex-direction: column;
+ 
+ }
+ .form-body{
+   display: flex;
+   flex-direction: row;
+ }
+ .half-one,.half-two{
+   width:50%;
+   display:flex;
+   flex-direction: column;
+   justify-content:center;
+ }
+ .half-two{
+   justify-content:flex-end;
+ }
+
+ .currentParty{
+   display: flex;
+   flex-direction: row;
+ 
+ }
+ .upload-flex{
+   display:flex;
+   flex-direction: column;
+   width:50%;
+   
+
+ }
+ #uploadForm{
+   display:flex;
+   flex-direction: column;
+ }
+ .second-title{
+   font-size:20px;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   color:#45be7d;
+   text-align: center;
+ }
+ #song{
+   padding: 10px;
+   background:#45be7d; 
+   display: table;
+   width:60%;
+   margin:auto;
+   text-align: center;
+ }
+ input[type="file"]{
+   display:none;
+ }
+ input[type="submit"]{
+   display:none;
+ }
+ #incarca{
+   padding: 10px;
+   background:#45be7d; 
+   display: table;
+   width:60%;
+   margin:auto;
+   margin-top:20px;
+   text-align: center;
+ }
+ .stil-submit{
+   width:120px;
+   padding: 10px;
+   background:#45be7d; 
+   display: table;
+  margin-left:40px;
+   margin-top:20px;
+   text-align: center;
+ }
+
+
+.container {
+display: block;
+position: relative;
+padding-left: 120px;
+margin-bottom: 12px;
+cursor: pointer;
+font-size: 22px;
+width:50%;
+user-select: none;
+
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+position: absolute;
+top: 0;
+left: 30%;
+height: 25px;
+width: 25px;
+background-color: rgb(255, 255, 255);
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+background-color:#45be7d;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+left: 9px;
+top: 5px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 3px 3px 0;
+-webkit-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+.update-container{
+justify-content:flex-start;
+display: flex;
+
+}
+@media only screen and (max-width:600px){
+.currentParty{
+flex-direction: column;
+}
+.title{
+font-size:16px;
+}
+.together{
+flex-direction:row;
+}
+.sidenav a{
+font-size:15px;
+text-align:center;
+}
+.container{
+padding-left:70px;
+font-size:15px;
+}
+.checkmark{
+width:15px;
+height:15px;
+left:25%;
+}
+.sidenav{
+width:35%;
+
+}
+.options{
+width:65%;
+margin-left:35%;
+}
+.upload-flex{
+margin:auto;
+width:100%;
+}
+.container .checkmark:after{
+left:6px;
+top:1px;
+width:2px;
+height:9px;
+}
+}
+.sidenav a{
+padding: 8px 8px 8px 3px;
+}

@@ -34,6 +34,10 @@ app.use("/event", eventRoutes);
 app.use("/party", userPartyRoutes);
 app.use("/manage", manageRoutes);
 app.use("/statistic",statisticRoutes);
+app.use("/uploads",express.static('uploads'));
 app.use(express.static('pages'));
+app.use(express.static('scripts'));
+app.use(express.static('images'));
+
 
 app.listen(5000, () => console.log('Server started on port 5000'));

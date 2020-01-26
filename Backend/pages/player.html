@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <audio controls muted="True" autoplay="True" loop="True">
+        <source  id="song" type="audio/mpeg">
+        Hai salut asculti asta !
+    </audio> -->
+    <script>
+        let body=document.getElementsByTagName('body');
+        let partyId=window.localStorage.getItem('id_party');
+        let token= window.localStorage.getItem('userToken');
+       
+        document.addEventListener('DOMContentLoaded',fetchSong)
+        function fetchSong(){
+            fetch("http://localhost:5000/manage/new-song/"+partyId,{
+            headers:{
+                'Accept': '*/*',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+token
+            }
+        })
+        .then(resp=>resp.json())
+        .then(resp=>{
+            console.log(resp.message);
+            let path=resp.message.path.split("\\");
+            let audio=document.createElement("audio");
+            audio.autoplay="True";
+            let source=document.createElement('source');
+            source.type="audio/mpeg";
+            source.src="/uploads/"+path[path.length-1];
+            audio.controls="controls";
+            audio.autoplay="True";
+            audio.appendChild(source);
+            document.body.appendChild(audio);
+            let durata=resp.message.durata
+            window.localStorage.setItem('time',durata);
+            audio.onended= async function getNext(){
+
+            }
+        })
+        }
+       
+        
+        setTimeout(()=>{
+            fetchSong();
+        },5000)
+     
+        
+        
+        
+
+        </script>
+</body>
+</html>
