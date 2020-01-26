@@ -126,6 +126,7 @@ function showPosition(position) {
 }
 
 getLocation();
+
 let submit= document.getElementById('uploadForm');
       submit.addEventListener('submit',function(){
         event.preventDefault();
@@ -157,9 +158,10 @@ style.addEventListener('submit',function(){
   for (var i = 0; i < checkboxes.length; i++) {
   array.push(checkboxes[i].value)
 }
+  let id_petrecere=window.localStorage.getItem('id_party')
   let stiluri={
     "style": array,
-    "id_petrecere":11
+    "id_petrecere":id_petrecere
   }
 fetch("http://localhost:5000/upload/style",{
   method:"POST",
@@ -172,7 +174,7 @@ fetch("http://localhost:5000/upload/style",{
 })
 .then(resp=>resp.json())
 .then(res=>{
-  console.log(res)
+  alert("Styles updated!")
 })
 })
       </script>
