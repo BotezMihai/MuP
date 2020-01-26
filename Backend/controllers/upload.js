@@ -44,7 +44,7 @@ async function insert_new_song(title, artist, duration, song, album, id_petrecer
 // de schimbat raza si ora din time_location
 exports.upload_style = async (req, res) => {
     // numele din formularul html
-    const { style } = req.body;
+    const style = req.body.style;
     // const style = ['rock', 'pop'];
     var data = [];
     for (let el of style) {
