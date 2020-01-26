@@ -57,8 +57,8 @@ async function id_songs_used_party(id_party) {
 
 async function search_new_song(res, id_melodie, id_petrecere) {
 
-    var results_info_song = await config.query(`select * from melodii_user left join melodii on melodii_user.titlu_melodie=melodii.titlu 
-                                    left join tag on tag.id_melodie=melodii.id where melodii.id=:id_melodie and melodii_user.id_petrecere=:id_petrecere`,
+    var results_info_song = await config.query(`select * from melodii_user inner join melodii on melodii_user.titlu_melodie=melodii.titlu 
+                                    inner join tag on tag.id_melodie=melodii.id where melodii.id=:id_melodie and melodii_user.id_petrecere=:id_petrecere`,
         { replacements: { id_melodie: id_melodie, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true });
     console.log(results_info_song);
     var id_songs_used = await id_songs_used_party(id_petrecere);
@@ -134,8 +134,8 @@ exports.get_new_song = async (req, res) => {
         // prima melodie din playlist
         var style = await get_stiluri_desc(id_petrecere);
         console.log(style);
-        var result_info_songs_unused = await config.query(`select * from melodii_user left join melodii on melodii_user.titlu_melodie=melodii.titlu 
-    left join tag on tag.id_melodie=melodii.id where melodii_user.id_petrecere=:id_petrecere`,
+        var result_info_songs_unused = await config.query(`select * from melodii_user inner join melodii on melodii_user.titlu_melodie=melodii.titlu 
+    inner join tag on tag.id_melodie=melodii.id where melodii_user.id_petrecere=:id_petrecere`,
             { replacements: { id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true }
         );
         for (let i = 0; i < style.length; i++) {
