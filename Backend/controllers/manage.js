@@ -62,8 +62,8 @@ async function search_new_song(res, id_melodie, id_petrecere) {
         { replacements: { id_melodie: id_melodie, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true });
     console.log(results_info_song);
     var id_songs_used = await id_songs_used_party(id_petrecere);
-    var result_info_songs_unused = await config.query(`select * from melodii_user left join melodii on melodii_user.titlu_melodie=melodii.titlu 
-    left join tag on tag.id_melodie=melodii.id where melodii.id not in (:ids) and melodii_user.id_petrecere=:id_petrecere`,
+    var result_info_songs_unused = await config.query(`select * from melodii_user inner join melodii on melodii_user.titlu_melodie=melodii.titlu 
+    inner join tag on tag.id_melodie=melodii.id where melodii.id not in (:ids) and melodii_user.id_petrecere=:id_petrecere`,
         { replacements: { ids: id_songs_used, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true }
     );
     console.log(result_info_songs_unused);
@@ -76,7 +76,7 @@ async function search_new_song(res, id_melodie, id_petrecere) {
                 var datetime = get_time_now();
                 var result_insert = await Playing.create({
                     id_melodie: result_info_songs_unused[j].id_melodie,
-                    id_petrecere: result_info_songs_unused[j].id_petrecere,
+                    id_petrecere: id_petrecere,
                     start: datetime
                 });
                 return res.status(200).json({
@@ -95,7 +95,7 @@ async function search_new_song(res, id_melodie, id_petrecere) {
                 var datetime = get_time_now();
                 var result_insert = await Playing.create({
                     id_melodie: result_info_songs_unused[j].id_melodie,
-                    id_petrecere: result_info_songs_unused[j].id_petrecere,
+                    id_petrecere: id_petrecere,
                     start: datetime
                 });
                 return res.status(200).json({
