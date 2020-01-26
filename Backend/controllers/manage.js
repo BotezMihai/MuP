@@ -132,7 +132,7 @@ exports.get_new_song = async (req, res) => {
     });
     if (playList.length == 0) {
         // prima melodie din playlist
-        var style = await get_stiluri_desc(req.body.id_petrecere);
+        var style = await get_stiluri_desc(id_petrecere);
         console.log(style);
         var result_info_songs_unused = await config.query(`select * from melodii_user left join melodii on melodii_user.titlu_melodie=melodii.titlu 
     left join tag on tag.id_melodie=melodii.id where melodii_user.id_petrecere=:id_petrecere`,
@@ -145,7 +145,7 @@ exports.get_new_song = async (req, res) => {
                     var datetime = get_time_now();
                     var result_insert = await Playing.create({
                         id_melodie: result_info_songs_unused[j].id_melodie,
-                        id_petrecere: result_info_songs_unused[j].id_petrecere,
+                        id_petrecere: id_petrecere,
                         start: datetime
                     });
                     return res.status(200).json({
@@ -158,7 +158,7 @@ exports.get_new_song = async (req, res) => {
             var datetime = get_time_now();
             var result_insert = await Playing.create({
                 id_melodie: result_info_songs_unused[0].id_melodie,
-                id_petrecere: result_info_songs_unused[0].id_petrecere,
+                id_petrecere: id_petrecere,
                 start: datetime
             });
             return res.status(200).json({
