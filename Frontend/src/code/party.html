@@ -40,7 +40,6 @@
           <div>
             <form id  =  "uploadForm"
              enctype   =  "multipart/form-data"
-            
             >
            <label id="song">Choose a file<input type="file"  id="myFileInput" size="70"></label>
            <label id="incarca">Upload<input type="submit" value="Upload" id="submit" class="upload" name="submit"></label>
@@ -51,30 +50,30 @@
  <div class="upload-flex">
           <p class="second-title"> Pick up one or more styles</p>
          <form id="stiluri">
-           <div class="form-body">
+           <div class="form-body" id="stil">
            <div class="half-one">
               <label class="container">Pop
-               <input type="checkbox" name="pop" value="pop"/>
+               <input type="checkbox" class="messageCheckbox" value="pop"/>
               <span class="checkmark"></span>
                </label>
               <label class="container">Jazz
-                <input type="checkbox" name="jazz" value="jazz"/>
+                <input type="checkbox" class="messageCheckbox"  value="jazz"/>
                 <span class="checkmark"></span>
               </label>
               <label class="container">Rock
-                <input type="checkbox" name="rock" value="rock"/>
+                <input type="checkbox" class="messageCheckbox"  value="rock"/>
                 <span class="checkmark"></span>
               </label>
            </div>
            <div class="half-two"> 
               <label class="container">Classic
-                <input type="checkbox" name="classical" value="classical"/>
+                <input type="checkbox" class="messageCheckbox"  value="classical"/>
                 <span class="checkmark"></span>
               </label>
             <label class="container">Latino
-              <input type="checkbox"name="latino" value="latino"/>
+              <input type="checkbox" class="messageCheckbox" value="latino"/>
               <span class="checkmark"></span></label>
-            <label class="container">Disco<input type="checkbox" name="disco" value="disco"/><span class="checkmark"></span></label>
+            <label class="container">Disco<input type="checkbox" class="messageCheckbox" value="disco"/><span class="checkmark"></span></label>
           </div>
          </div>
          <div class="update-container">
@@ -115,20 +114,67 @@ function showPosition(position) {
   .then(resp=>{
   
     if (resp.status==='OK'){
+      console.log(resp)
+      window.localStorage.setItem('id_party',resp.id_party)
       currentParty.style.display="flex";
-      let submit= document.getElementById('uploadForm');
-      submit.addEventListener('submit',function(){
-        event.preventDefault();
-        var file = document.getElementById('myFileInput').files[0];
-      console.log(file);
-      })
+      
     }
     else{
       alert(resp.message);
     }
   })
 }
+
 getLocation();
+let submit= document.getElementById('uploadForm');
+      submit.addEventListener('submit',function(){
+        event.preventDefault();
+        var file = document.getElementById('myFileInput').files[0];
+        let formData=new FormData();
+        formData.append('melodie',file);
+        let id_party=window.localStorage.getItem('id_party')
+        formData.append('id_petrecere',id_party);
+        
+        fetch("http://localhost:5000/upload/song",{
+          method:"POST",
+          headers:{
+            'Accept': '*/*',
+            'Authorization':'Bearer '+token
+          },
+          body:formData
+        })
+        .then(resp=>resp.json())
+        .then(resp=>{
+          alert("Uploaded succesully!")
+        })
+      })
+let style=document.getElementById('stiluri');
+style.addEventListener('submit',function(){
+  event.preventDefault();
+  console.log("lalalala")
+  var array = []
+  var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+  for (var i = 0; i < checkboxes.length; i++) {
+  array.push(checkboxes[i].value)
+}
+  let stiluri={
+    "style": array,
+    "id_petrecere":11
+  }
+fetch("http://localhost:5000/upload/style",{
+  method:"POST",
+  headers:{
+      'Accept': '*/*',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+token
+  },
+  body:JSON.stringify(stiluri)
+})
+.then(resp=>resp.json())
+.then(res=>{
+  console.log(res)
+})
+})
       </script>
       </body>
       </html>
