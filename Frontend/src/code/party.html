@@ -161,7 +161,7 @@ style.addEventListener('submit',function(){
   let id_petrecere=window.localStorage.getItem('id_party')
   let stiluri={
     "style": array,
-    "id_petrecere":id_petrecere
+    "user_party":id_petrecere
   }
 fetch("http://localhost:5000/upload/style",{
   method:"POST",
