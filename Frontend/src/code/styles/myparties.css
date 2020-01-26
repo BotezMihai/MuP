@@ -47,7 +47,7 @@ body {
 }
 
 .sidenav .closeNav {
-    display: none;
+    display: block;
     position: absolute;
     top: 0;
     right: 25px;
@@ -68,7 +68,7 @@ body {
 }
 
 .menu {
-    display: none;
+    display: block;
     position: absolute;
     top: 10px;
     left: 20px;
@@ -149,7 +149,7 @@ body {
     transition: 0.3s;
     background-image: url('../images/secondbg.jpg');
     background-size: cover;
-    width: max-content;
+    width:300px;
     border: 8px solid white;
     border-style: double;
     margin: 10px;
