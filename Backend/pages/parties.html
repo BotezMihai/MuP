@@ -24,7 +24,7 @@
             <a href="party.html">Current party</a>
             <a href="settings.html">Settings</a>
             <a href="statistics.html">Statistics</a>
-            <a href="#">Log out</a>
+            <a href=""><button onclick="logout()">Log out</button></a>
         </div>
         <div class="parties">
             <span class="menu" onclick="openNav()">&#9776;</span>
@@ -37,11 +37,15 @@
 
 <script src="js/ui.js"></script>
 <script>
+
 var wrapper=document.getElementById('parties');
 document.addEventListener("DOMContentLoaded",getData);
 let token = window.localStorage.getItem('userToken');
+if(token===null){
+    window.location.replace('/firstpage.html');
+}
 let data=[];
-console.log(token)
+
 async function getData (){
  let response=await fetch("http://localhost:5000/event/get-parties",{
         method:'GET',
@@ -64,10 +68,8 @@ getData().then(result=>{
    
      getVals(request).then(resultat=>{
         
-             copy[i].street=resultat;
-         
-            //  result[i].street=resultat;
-            var card=document.createElement('div');
+        copy[i].street=resultat;
+        var card=document.createElement('div');
         card.className='card';
         card.id=copy[i].id;
         var container=document.createElement('div'); 
@@ -128,6 +130,11 @@ getData().then(result=>{
      let response= await fetch('https://api.opencagedata.com/geocode/v1/json?q='+request+'&key=466c09a776ed417b8ace9ad07c6527d9')
      let resp= await response.json();
      return resp.results[0].formatted;
+ }
+
+ function logout(){
+     localStorage.removeItem('userToken');
+     console.log(token)
  }
 </script>
 </html>

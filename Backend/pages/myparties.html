@@ -24,7 +24,7 @@
             <a href="party.html">Current party</a>
             <a href="settings.html">Settings</a>
             <a href="statistics.html">Statistics</a>
-            <a href="#">Log out</a>
+            <a href=""><button onclick="logout()">Log out</button></a>
         </div>
         <div class="create" id="creation">
             <span class="menu" onclick="openNav()">&#9776;</span>
@@ -70,9 +70,8 @@
                 <div class="start-hour">
                     <label for="start-hour">Start Hour</label>
                     <div class="time">
-                        <input id="start-hour" type="number" min="0" max="23" placeholder="00" required="true">
-                        <span>:</span>
-                        <input id="start-min" type="number" min="0" max="59" placeholder="00" required="true">
+                        <input id="start-hour" type="time" name="usr_time" required="true">
+                        
                     </div>
                 </div>
                 <button class="createButton" id="createParty" onclick="createPetrecere();">Create Party</button>
@@ -81,6 +80,10 @@
     </div>
 
     <script>
+       function logout(){
+     localStorage.removeItem('userToken');
+     window.location.replace('/firstpage.html')
+ }
         var creation = document.getElementById('creation');
         var partiesAttend = document.getElementById('future');
         future.style.display = 'none';
@@ -119,6 +122,9 @@
         var upcoming=document.getElementById('upcoming');
         upcoming.addEventListener('click', getPartiesJoined);
         let token = window.localStorage.getItem('userToken');
+        if(token===null){
+            window.location.replace('/firstpage.html')
+        }
         async function getPartiesJoined() {
             let response = await fetch('/party/get-parties', {
                 method: 'GET',
@@ -127,15 +133,22 @@
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 }
+            }).catch((error)=>{
+                console.log(error);
             })
             let rezultat = await response.json();
-            return rezultat.message;
+            return rezultat;
         }
         getPartiesJoined().then(result => {
-            let copy = result;
-            for (let i = 0; i < result.length; i++) {
-                let latitude = result[i].latitudine;
-                var longitudine = result[i].longitudine;
+            let copy = result.message;
+            console.log(result)
+            if(result.code==="404"){
+                    console.log(result.code)    
+            }
+            else{
+            for (let i = 0; i < result.message.length; i++) {
+                let latitude = result.message[i].latitudine;
+                var longitudine = result.message[i].longitudine;
                 let request = latitude + "%2C" + longitudine;
 
                 getVals(request).then(resultat => {
@@ -192,7 +205,7 @@
                     attented.appendChild(card);
 
                 })
-            }
+            }}
         });
 
         async function getVals(request) {
@@ -214,9 +227,10 @@
         let ok_date = new_date[2]+"-"+new_date[1] + '-' + new_date[0]  ;
         console.log(ok_date)
         let hour=document.getElementById('start-hour').value;
-        let minut=document.getElementById('start-min').value;
+       
         const url = "https://api.opencagedata.com/geocode/v1/json?q="+zona+"&key=466c09a776ed417b8ace9ad07c6527d9";
-        let data=ok_date+" " + hour+":"+minut;
+        let data=ok_date+" " + hour;
+        console.log(data)
         fetch(url)
         .then(result=>result.json())
         .then(res=>{
@@ -263,15 +277,21 @@
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
                 }
+            }).catch((error)=>{
+                console.log(error)
             })
             let rezultat = await response.json();
-            return rezultat.message;
+            return rezultat;
         }
         getPartiesCreated().then(result => {
-            let copy = result;
-            for (let i = 0; i < result.length; i++) {
-                let latitude = result[i].latitudine;
-                var longitudine = result[i].longitudine;
+            let copy = result.message;
+            if(result.code==='404'){
+                alert("You don't have any parties created!")
+            }
+            else{
+            for (let i = 0; i < result.message.length; i++) {
+                let latitude = result.message[i].latitudine;
+                var longitudine = result.message[i].longitudine;
                 let request = latitude + "%2C" + longitudine;
 
                 getValori(request).then(resultat => {
@@ -339,7 +359,7 @@
 
                 })
             }
-        });
+        }});
 
         async function getValori(request) {
             let response = await fetch('https://api.opencagedata.com/geocode/v1/json?q=' + request + '&key=466c09a776ed417b8ace9ad07c6527d9')
@@ -348,21 +368,6 @@
         }
     </script>
 
-
-<script>
-function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
-    var R = 6378.137; // Radius of earth in KM
-    var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
-    var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c;
-    return d * 1000; // meters
-}
-console.log(measure( 47.1740235, 27.5748587,47.1525235,27.5883748))
-</script>
 </body>
 
 </html>

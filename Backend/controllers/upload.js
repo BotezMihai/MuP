@@ -67,7 +67,6 @@ exports.upload_song = async (req, res) => {
     var song;
     var form = new formidable.IncomingForm();
     form.parse(req);
-
     form.on('fileBegin', function (name, file) {
         // eventual concatenez cu .mp3
         console.log("aici file begin");

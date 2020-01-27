@@ -38,7 +38,7 @@
                 document.body.appendChild(p)
              
 ;            }
-            else{
+           
             let path=resp.message.path.split("\\");
             let audio=document.createElement("audio");
             audio.id="song";
@@ -59,10 +59,10 @@
               
                 let element=document.getElementById('song');
                 element.parentNode.removeChild(element);
-              
+               
                 fetchSong();
                
-            })}
+            })
         }).catch((error)=>{
             console.log(error)
         })
