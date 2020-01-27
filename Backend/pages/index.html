@@ -50,19 +50,19 @@
         //     console.log(i);
         //     i++;
         // }, 1000);
-        // var socket = new WebSocket("ws://localhost:8085");
-        // socket.onopen = function () {
-        //     console.log('Connected!');
-        //     socket.send("test")
+        var socket = new WebSocket("ws://localhost:8085");
+        socket.onopen = function () {
+            console.log('Connected!');
+            socket.send("test")
 
-        // };
+        };
 
-        // socket.onmessage = function (event) {
-        //     console.log('Received data: ' + event.data);
-        //     socket.send(i);
-        //     i++;
-        //     // socket.close();
-        // };
+        socket.onmessage = function (event) {
+            console.log('Received data: ' + event.data);
+            socket.send(i);
+            i++;
+            // socket.close();
+        };
 
         // socket.onclose = function () {
         //     console.log('Lost connection!');

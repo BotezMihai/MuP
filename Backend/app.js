@@ -47,12 +47,11 @@ app.use("/youtube", youtubeRoutes);
 var j = schedule.scheduleJob('0 0 0/5 ? * * *',async function () {
 
   var deleted = await db.query(`delete from petreceri where  DATE_ADD(str_to_date(data,'%d-%m-%Y %H : %i'), INTERVAL 10 HOUR) < now();`)
+});
 app.use("/statistic",statisticRoutes);
 app.use("/uploads",express.static('uploads'));
 app.use(express.static('pages'));
 app.use(express.static('scripts'));
 app.use(express.static('images'));
 
-
-});
 app.listen(5000, () => console.log('Server started on port 5000'));

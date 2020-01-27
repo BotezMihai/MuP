@@ -19,6 +19,12 @@ const Playing = PlayingModel(config, bd);
 const DansatoriModel = require("../models/dansatori");
 const Dansatori = DansatoriModel(config, bd);
 
+var sendMsg = require('./websocket');
+function send_reset() {
+    sendMsg.reset("RESET", (err) => {
+        console.log(err);
+    })
+}
 
 async function get_stiluri_desc(id) {
     var results = await Stiluri.findAll({
@@ -79,6 +85,7 @@ async function search_new_song(res, id_melodie, id_petrecere) {
                     id_petrecere: id_petrecere,
                     start: datetime
                 });
+                send_reset();
                 return res.status(200).json({
                     message: result_info_songs_unused[j]
                 });
@@ -98,6 +105,7 @@ async function search_new_song(res, id_melodie, id_petrecere) {
                     id_petrecere: id_petrecere,
                     start: datetime
                 });
+                send_reset();
                 return res.status(200).json({
                     message: result_info_songs_unused[j]
                 });
@@ -116,10 +124,12 @@ async function search_new_song(res, id_melodie, id_petrecere) {
             id_petrecere: result_info_songs_unused_left_join[0].id_petrecere,
             start: datetime
         });
+        send_reset();
         return res.status(200).json({
             message: result_info_songs_unused_left_join[0]
         });
     } else {
+        send_reset();
         return res.status(404).json({
             message: "No more songs",
             code: "404"
@@ -152,6 +162,7 @@ exports.get_new_song = async (req, res) => {
                         id_petrecere: id_petrecere,
                         start: datetime
                     });
+                    send_reset();
                     return res.status(200).json({
                         message: result_info_songs_unused[j]
                     });
@@ -165,6 +176,7 @@ exports.get_new_song = async (req, res) => {
                 id_petrecere: id_petrecere,
                 start: datetime
             });
+            send_reset();
             return res.status(200).json({
                 message: result_info_songs_unused[0]
             });
