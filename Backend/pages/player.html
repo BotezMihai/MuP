@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="manifest" href="./manifest.json">
+    <script src="./main.js"></script>
+    <title>Document</title>
+
+</head>
+<body>
+    <!-- <audio controls muted="True" autoplay="True" loop="True">
+        <source  id="song" type="audio/mpeg">
+        Hai salut asculti asta !
+    </audio> -->
+    <p></p>
+    <script>
+        let body=document.getElementsByTagName('body');
+        let partyId=window.localStorage.getItem('id_party');
+        let token= window.localStorage.getItem('userToken');
+        let durata=0;
+        document.addEventListener('DOMContentLoaded',fetchSong)
+        function fetchSong(){
+            fetch("http://localhost:5000/manage/new-song/"+partyId,{
+            headers:{
+                'Accept': '*/*',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+token
+            }
+        })
+        .then(resp=>resp.json())
+        .then(resp=>{
+            console.log(resp)
+            if(resp.message==='No more songs'){
+                let p=document.createElement('p');
+                p.innerHTML=resp.message;
+                document.body.appendChild(p)
+             
+;            }
+            else{
+            let path=resp.message.path.split("\\");
+            let audio=document.createElement("audio");
+            audio.id="song";
+            
+            let source=document.createElement('source');
+            source.type="audio/mpeg";
+            source.src="/uploads/"+path[path.length-1];
+            audio.controls="controls";
+            audio.autoplay=true;
+          
+            audio.load();
+            audio.appendChild(source);
+            document.body.appendChild(audio);
+            durata=resp.message.durata;
+            
+            window.localStorage.setItem('time',durata);
+            audio.addEventListener('ended',function(){
+              
+                let element=document.getElementById('song');
+                element.parentNode.removeChild(element);
+              
+                fetchSong();
+               
+            })}
+        }).catch((error)=>{
+            console.log(error)
+        })
+        }
+       /* setInterval(()=>{
+        let audioThing=document.getElementById('song');
+        audioThing.addEventListener('ended',function(){
+
+        })
+       },5000) */
+    
+        
+        
+        
+
+        </script>
+</body>
+</html>

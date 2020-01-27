@@ -77,6 +77,7 @@ exports.upload_song = async (req, res) => {
     form.on('file', function (name, file) {
         console.log('Uploaded ' + file.name);
         song = path.join(__dirname, "../uploads/" + file.name);
+        console.log(song);
     });
 
     form.on('field', function (name, value) {
@@ -86,6 +87,7 @@ exports.upload_song = async (req, res) => {
     form.on("end", function () {
         mm.parseFile(song)
             .then(metadata => {
+             
                 console.log(util.inspect(metadata, { showHidden: false, depth: null }));
                 console.log(req.userData.userID);
                 console.log(metadata.common.title);
@@ -259,6 +261,7 @@ exports.time_location = async (req, res) => {
             });
         }
         else {
+            console.log(time_difference)
             var latitude = results[i].petreceri.dataValues.latitudine
             var longitude = results[i].petreceri.dataValues.longitudine;
             let event_location = { "latitude": latitude, "longitude": longitude };

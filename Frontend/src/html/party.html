@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Party</title>
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+
+    <style>
+     @import url("./styles/myparties.css"
+     );
+     @import url("./styles/party.css");
+    </style>
+</head>
+<body>
+  <div class="together">
+    <div id="mySidenav" class="sidenav">
+        <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
+        <a href="parties.html">Parties nearby</a>
+        <a href="#">My Parties</a>
+        <a href="#">Current party</a>
+        <a href="#">Settings</a>
+        <a href="#">Statistics</a>
+        <a href="#">Log out</a>
+        <a href="#" style="color:black;margin:auto"><label class="stil-submit" style="width:70%;margin:auto">Start dancing<input type="submit" class="stil-submit"></label>
+        </a>
+      </div>
+      <div class="options">
+          <div class="title" >
+              <p style="text-align: center;">Current Party : Party Name</p>
+          </div>
+            <div class="currentParty" >
+              <div class="upload-flex">
+                <div>
+                  <p class="second-title">Upload a song</p>
+                </div>
+          <div>
+            <form id  =  "uploadForm"
+      enctype   =  "multipart/form-data"
+      method    =  "post"
+      >
+ <label id="song">Choose a file<input type="file" size="70"></label>
+ <label id="incarca">Upload<input type="submit" value="Upload" class="upload" name="submit"></label>
+ </form>
+</div>    
+      
+ </div>
+ <div class="upload-flex">
+          <p class="second-title"> Pick up one or more styles</p>
+         <form id="stiluri">
+           <div class="form-body">
+           <div class="half-one">
+              <label class="container">Pop
+               <input type="checkbox" name="pop" value="pop"/>
+              <span class="checkmark"></span>
+               </label>
+              <label class="container">Jazz
+                <input type="checkbox" name="jazz" value="jazz"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="container">Rock
+                <input type="checkbox" name="rock" value="rock"/>
+                <span class="checkmark"></span>
+              </label>
+           </div>
+           <div class="half-two"> 
+              <label class="container">Classic
+                <input type="checkbox" name="classical" value="classical"/>
+                <span class="checkmark"></span>
+              </label>
+            <label class="container">Latino
+              <input type="checkbox"name="latino" value="latino"/>
+              <span class="checkmark"></span></label>
+            <label class="container">Disco<input type="checkbox" name="disco" value="disco"/><span class="checkmark"></span></label>
+          </div>
+         </div>
+         <div class="update-container">
+          <label class="stil-submit">Update<input type="submit" class="stil-submit"></label>
+         </div>
+        </form>
+</div>
+      </div>
+      </div>
+      </body>
+      </html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Parties</title>
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        @import url("./styles/myparties.css");
+    </style>
+</head>
+
+<body>
+    <div class="together">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
+            <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
+            <a href="parties.html">Parties nearby</a>
+            <a href="myparties.html">My Parties</a>
+            <a href="party.html">Current party</a>
+            <a href="settings.html">Settings</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="#">Log out</a>
+        </div>
+        <div class="create" id="creation">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <div class="first">
+                <p class="title">Parties created</p>
+                <div class="buttons">
+                    <button class="add" id="createParty">Create new party</button>
+                    <button class="switch" id="upcoming" onclick="Switch();">Upcoming parties</button>
+                </div>
+            </div>
+            <div class="second" id="created"></div>
+           
+        </div>
+
+        <!--Upcoming parties-->
+        <div class="create" id="future">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <div class="first">
+                <span class="title">Upcoming Parties</span>
+                <button class="upcoming" onclick="SwitchAdd();">Parties created</button>
+            </div>
+            <div class="second" id='petreceri'></div>
+        </div>
+    </div>
+
+    <!--Create Party Modal-->
+    <div id="createPartyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form class="create-form">
+                <div>
+                    <label for="party-name">Party Name</label>
+                    <input id="party-name" type="text" required="true" placeholder="Enter Name" />
+                </div>
+                <div>
+                    <label for="location">Party Location</label>
+                    <input id="location" type="text" required="true" autocomplete="off" placeholder="Enter Address" />
+                </div>
+                <div class="date">
+                    <label for="date">Date</label>
+                    <input id="date" type="date" required="true" />
+                </div>
+                <div class="start-hour">
+                    <label for="start-hour">Start Hour</label>
+                    <div class="time">
+                        <input id="start-hour" type="number" min="0" max="23" placeholder="00" required="true">
+                        <span>:</span>
+                        <input id="start-min" type="number" min="0" max="59" placeholder="00" required="true">
+                    </div>
+                </div>
+                <button class="createButton" id="createParty" onclick="createPetrecere();">Create Party</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var creation = document.getElementById('creation');
+        var partiesAttend = document.getElementById('future');
+        future.style.display = 'none';
+
+        function Switch() {
+            creation.style.display = "none";
+            future.style.display = "block";
+        }
+
+        function SwitchAdd() {
+            creation.style.display = "block";
+            future.style.display = "none";
+        }
+
+        var modal = document.getElementById("createPartyModal");
+        var btn = document.getElementById("createParty");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        var today = new Date().toISOString().substr(0, 10);
+        document.querySelector("#date").value = today;
+    </script>
+    <script src="js/ui.js"></script>
+    <script>
+        var attented = document.getElementById('petreceri');
+        var upcoming=document.getElementById('upcoming');
+        upcoming.addEventListener('click', getPartiesJoined);
+        let token = window.localStorage.getItem('userToken');
+        async function getPartiesJoined() {
+            let response = await fetch('/party/get-parties', {
+                method: 'GET',
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            let rezultat = await response.json();
+            return rezultat.message;
+        }
+        getPartiesJoined().then(result => {
+            let copy = result;
+            for (let i = 0; i < result.length; i++) {
+                let latitude = result[i].latitudine;
+                var longitudine = result[i].longitudine;
+                let request = latitude + "%2C" + longitudine;
+
+                getVals(request).then(resultat => {
+
+                    copy[i].street = resultat;
+                    var card = document.createElement('div');
+                    card.className = 'card';
+                    card.id = copy[i].id_petrecere;
+                    var container = document.createElement('div');
+                    container.className = 'container';
+                    var pName = document.createElement('p');
+                    pName.innerText = 'Party : ' + copy[i].nume;
+                    var date = document.createElement('p');
+                    date.innerHTML = "Date :  " + copy[i].data;
+                    var location = document.createElement('p');
+                    location.innerHTML = "Location :  " + copy[i].street;
+                    var button = document.createElement('div');
+                    button.className = 'button_container';
+                    var buttonel = document.createElement('button');
+                    buttonel.className = 'btn';
+                    buttonel.onclick = function () {
+                        partyId = copy[i].id_petrecere;
+                        var object = {
+                            'id_petrecere': partyId
+                        }
+                        console.log(object);
+                        fetch('http://localhost:5000/party/delete-party/' + partyId, {
+                            method: 'DELETE',
+                            headers: {
+                                'Accept': '*/*',
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + token
+
+                            },
+                            body: JSON.stringify(object)
+                        })
+                            .then(resp => resp.json())
+                            .then(response => {
+                                console.log(response);
+                                alert("Attend canceled ");
+                                var element = document.getElementById(partyId);
+                                element.parentNode.removeChild(element);
+                            })
+                    }
+                    var span = document.createElement('span');
+                    span.innerHTML = "Can't go";
+                    buttonel.appendChild(span);
+                    button.appendChild(buttonel);
+                    container.appendChild(pName);
+                    container.appendChild(date);
+                    container.appendChild(location);
+                    card.appendChild(container);
+                    card.appendChild(button);
+                    attented.appendChild(card);
+
+                })
+            }
+        });
+
+        async function getVals(request) {
+            let response = await fetch('https://api.opencagedata.com/geocode/v1/json?q=' + request + '&key=466c09a776ed417b8ace9ad07c6527d9')
+            let resp = await response.json();
+            return resp.results[0].formatted;
+        }
+    </script>
+
+    <!-- Create Party-->
+    <script>
+    function createPetrecere(){
+        
+        event.preventDefault();
+        let name=document.getElementById('party-name').value;
+        let zona=document.getElementById('location').value;
+        let date=document.getElementById("date").value;
+        let new_date=date.split('-');
+        let ok_date = new_date[2]+"-"+new_date[1] + '-' + new_date[0]  ;
+        console.log(ok_date)
+        let hour=document.getElementById('start-hour').value;
+        let minut=document.getElementById('start-min').value;
+        const url = "https://api.opencagedata.com/geocode/v1/json?q="+zona+"&key=466c09a776ed417b8ace9ad07c6527d9";
+        let data=ok_date+" " + hour+":"+minut;
+        fetch(url)
+        .then(result=>result.json())
+        .then(res=>{
+            var lat=res.results[0].geometry.lat;
+            var long=res.results[0].geometry.lng;
+            let party={
+                "latitudine":lat,
+                "longitudine":long,
+                "nume":name,
+                "data":data
+
+            }
+            console.log(party);
+            fetch("http://localhost:5000/event/add-party",{
+                method:"POST",
+                headers:{
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body:JSON.stringify(party)
+            })
+            .then(response=>response.json())
+            .then(resp=>{
+                if(resp.message==='OK'){
+                    alert("Party created succesfully!")
+                }
+            })
+        })
+    }
+
+    </script>
+
+    <!---My PARTIES-->
+    <script>
+       var created = document.getElementById('created');
+       document.addEventListener('DOMContentLoaded',getPartiesCreated);
+       
+        async function getPartiesCreated() {
+            let response = await fetch('http://localhost:5000/event/my-parties', {
+                method: 'GET',
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            let rezultat = await response.json();
+            return rezultat.message;
+        }
+        getPartiesCreated().then(result => {
+            let copy = result;
+            for (let i = 0; i < result.length; i++) {
+                let latitude = result[i].latitudine;
+                var longitudine = result[i].longitudine;
+                let request = latitude + "%2C" + longitudine;
+
+                getValori(request).then(resultat => {
+
+                    copy[i].street = resultat;
+                    var card = document.createElement('div');
+                    card.className = 'card';
+                    card.id = copy[i].id;
+                    var container = document.createElement('div');
+                    container.className = 'container';
+                    var pName = document.createElement('p');
+                    pName.innerText = 'Party : ' + copy[i].nume;
+                    var date = document.createElement('p');
+                    date.innerHTML = "Date :  " + copy[i].data;
+                    var location = document.createElement('p');
+                    location.innerHTML = "Location :  " + copy[i].street;
+                    var button = document.createElement('div');
+                    button.className = 'button_container';
+                    var update_party=document.createElement('button');
+                    update_party.className='btn';
+                    var delete_party = document.createElement('button');
+                    delete_party.className = 'btn';
+                    
+                    delete_party.onclick = function () {
+                        partyId = copy[i].id;
+                        var object = {
+                            'id_petrecere': partyId
+                        }
+                        console.log(object);
+                        fetch('http://localhost:5000/event/delete-party?id=' + partyId, {
+                            method: 'DELETE',
+                            headers: {
+                                'Accept': '*/*',
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + token
+
+                            },
+                            
+                        })
+                            .then(resp => resp.json())
+                            .then(response => {
+                                console.log(response);
+                                alert("Party  canceled ");
+                                var element = document.getElementById(partyId);
+                                element.parentNode.removeChild(element);
+                            })
+                    }
+                    update_party.onclick=function(){
+                        window.open('http://localhost:5000/player.html');
+                    }
+                    var span = document.createElement('span');
+                    span.innerHTML = "Delete";
+                    var update_span=document.createElement('span');
+                    update_span.innerHTML="Start";
+                    update_party.appendChild(update_span);
+                    button.appendChild(update_party);
+                    delete_party.appendChild(span);
+                    button.appendChild(delete_party);
+                    container.appendChild(pName);
+                    container.appendChild(date);
+                    container.appendChild(location);
+                    card.appendChild(container);
+                    card.appendChild(button);
+                    created.appendChild(card);
+
+                })
+            }
+        });
+
+        async function getValori(request) {
+            let response = await fetch('https://api.opencagedata.com/geocode/v1/json?q=' + request + '&key=466c09a776ed417b8ace9ad07c6527d9')
+            let resp = await response.json();
+            return resp.results[0].formatted;
+        }
+    </script>
+
+
+<script>
+function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
+    var R = 6378.137; // Radius of earth in KM
+    var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+    var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d * 1000; // meters
+}
+console.log(measure( 47.1740235, 27.5748587,47.1525235,27.5883748))
+</script>
+</body>
+
+</html>
