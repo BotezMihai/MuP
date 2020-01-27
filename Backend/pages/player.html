@@ -31,6 +31,7 @@
         })
         .then(resp=>resp.json())
         .then(resp=>{
+            console.log(resp)
             if(resp.message==='No more songs'){
                 let p=document.createElement('p');
                 p.innerHTML=resp.message;
@@ -58,7 +59,7 @@
               
                 let element=document.getElementById('song');
                 element.parentNode.removeChild(element);
-                document.location.reload(true);
+              
                 fetchSong();
                
             })}

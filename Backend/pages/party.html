@@ -213,9 +213,6 @@ fetch("http://localhost:5000/upload/style",{
        
         });
         gyroscope.start();
-        
-       
-       
     var i = 0;
    
     socket.onopen = function () {
@@ -229,7 +226,7 @@ fetch("http://localhost:5000/upload/style",{
 
     socket.onmessage = function (event) {
         console.log('Received data: ' + event.data);
-        // socket.close();
+        //socket.close();
     };
     socket.onclose = function () {
         console.log('Lost connection!');

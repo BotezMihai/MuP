@@ -100,7 +100,7 @@ exports.get_new_song = async (req, res) => {
             where: { id_petrecere: id_petrecere },
             raw: true
         });
-        console.log(results[0].nr);
+       /*  console.log(results[0].nr);
         var result_info_song = await config.query(`select * from melodii_user inner join melodii on melodii_user.titlu_melodie=melodii.titlu 
     inner join tag on tag.id_melodie=melodii.id where melodii.id=:id_melodie and melodii_user.id_petrecere=:id_petrecere`,
             { replacements: { id_melodie: results[0].id_melodie, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true });
@@ -110,7 +110,7 @@ exports.get_new_song = async (req, res) => {
                 youtube y on p.id_youtube=y.id_video join dansatori d on p.id=d.id_playing where p.id_petrecere=${id_petrecere} and y.tag=${element.}
                 group by y.id_video, y.tag by count(*) desc  `);
             console.log(count,"heheheheh");
-        }
+        } */
         // var new_song = await search_new_song(res, results[0].id_melodie, id_petrecere);
     }
     else {
