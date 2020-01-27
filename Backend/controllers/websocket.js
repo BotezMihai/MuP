@@ -52,7 +52,7 @@ wss.on('connection', (ws, req) => {
                 where: { start: { [bd.Op.lte]: bd.literal(`str_to_date('${time_request}','%Y-%m-%d %H:%i:%s')`) }, id_petrecere: { [bd.Op.eq]: id_party } },
                 raw: true
             });
-            var id_playing = results[0].id; 
+            var id_playing = results[results.length-1].id; 
             try {
                 var resultsDansatori = await Dansatori.findOne({
                     where: { id_user: { [bd.Op.eq]: decoded.userID }, id_playing: { [bd.Op.eq]: id_playing } },
