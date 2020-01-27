@@ -22,7 +22,7 @@
         <input type="file" name="upload" multiple="multiple" accept=".mp3"><br>
         <input type="submit" value="Upload">
     </form>
-    <audio id="audio" controls muted="True" autoplay="True" loop="True">
+    <audio id="audio" controls autoplay="True" loop="True">
         <source src="1.mp3" type="audio/mpeg">
         Your browser does not support the audio tag.
     </audio>
@@ -50,19 +50,19 @@
         //     console.log(i);
         //     i++;
         // }, 1000);
-        // var socket = new WebSocket("ws://localhost:8085");
-        // socket.onopen = function () {
-        //     console.log('Connected!');
-        //     socket.send("test")
+        var socket = new WebSocket("ws://localhost:8085");
+        socket.onopen = function () {
+            console.log('Connected!');
+            socket.send("test")
 
-        // };
+        };
 
-        // socket.onmessage = function (event) {
-        //     console.log('Received data: ' + event.data);
-        //     socket.send(i);
-        //     i++;
-        //     // socket.close();
-        // };
+        socket.onmessage = function (event) {
+            console.log('Received data: ' + event.data);
+            socket.send(i);
+            i++;
+            // socket.close();
+        };
 
         // socket.onclose = function () {
         //     console.log('Lost connection!');

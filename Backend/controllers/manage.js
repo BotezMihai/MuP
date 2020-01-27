@@ -19,6 +19,12 @@ const Playing = PlayingModel(config, bd);
 const DansatoriModel = require("../models/dansatori");
 const Dansatori = DansatoriModel(config, bd);
 
+var sendMsg = require('./websocket');
+function send_reset() {
+    sendMsg.reset("RESET", (err) => {
+        console.log(err);
+    })
+}
 
 async function get_stiluri_desc(id) {
     var results = await Stiluri.findAll({
@@ -79,6 +85,7 @@ async function search_new_song(res, id_melodie, id_petrecere) {
                     id_petrecere: id_petrecere,
                     start: datetime
                 });
+                send_reset();
                 return res.status(200).json({
                     message: result_info_songs_unused[j]
                 });
@@ -98,28 +105,31 @@ async function search_new_song(res, id_melodie, id_petrecere) {
                     id_petrecere: id_petrecere,
                     start: datetime
                 });
+                send_reset();
                 return res.status(200).json({
                     message: result_info_songs_unused[j]
                 });
             }
         }
     }
-    var result_info_songs_unused_left_join = await config.query(`select * from melodii_user left join melodii on melodii_user.titlu_melodie=melodii.titlu 
-    left join tag on tag.id_melodie=melodii.id where melodii.id not in (:ids) and melodii_user.id_petrecere=:id_petrecere`,
+    var result_info_songs_unused_last = await config.query(`select * from melodii 
+     where melodii.id not in (:ids) and melodii.id_petrecere=:id_petrecere`,
         { replacements: { ids: id_songs_used, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true }
     );
     // returnez o melodie care nu i s a mai dat play
-    if (result_info_songs_unused_left_join.length != 0) {
+    if (result_info_songs_unused_last.length != 0) {
         var datetime = get_time_now();
         var result_insert = await Playing.create({
-            id_melodie: result_info_songs_unused_left_join[0].id_melodie,
-            id_petrecere: result_info_songs_unused_left_join[0].id_petrecere,
+            id_melodie: result_info_songs_unused_last[0].id,
+            id_petrecere: result_info_songs_unused_last[0].id_petrecere,
             start: datetime
         });
+        send_reset();
         return res.status(200).json({
-            message: result_info_songs_unused_left_join[0]
+            message: result_info_songs_unused_last[0]
         });
     } else {
+        send_reset();
         return res.status(404).json({
             message: "No more songs",
             code: "404"
@@ -152,6 +162,7 @@ exports.get_new_song = async (req, res) => {
                         id_petrecere: id_petrecere,
                         start: datetime
                     });
+                    send_reset();
                     return res.status(200).json({
                         message: result_info_songs_unused[j]
                     });
@@ -165,6 +176,7 @@ exports.get_new_song = async (req, res) => {
                 id_petrecere: id_petrecere,
                 start: datetime
             });
+            send_reset();
             return res.status(200).json({
                 message: result_info_songs_unused[0]
             });

@@ -41,81 +41,47 @@ async function get_youtube_id(singer_name) {
     return json;
     // console.log(json.items[0].id);
 }
-async function search_new_song(res, id_melodie, id_petrecere) {
-    var results_info_song = await config.query(`select * from melodii_user left join melodii on melodii_user.titlu_melodie=melodii.titlu 
-    left join tag on tag.id_melodie=melodii.id where melodii.id=:id_melodie and melodii_user.id_petrecere=:id_petrecere`,
-        { replacements: { id_melodie: id_melodie, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true });
-    console.log(results_info_song);
-    const URL_TOP_ARTISTS = encodeURI(`http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=${results_info_song[0].tag}&api_key=4d7c7783c33be71fec00763625260dc8&format=json`);
+async function search_new_song(res, id_petrecere, stil) {
+    console.log(stil.stil);
+    const URL_TOP_ARTISTS = encodeURI(`http://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=${stil.stil}&api_key=4d7c7783c33be71fec00763625260dc8&format=json`);
     var results = await fetch(URL_TOP_ARTISTS);
     var json = await results.json();
     var results_youtube = await Youtube.findAll({
         where: { id_petrecere: id_petrecere }
     });
-    var found = false;
-    for (let song of json.topartists.artist) {
-        var youtube = await get_youtube_id(song.name);
-        for (let element of youtube.items) {
-            found = false;
-            for (let row of results_youtube) {
-                if (element.id.videoId == results_youtube.id_video) {
-                    found = true;
-                    break;
-                }
-            }
-            if (found == false) {
-                var created_youtube = await Youtube.create({
-                    id_video: element.id.videoId,
-                    tag: results_info_song[0].tag,
+    for (let element of json.topartists.artist) {
+        var ids = await get_youtube_id(element.name);
+        console.log(ids.items);
+        for (let id of ids.items) {
+            var id_found = await Youtube.findOne({
+                where: { id_video: id.id.videoId }
+            });
+            if (id_found == null) {
+                var insert=await Youtube.create({
+                    id_video: id.id.videoId,
                     id_petrecere: id_petrecere
                 });
-                var datetime = get_time_now();
-                var created_playing = await Playing.create({
-                    id_youtube: element.id.videoId,
-                    start: datetime,
-                    id_petrecere: id_petrecere
-                })
                 return res.json({
-                    message: element.id.videoId,
+                    message: id.id.videoId,
                     code: "200"
                 });
             }
         }
         break;
     }
+    // console.log(json.topartists.artist);
+
+
 }
 exports.get_new_song = async (req, res) => {
     var id_petrecere = req.params.id_petrecere;
     var results = await Youtube.findAll({
         where: { id_petrecere: id_petrecere }
     });
-    if (results.length == 0) {
-        Playing.hasMany(Dansatori, { foreignKey: 'id_playing' });
-        Dansatori.belongsTo(Playing, { foreignKey: 'id_playing' });
-        var results = await Playing.findAll({
-            include: [Dansatori],
-            attributes: { include: [[bd.fn(('count'), bd.col("start")), "nr"]] },
-            group: ['id_petrecere', 'id_melodie'],
-            order: bd.literal('nr DESC'),
-            where: { id_petrecere: id_petrecere },
-            raw: true
-        });
-       /*  console.log(results[0].nr);
-        var result_info_song = await config.query(`select * from melodii_user inner join melodii on melodii_user.titlu_melodie=melodii.titlu 
-    inner join tag on tag.id_melodie=melodii.id where melodii.id=:id_melodie and melodii_user.id_petrecere=:id_petrecere`,
-            { replacements: { id_melodie: results[0].id_melodie, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true });
-        console.log(result_info_song[0].tag);
-        for (let element of results) {
-            let count = await config.query(`select count(*) from playing p join
-                youtube y on p.id_youtube=y.id_video join dansatori d on p.id=d.id_playing where p.id_petrecere=${id_petrecere} and y.tag=${element.}
-                group by y.id_video, y.tag by count(*) desc  `);
-            console.log(count,"heheheheh");
-        } */
-        // var new_song = await search_new_song(res, results[0].id_melodie, id_petrecere);
-    }
-    else {
-        var x = 100;
-    }
-
+    var results_stiluri = await config.query(`select stil from stiluri s where s.id_petrecere=${id_petrecere}`, { type: config.QueryTypes.SELECT, raw: true });
+    const nr_elements = results_stiluri.length;
+    let random_nr = Math.floor(Math.random() * Math.floor(nr_elements));
+    let stil = results_stiluri[random_nr];
+    let new_song = await search_new_song(res, id_petrecere, stil);
 
 }

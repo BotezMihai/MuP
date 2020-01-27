@@ -15,6 +15,14 @@ const Dansatori = DansatoriModel(config, bd);
 const wss = new WebSocket.Server({
     port: 8085,
 });
+module.exports.reset = function (msg, callback) {
+    return wss.on("connection", function (ws) {
+      ws.send(msg, callback);
+      ws.on("close", function () {
+        console.log("websocket connection close")
+      })
+    })
+  };
 function get_time_now() {
     var currentdate = new Date();
     // var datetime = currentdate.getDate() + "/"
@@ -36,7 +44,6 @@ function get_time_now() {
 wss.on('connection', (ws, req) => {
     ws.on('message', async message => {
         console.log(message);
-        ws.send("am primit asta "+message);
         var messageSplit = message.split(',');
         const id_party = messageSplit[0];
         const total = messageSplit[1];

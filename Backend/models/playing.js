@@ -10,11 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_melodie: {
       type: DataTypes.INTEGER(11),
-      allowNull: false,
-      references: {
-        model: 'melodii',
-        key: 'id'
-      }
+      allowNull: false
+      // references: {
+      //   model: 'melodii',
+      //   key: 'id'
+      // }
     },
     start: {
       type: DataTypes.DATE,
