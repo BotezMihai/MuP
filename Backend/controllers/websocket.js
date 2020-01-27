@@ -36,7 +36,7 @@ function get_time_now() {
 wss.on('connection', (ws, req) => {
     ws.on('message', async message => {
         console.log(message);
-        ws.send("hehe");
+        ws.send("am primit asta "+message);
         var messageSplit = message.split(',');
         const id_party = messageSplit[0];
         const total = messageSplit[1];

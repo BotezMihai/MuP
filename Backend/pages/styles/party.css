@@ -4,10 +4,13 @@
 }
  .options{
    color:white;
-   width:80%;
-   margin-left:10%;
+   width:100%;
+   
   
  }
+.together{
+  justify-content: center;
+}
  #stiluri{
    display:flex;
    flex-direction: column;
@@ -35,9 +38,14 @@
  .upload-flex{
    display:flex;
    flex-direction: column;
-   width:50%;
    
-
+   
+ }
+ .stiluri{
+   width:60%
+ }
+ .songs{
+   width:40%;
  }
  #uploadForm{
    display:flex;
@@ -172,7 +180,7 @@ text-align:center;
 }
 .container{
 padding-left:70px;
-font-size:15px;
+font-size:14px;
 }
 .checkmark{
 width:15px;
@@ -181,8 +189,8 @@ left:25%;
 }
 
 .options{
-width:80%;
-margin-left:10%;
+width:100%;
+
 margin-top:20%;
 }
 .upload-flex{
