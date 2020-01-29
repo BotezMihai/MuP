@@ -6,21 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-</head>
-
-<body>
-    <h3>Pagina de test</h3>
-    <script>
-        var i = 0;
+    <!-- <script>
         var socket = new WebSocket("ws://localhost:8085?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdpZ2VsQHlhaG9vLnJvIiwidXNlcklEIjoxLCJpYXQiOjE1ODAzMjk3MjYsImV4cCI6MTU4MDM2NTcyNn0.aqLKYk3B2413cTg5jP53TrHGQsmuLlTi0Mz3Ezltph8");
         socket.onopen = function () {
             console.log("s a deschis");
             // socket.send("ns 7");
 
-            socket.send("ce faci ba?");
-           
+            // socket.send("ce faci ba?");
+
         };
-        socket.send("ce faci ba?");
+        // socket.send("ce faci ba?");
         socket.onmessage = function (event) {
             console.log('Received data: ' + event.data);
         }
@@ -32,6 +27,66 @@
         socket.onerror = function () {
             console.log('Error!');
         };
+
+
+
+
+
+    </script> -->
+</head>
+
+<body>
+    <h3>Pagina de test</h3>
+    <audio id="myAudio" controls>
+        <source src="../uploads/1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        // var i = 0;
+        // var socket = new WebSocket("ws://localhost:8085?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdpZ2VsQHlhaG9vLnJvIiwidXNlcklEIjoxLCJpYXQiOjE1ODAzMjk3MjYsImV4cCI6MTU4MDM2NTcyNn0.aqLKYk3B2413cTg5jP53TrHGQsmuLlTi0Mz3Ezltph8");
+        // socket.onopen = function () {
+        //     console.log("s a deschis");
+        //     // socket.send("ns 7");
+
+        //     // socket.send("ce faci ba?");
+
+        // };
+        // // socket.send("ce faci ba?");
+        // socket.onmessage = function (event) {
+        //     console.log('Received data: ' + event.data);
+        // }
+        // socket.onclose = function () {
+        //     console.log("pa");
+
+
+        // };
+        // socket.onerror = function () {
+        //     console.log('Error!');
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM fully loaded and parsed');
+            var socket = new WebSocket("ws://localhost:8085?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdpZ2VsQHlhaG9vLnJvIiwidXNlcklEIjoxLCJpYXQiOjE1ODAzMjk3MjYsImV4cCI6MTU4MDM2NTcyNn0.aqLKYk3B2413cTg5jP53TrHGQsmuLlTi0Mz3Ezltph8");
+            socket.onopen = function () {
+                console.log("s a deschis");
+                socket.send("ns 7");
+
+                socket.send("ce faci ba?");
+
+            };
+            // socket.send("ce faci ba?");
+            socket.onmessage = function (event) {
+                console.log('Received data: ' + event.data);
+            }
+            socket.onclose = function () {
+                console.log("pa");
+
+
+            };
+            socket.onerror = function () {
+                console.log('Error!');
+            };
+        });
+
     </script>
 </body>
 
