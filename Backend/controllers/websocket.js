@@ -27,14 +27,13 @@ const Tag = TagModel(config, bd);
 const wss = new WebSocket.Server({
     port: 8085,
 });
-// module.exports.reset = function (msg, callback) {
-//     return wss.on("connection", function (ws) {
-//       ws.send(msg, callback);
-//       ws.on("close", function () {
-//         console.log("websocket connection close")
-//       })
-//     })
-//   };
+function send_broadcasting(id_party) {
+    wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send("RESET " + id_party);
+        }
+    });
+}
 function get_time_now() {
     var currentdate = new Date();
     var datetime = currentdate.getFullYear() + "-" +
@@ -82,7 +81,7 @@ async function id_songs_used_party(id_party) {
     return id_songs_used;
 }
 
-async function search_new_song(ws,id_melodie, id_petrecere) {
+async function search_new_song(ws, id_melodie, id_petrecere) {
 
     var results_info_song = await config.query(`select * from melodii_user inner join melodii on melodii_user.titlu_melodie=melodii.titlu 
                                     inner join tag on tag.id_melodie=melodii.id where melodii.id=:id_melodie and melodii_user.id_petrecere=:id_petrecere`,
@@ -112,10 +111,11 @@ async function search_new_song(ws,id_melodie, id_petrecere) {
                 };
                 var json = JSON.stringify(message_to_sent);
                 ws.send(json);
+                send_broadcasting(id_petrecere);
                 return 0;
             }
         }
-    } 
+    }
     // caut dupa stilurile de la utilizatori
     var style = await get_stiluri_desc(id_petrecere);
     console.log(style);
@@ -135,6 +135,7 @@ async function search_new_song(ws,id_melodie, id_petrecere) {
                 };
                 var json = JSON.stringify(message_to_sent);
                 ws.send(json);
+                send_broadcasting(id_petrecere);
                 return 0;
             }
         }
@@ -157,6 +158,7 @@ async function search_new_song(ws,id_melodie, id_petrecere) {
         };
         var json = JSON.stringify(message_to_sent);
         ws.send(json);
+        send_broadcasting(id_petrecere);
         return 0;
     } else {
         var message_to_sent = {
@@ -165,13 +167,14 @@ async function search_new_song(ws,id_melodie, id_petrecere) {
         };
         var json = JSON.stringify(message_to_sent);
         ws.send(json);
+        send_broadcasting(id_petrecere);
         return 0;
     }
 }
 
 wss.on('connection', (ws, req) => {
     ws.on('message', async message => {
-        // actualizam dansatorul in bd
+        // actualizez dansatorii
         if (message[0] == 'a' && message[1] == 'd') {
             console.log("actualizam dansatorul in bd");
             var new_message = message.substring(3);
@@ -255,6 +258,7 @@ wss.on('connection', (ws, req) => {
                                 };
                                 var json = JSON.stringify(message_to_sent);
                                 ws.send(json);
+                                send_broadcasting(id_petrecere);
                                 return 0;
                             }
                         }
@@ -272,6 +276,7 @@ wss.on('connection', (ws, req) => {
                         };
                         var json = JSON.stringify(message_to_sent);
                         ws.send(json);
+                        send_broadcasting(id_petrecere);
                         return 0;
                     }
                     var message_to_sent = {
@@ -280,6 +285,7 @@ wss.on('connection', (ws, req) => {
                     };
                     var json = JSON.stringify(message_to_sent);
                     ws.send(json);
+                    send_broadcasting(id_petrecere);
                     return 0;
                 }
                 else {
@@ -296,7 +302,7 @@ wss.on('connection', (ws, req) => {
                         raw: true
                     });
                     console.log(results);
-                    var new_song = await search_new_song(ws,results[0].id_melodie, id_petrecere);
+                    var new_song = await search_new_song(ws, results[0].id_melodie, id_petrecere);
                     return 0;
                 }
             } catch (error) {
@@ -306,46 +312,7 @@ wss.on('connection', (ws, req) => {
         } else {
             console.log("sunt aici papusa");
             console.log(message);
-        }
 
-        // var messageSplit = message.split(',');
-        // const id_party = messageSplit[0];
-        // const total = messageSplit[1];
-        // var adr = req.url;
-        // var q = url.parse(adr, true);
-        // const token = q.query.token;
-        // var time_request = get_time_now();
-        // console.log(time_request);
-        // try {
-        //     const private_key = fs.readFileSync(__dirname + './../private.key', 'utf8');
-        //     const decoded = jwt.verify(token, private_key);
-        //     var results = await Playing.findAll({
-        //         where: { start: { [bd.Op.lte]: bd.literal(`str_to_date('${time_request}','%Y-%m-%d %H:%i:%s')`) }, id_petrecere: { [bd.Op.eq]: id_party } },
-        //         raw: true
-        //     });
-        //     var id_playing = results[results.length - 1].id;
-        //     try {
-        //         var resultsDansatori = await Dansatori.findOne({
-        //             where: { id_user: { [bd.Op.eq]: decoded.userID }, id_playing: { [bd.Op.eq]: id_playing } },
-        //             raw: true
-        //         })
-        //         if (resultsDansatori == null) {
-        //             var resultsInsertDansator = await Dansatori.create({
-        //                 "id_user": decoded.userID,
-        //                 "id_playing": id_playing,
-        //                 "durata": total
-        //             });
-        //         } else {
-        //             let id = await Dansatori.update(
-        //                 { durata: total },
-        //                 { where: { id_user: decoded.userID, id_playing: id_playing } });
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        //     ws.send("CODE: 400");
-        // }
+        }
     });
 });
