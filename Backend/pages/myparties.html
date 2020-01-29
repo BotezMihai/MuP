@@ -341,8 +341,24 @@
                                 element.parentNode.removeChild(element);
                             })
                     }
+                    var currentdate = new Date();
+                    var datetime =('0' + currentdate.getDate()).slice(-2) +
+                    "-"+('0' + (currentdate.getMonth() + 1)).slice(-2) + "-"
+                    + currentdate.getFullYear() + " "
+                    + currentdate.getHours() + ":"
+                    + currentdate.getMinutes() ;
+                    currentDateSplit=datetime.split(" ")[0]
+                    let dataparty=copy[i].data
+                    if(datetime>=dataparty){
+                        console.log("Bineees")
+                        update_party.style.display="block"
+                    }
+                    else{
+                        update_party.style.display="none"
+                    }
+                   
                     update_party.onclick=function(){
-
+                      
                         window.localStorage.setItem("id_party",copy[i].id)
                         window.open('http://localhost:5000/player.html');
                     }
