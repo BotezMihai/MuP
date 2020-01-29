@@ -1,252 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Party</title>
-    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Party</title>
+  <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
   <link href="./manifest.json">
-    <style>
-     @import url("./styles/myparties.css"
-     );
-     @import url("./styles/party.css");
-    </style>
+  <style>
+    @import url("./styles/myparties.css"
+    );
+    @import url("./styles/party.css");
+  </style>
 </head>
+
 <body>
-  <audio loop src="http://www.sousound.com/music/healing/healing_01.mp3" hidden muted  autoplay="True"></audio>
+  <audio loop src="http://www.sousound.com/music/healing/healing_01.mp3" hidden muted autoplay="True"></audio>
   <div class="together">
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
-        <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
-        <a href="parties.html">Parties nearby</a>
-        <a href="myparties.html">My Parties</a>
-        <a href="#">Current party</a>
-        <a href="settings.html">Settings</a>
-        <a href="statistics.html">Statistics</a>
-        <a href="#"><button type="button" onclick="logout()" class="stil-submit">Log out </button></a>
-        <a href="#" style="color:black;margin:auto"><button type="button" onclick="monitor()"class="stil-submit"> Start dancing
-        </a>
+      <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
+      <a href="parties.html">Parties nearby</a>
+      <a href="myparties.html">My Parties</a>
+      <a href="#">Current party</a>
+      <a href="settings.html">Settings</a>
+      <a href="statistics.html">Statistics</a>
+      <a href="#"><button type="button" onclick="logout()" class="stil-submit">Log out </button></a>
+      <a href="#" style="color:black;margin:auto"><button type="button" onclick="monitor()" class="stil-submit"> Start
+          dancing
+      </a>
+    </div>
+    <div class="options">
+      <span class="menu" onclick="openNav()">&#9776;</span>
+      <div class="title">
+        <p style="text-align: center;" id="titlu"></p>
       </div>
-      <div class="options">
-        <span class="menu" onclick="openNav()">&#9776;</span>
-          <div class="title" >
-              <p style="text-align: center;" id="titlu"></p>
-          </div>
-            <div class="currentParty" id="petrecereNow" >
-              <div class="upload-flex songs">
-                <div>
-                  <p class="second-title">Upload a song</p>
-                </div>
+      <div class="currentParty" id="petrecereNow">
+        <div class="upload-flex songs">
           <div>
-            <form id  =  "uploadForm"
-             enctype   =  "multipart/form-data"
-            >
-           <label id="song">Choose a file<input type="file"  id="myFileInput" size="70"></label>
-           <label id="incarca">Upload<input type="submit" value="Upload" id="submit" class="upload" name="submit"></label>
-           </form>
-          </div>    
-      
- </div>
- <div class="upload-flex stiluri">
-          <p class="second-title"> Pick up one or more styles</p>
-         <form id="stiluri">
-           <div class="form-body" id="stil">
-           <div class="half-one">
-              <label class="container">Pop
-               <input type="checkbox" class="messageCheckbox" value="Pop"/>
-              <span class="checkmark"></span>
-               </label>
-              <label class="container">Jazz
-                <input type="checkbox" class="messageCheckbox"  value="Jazz"/>
-                <span class="checkmark"></span>
-              </label>
-              <label class="container">Rock
-                <input type="checkbox" class="messageCheckbox"  value="Rock"/>
-                <span class="checkmark"></span>
-              </label>
-              <label class="container">Heavy Metal
-                <input type="checkbox" class="messageCheckbox"  value="Heavy Metal"/>
-                <span class="checkmark"></span>
-              </label>
-           </div>
-           <div class="half-two"> 
-              <label class="container">Classic
-                <input type="checkbox" class="messageCheckbox"  value="Classical"/>
-                <span class="checkmark"></span>
-              </label>
-            <label class="container">Latino
-              <input type="checkbox" class="messageCheckbox" value="Latino"/>
-              <span class="checkmark"></span></label>
-              <label class="container">Reggae
-                <input type="checkbox" class="messageCheckbox"  value="Reggae"/>
-                <span class="checkmark"></span>
-              </label>
-            <label class="container">Disco<input type="checkbox" class="messageCheckbox" value="Disco"/><span class="checkmark"></span></label>
+            <p class="second-title">Upload a song</p>
           </div>
-         </div>
-         <div class="update-container">
-          <label class="stil-submit">Update<input type="submit" class="stil-submit"></label>
-         </div>
-        </form>
-</div>
-      </div>
-      </div>
-      <script src="js/ui.js"></script>
-      <script>
-          localStorage.removeItem("id_party");
-          let token = window.localStorage.getItem('userToken');
-          if(token===null){
-           window.location.replace('/firstpage.html');
-                         }
-     function logout(){ 
-     localStorage.removeItem('userToken');
-     window.location.replace('/firstpage.html')
- }
-        
-        var currentParty=document.getElementById('petrecereNow');
-        currentParty.style.display="none";
-        document.addEventListener('DOMContentLoaded',function(){
-          function getLocation() {
-        if (navigator.geolocation) {
-           navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                    console.log("No navigator")
-            }
-            }
+          <div>
+            <form id="uploadForm" enctype="multipart/form-data">
+              <label id="song">Choose a file<input type="file" id="myFileInput" size="70"></label>
+              <label id="incarca">Upload<input type="submit" value="Upload" id="submit" class="upload"
+                  name="submit"></label>
+            </form>
+          </div>
 
-   function showPosition(position) {
-  let latitude=position.coords.latitude ;
-  let longitude=position.coords.longitude;
-  console.log(latitude)
-  console.log(longitude);
-  fetch("http://localhost:5000/upload/timeLocation/"+latitude+"/"+longitude,{
-    method:'GET',
-    headers:{
-      'Accept': '*/*',
-      'Content-Type': 'application/json',
-      'Authorization':'Bearer '+token
-    }
-  })
-  .then(response=>response.json())
-  .then(resp=>{
-    console.log(resp)
-    if (resp.status==='OK'){
-      console.log(resp)
-      let titlu=document.getElementById('titlu');
-      titlu.innerHTML="Welcome to the party: "+resp.name_party;
-      window.localStorage.setItem('id_party',resp.id_party)
-      currentParty.style.display="flex";
-      
-    }
-    else{
-      alert(resp.message);
-    }
-  })
-}
-getLocation();
-let submit= document.getElementById('uploadForm');
-      submit.addEventListener('submit',function(){
-        event.preventDefault();
-        var file = document.getElementById('myFileInput').files[0];
-        let formData=new FormData();
-        formData.append('melodie',file);
-        let id_party=window.localStorage.getItem('id_party')
-        formData.append('id_petrecere',id_party);
-        
-        fetch("http://localhost:5000/upload/song",{
-          method:"POST",
-          headers:{
-            'Accept': '*/*',
-            'Authorization':'Bearer '+token
-          },
-          body:formData
+        </div>
+        <div class="upload-flex stiluri">
+          <p class="second-title"> Pick up one or more styles</p>
+          <form id="stiluri">
+            <div class="form-body" id="stil">
+              <div class="half-one">
+                <label class="container">Pop
+                  <input type="checkbox" class="messageCheckbox" value="Pop" />
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Jazz
+                  <input type="checkbox" class="messageCheckbox" value="Jazz" />
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Rock
+                  <input type="checkbox" class="messageCheckbox" value="Rock" />
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Heavy Metal
+                  <input type="checkbox" class="messageCheckbox" value="Heavy Metal" />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="half-two">
+                <label class="container">Classic
+                  <input type="checkbox" class="messageCheckbox" value="Classical" />
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Latino
+                  <input type="checkbox" class="messageCheckbox" value="Latino" />
+                  <span class="checkmark"></span></label>
+                <label class="container">Reggae
+                  <input type="checkbox" class="messageCheckbox" value="Reggae" />
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Disco<input type="checkbox" class="messageCheckbox" value="Disco" /><span
+                    class="checkmark"></span></label>
+              </div>
+            </div>
+            <div class="update-container">
+              <label class="stil-submit">Update<input type="submit" class="stil-submit"></label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="js/ui.js"></script>
+    <script>
+      localStorage.removeItem("id_party");
+      let token = window.localStorage.getItem('userToken');
+      if (token === null) {
+        window.location.replace('/firstpage.html');
+      }
+      function logout() {
+        localStorage.removeItem('userToken');
+        window.location.replace('/firstpage.html')
+      }
+
+      var currentParty = document.getElementById('petrecereNow');
+      currentParty.style.display = "none";
+      document.addEventListener('DOMContentLoaded', function () {
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            console.log("No navigator")
+          }
+        }
+
+        function showPosition(position) {
+          let latitude = position.coords.latitude;
+          let longitude = position.coords.longitude;
+          console.log(latitude)
+          console.log(longitude);
+          fetch("http://localhost:5000/upload/timeLocation/" + latitude + "/" + longitude, {
+            method: 'GET',
+            headers: {
+              'Accept': '*/*',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          })
+            .then(response => response.json())
+            .then(resp => {
+              console.log(resp)
+              if (resp.status === 'OK') {
+                console.log(resp)
+                let titlu = document.getElementById('titlu');
+                titlu.innerHTML = "Welcome to the party: " + resp.name_party;
+                window.localStorage.setItem('id_party', resp.id_party)
+                currentParty.style.display = "flex";
+
+              }
+              else {
+                alert(resp.message);
+              }
+            })
+        }
+        getLocation();
+        let submit = document.getElementById('uploadForm');
+        submit.addEventListener('submit', function () {
+          event.preventDefault();
+          var file = document.getElementById('myFileInput').files[0];
+          let formData = new FormData();
+          formData.append('melodie', file);
+          let id_party = window.localStorage.getItem('id_party')
+          formData.append('id_petrecere', id_party);
+
+          fetch("http://localhost:5000/upload/song", {
+            method: "POST",
+            headers: {
+              'Accept': '*/*',
+              'Authorization': 'Bearer ' + token
+            },
+            body: formData
+          })
+            .then(resp => resp.json())
+            .then(resp => {
+              alert("Uploaded succesully!")
+            })
         })
-        .then(resp=>resp.json())
-        .then(resp=>{
-          alert("Uploaded succesully!")
+        let style = document.getElementById('stiluri');
+        style.addEventListener('submit', function () {
+          event.preventDefault();
+
+          var array = []
+          var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+          for (var i = 0; i < checkboxes.length; i++) {
+            array.push(checkboxes[i].value)
+          }
+          let id_petrecere = window.localStorage.getItem('id_party')
+          let stiluri = {
+            "style": array,
+            "user_party": id_petrecere
+          }
+          fetch("http://localhost:5000/upload/style", {
+            method: "POST",
+            headers: {
+              'Accept': '*/*',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify(stiluri)
+          })
+            .then(resp => resp.json())
+            .then(res => {
+              alert("Styles updated!")
+            })
         })
       })
-let style=document.getElementById('stiluri');
-style.addEventListener('submit',function(){
-  event.preventDefault();
- 
-  var array = []
-  var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
-  for (var i = 0; i < checkboxes.length; i++) {
-  array.push(checkboxes[i].value)
-}
-  let id_petrecere=window.localStorage.getItem('id_party')
-  let stiluri={
-    "style": array,
-    "user_party":id_petrecere
-  }
-fetch("http://localhost:5000/upload/style",{
-  method:"POST",
-  headers:{
-      'Accept': '*/*',
-      'Content-Type': 'application/json',
-      'Authorization':'Bearer '+token
-  },
-  body:JSON.stringify(stiluri)
-})
-.then(resp=>resp.json())
-.then(res=>{
-  alert("Styles updated!")
-})
-})
-        })
-</script>
-      <script>
-         window.addEventListener("compassneedscalibration", function (event) {
-            alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
-            event.preventDefault();
-        }, true);
-    var i = 0;
-    let gyroscope = new Gyroscope({ frequency: 1 })
-  var socket = new WebSocket("ws://localhost:8085?token="+token);
-  socket.onmessage = function (event) {
-          console.log('Received data: ' + event.data); 
-          if(event.data==='RESET'){
-            total=0; 
-          }}
-    socket.onopen = function () {
+    </script>
+    <script>
+      window.addEventListener("compassneedscalibration", function (event) {
+        alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
+        event.preventDefault();
+      }, true);
+      var i = 0;
+      let gyroscope = new Gyroscope({ frequency: 1 })
+      var socket = new WebSocket("ws://localhost:8085?token=" + token);
+      socket.onmessage = function (event) {
+        console.log('Received data: ' + event.data);
+        if (event.data === 'RESET') {
+          total = 0;
+        }
+      }
+      socket.onopen = function () {
         setInterval(() => {
-          let id_party=window.localStorage.getItem('id_party');
-         if(id_party!==null){
-            console.log("sunt aici"+total)
-            socket.send(id_party+","+total);
-           
-           
-  
-         }
-        }, 10000);
-     
+          let id_party = window.localStorage.getItem('id_party');
+          if (id_party !== null) {
+            console.log("sunt aici" + total)
+            socket.send(id_party + "," + total);
 
-    };
-    var total = 0;
-        gyroscope.addEventListener('reading', e => {
-            if (gyroscope.x >= 0.60 || gyroscope.y >= 0.60 || gyroscope.z >= 0.60 || gyroscope.x <= -0.60 || gyroscope.y <= -0.60 || gyroscope.z <= -0.60) {
-                total += 1;
-                console.log("totalul e", total);
-               
-                console.log("Angular velocity along the X-axis " + gyroscope.x);
-                console.log("Angular velocity along the Y-axis " + gyroscope.y);
-                console.log("Angular velocity along the Z-axis " + gyroscope.z);
-              }
-       
-        });
-        gyroscope.start();
-  
-    
-    socket.onclose = function () {
+
+
+          }
+        }, 10000);
+
+
+      };
+      var total = 0;
+      gyroscope.addEventListener('reading', e => {
+        if (gyroscope.x >= 0.60 || gyroscope.y >= 0.60 || gyroscope.z >= 0.60 || gyroscope.x <= -0.60 || gyroscope.y <= -0.60 || gyroscope.z <= -0.60) {
+          total += 1;
+          console.log("totalul e", total);
+
+          console.log("Angular velocity along the X-axis " + gyroscope.x);
+          console.log("Angular velocity along the Y-axis " + gyroscope.y);
+          console.log("Angular velocity along the Z-axis " + gyroscope.z);
+        }
+
+      });
+      gyroscope.start();
+
+
+      socket.onclose = function () {
         socket.close();
 
-    };
-    socket.onerror = function () {
+      };
+      socket.onerror = function () {
         console.log('Error!');
-    };
- 
-      </script>
-      </body>
-      </html>
+      };
+
+    </script>
+</body>
+
+</html>
