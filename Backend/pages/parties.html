@@ -41,6 +41,7 @@
 var wrapper=document.getElementById('parties');
 document.addEventListener("DOMContentLoaded",getData);
 let token = window.localStorage.getItem('userToken');
+console.log(token)
 if(token===null){
     window.location.replace('/firstpage.html');
 }
