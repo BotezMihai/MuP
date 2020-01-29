@@ -7,5 +7,5 @@ const manageController = require('../controllers/manage');
 
 
 router.get("/new-song/:id_petrecere", manageController.get_new_song);
-
+router.get("/test", manageController.test);  
 module.exports = router;

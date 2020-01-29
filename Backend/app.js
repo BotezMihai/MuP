@@ -10,7 +10,7 @@ const userRoutes = require("./routes/user");
 const uploadRoutes = require("./routes/uploads");
 const eventRoutes = require("./routes/events");
 const userPartyRoutes = require("./routes/UserParty");
-const manageRoutes = require("./routes/manage");
+// const manageRoutes = require("./routes/manage");
 const statisticRoutes = require("./routes/statistic");
 const youtubeRoutes = require("./routes/youtube");
 const mySocket = require("./controllers/websocket");
@@ -41,7 +41,7 @@ app.use("/user", userRoutes);
 app.use("/upload", uploadRoutes);
 app.use("/event", eventRoutes);
 app.use("/party", userPartyRoutes);
-app.use("/manage", manageRoutes);
+// app.use("/manage", manageRoutes);
 app.use("/statistic", statisticRoutes);
 app.use("/youtube", youtubeRoutes);
 var j = schedule.scheduleJob('0 0 0/5 ? * * *',async function () {

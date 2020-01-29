@@ -57,8 +57,8 @@
                <input type="checkbox" class="messageCheckbox" value="Pop"/>
               <span class="checkmark"></span>
                </label>
-              <label class="container">Jazz
-                <input type="checkbox" class="messageCheckbox"  value="Jazz"/>
+              <label class="container">Folk
+                <input type="checkbox" class="messageCheckbox"  value="Folk"/>
                 <span class="checkmark"></span>
               </label>
               <label class="container">Rock
@@ -202,31 +202,18 @@ var i = 0;
 let gyroscope = new Gyroscope({ frequency: 1 })
 var socket = new WebSocket("ws://localhost:8085?token="+token);   
 
-socket.onopen = function () {
-  setInterval(() => {
-   
-        let id_party=window.localStorage.getItem('id_party');
-        console.log(id_party)
-        if(id_party!==null){
-            console.log("sunt aici"+total)
-            socket.send(id_party+","+total);
-         }
-        }, 7000);
-    };
+
 let count=0;
-let total=0;
  socket.onmessage= function (msg) {
       var today = new Date();
       count+=1;
-      
       var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       console.log(count); 
-
       console.log(msg)
       total=0;
-   
-        }
-gyroscope.addEventListener('reading', e => {
+    }
+  let total=0
+  gyroscope.addEventListener('reading', e => {
           
             if (gyroscope.x >= 0.60 || gyroscope.y >= 0.60 || gyroscope.z >= 0.60 || gyroscope.x <= -0.60 || gyroscope.y <= -0.60 || gyroscope.z <= -0.60) {
                 total += 1;
@@ -237,7 +224,19 @@ gyroscope.addEventListener('reading', e => {
               }
        
         });
+    
     gyroscope.start();
+    socket.onopen = function () {
+  setInterval(() => {
+   
+        let id_party=window.localStorage.getItem('id_party');
+        console.log(id_party)
+        if(id_party!==null){
+            console.log("sunt aici"+total)
+            socket.send("ad "+id_party+","+total);
+         }
+        }, 7000);
+    };
     socket.onclose = function () {
         socket.close();
 
