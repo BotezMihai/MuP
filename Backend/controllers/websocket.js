@@ -17,7 +17,7 @@ const wss = new WebSocket.Server({
 });
 module.exports.reset = function (msg, callback) {
     return wss.on("connection", function (ws) {
-     console.log("Mesaaaj")
+     console.log(msg)
         ws.send(msg, callback);
         ws.on("close", function () {
         console.log("websocket connection close")

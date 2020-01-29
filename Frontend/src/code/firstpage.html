@@ -136,6 +136,13 @@ loginBtn.addEventListener('click',function(){
 })
 let patients = window.localStorage.getItem('userToken');
 console.log(patients)
+document.addEventListener('DOMContentLoaded',function(){
+  if(patients!==null)
+{
+  window.location.replace('/homepage.html')
+}
+})
+
 register.addEventListener('click',function(){
   let formular=document.getElementById('register');
   let name=formular.nume.value;
