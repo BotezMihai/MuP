@@ -54,7 +54,7 @@ exports.get_parties = async (req, res) => {
     //     });
     // })
     console.log(req.userData.userID);
-    var parties=await config.query(`SELECT distinct pe.nume, pe.latitudine, pe.longitudine, pe.data FROM petreceri pe where ${req.userData.userID} not in (select id_user from participanti pa where pe.id=pa.id_petrecere);`,
+    var parties=await config.query(`SELECT distinct pe.id,pe.nume, pe.latitudine, pe.longitudine, pe.data FROM petreceri pe where ${req.userData.userID} not in (select id_user from participanti pa where pe.id=pa.id_petrecere);`,
     {type: config.QueryTypes.SELECT, raw: true})
     return res.json({
         message: parties,

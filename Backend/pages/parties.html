@@ -57,10 +57,11 @@ async function getData (){
         }
     })
  let result= await response.json();
- return result.party;
+ return result.message;
 }
 getData().then(result=>{
    let copy=result;
+   console.log(result)
    for(let i=0;i<result.length;i++){
      let latitude=result[i].latitudine;
      var longitudine=result[i].longitudine;

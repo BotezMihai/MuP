@@ -43,7 +43,7 @@
         <div class="create" id="future">
             <span class="menu" onclick="openNav()">&#9776;</span>
             <div class="first">
-                <span class="title">Upcoming Parties</span>
+                <span class="title" id="titluJoined">Upcoming Parties</span>
                 <button class="upcoming" onclick="SwitchAdd();">Parties created</button>
             </div>
             <div class="second" id='petreceri'></div>
@@ -87,45 +87,14 @@
         var creation = document.getElementById('creation');
         var partiesAttend = document.getElementById('future');
         future.style.display = 'none';
-
+        var attented = document.getElementById('petreceri');
+       
+   
+        let token = window.localStorage.getItem('userToken');
         function Switch() {
             creation.style.display = "none";
             future.style.display = "block";
-        }
-
-        function SwitchAdd() {
-            creation.style.display = "block";
-            future.style.display = "none";
-        }
-
-        var modal = document.getElementById("createPartyModal");
-        var btn = document.getElementById("createParty");
-        var span = document.getElementsByClassName("close")[0];
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        var today = new Date().toISOString().substr(0, 10);
-        document.querySelector("#date").value = today;
-    </script>
-    <script src="js/ui.js"></script>
-    <script>
-        var attented = document.getElementById('petreceri');
-        var upcoming=document.getElementById('upcoming');
-        upcoming.addEventListener('click', getPartiesJoined);
-        let token = window.localStorage.getItem('userToken');
-        if(token===null){
-            window.location.replace('/firstpage.html')
-        }
-        async function getPartiesJoined() {
+            async function getPartiesJoined() {
             let response = await fetch('/party/get-parties', {
                 method: 'GET',
                 headers: {
@@ -143,7 +112,8 @@
             let copy = result.message;
             console.log(result)
             if(result.code==="404"){
-                    console.log(result.code)    
+                     let spanul=document.getElementById('titluJoined');
+                     spanul.innerHTML=result.message
             }
             else{
             for (let i = 0; i < result.message.length; i++) {
@@ -213,6 +183,38 @@
             let resp = await response.json();
             return resp.results[0].formatted;
         }
+        }
+
+        function SwitchAdd() {
+            creation.style.display = "block";
+            future.style.display = "none";
+        }
+
+        var modal = document.getElementById("createPartyModal");
+        var btn = document.getElementById("createParty");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        var today = new Date().toISOString().substr(0, 10);
+        document.querySelector("#date").value = today;
+    </script>
+    <script src="js/ui.js"></script>
+    <script>
+      
+        if(token===null){
+            window.location.replace('/firstpage.html')
+        }
+       
     </script>
 
     <!-- Create Party-->
@@ -340,6 +342,8 @@
                             })
                     }
                     update_party.onclick=function(){
+
+                        window.localStorage.setItem("id_party",copy[i].id)
                         window.open('http://localhost:5000/player.html');
                     }
                     var span = document.createElement('span');
