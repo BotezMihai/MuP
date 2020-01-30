@@ -23,11 +23,8 @@
         <a href="parties.html">Parties nearby</a>
         <a href="myparties.html">My Parties</a>
         <a href="#">Current party</a>
-        <a href="settings.html">Settings</a>
         <a href="statistics.html">Statistics</a>
-        <a href="#"><button type="button" onclick="logout()" class="stil-submit">Log out </button></a>
-        <a href="#" style="color:black;margin:auto"><button type="button" onclick="monitor()"class="stil-submit"> Start dancing
-        </a>
+        <a href="/firstpage.html" onclick="logout()">Logout</a>
       </div>
       <div class="options">
         <span class="menu" onclick="openNav()">&#9776;</span>
@@ -55,7 +52,7 @@
            <div class="form-body" id="stil">
            <div class="half-one">
               <label class="container">Pop
-               <input type="checkbox" class="messageCheckbox" value="Pop"/>
+               <input type="checkbox" class="messageCheckbox" value="pop"/>
               <span class="checkmark"></span>
                </label>
               <label class="container">Folk
@@ -72,8 +69,8 @@
               </label>
            </div>
            <div class="half-two"> 
-              <label class="container">Classic
-                <input type="checkbox" class="messageCheckbox"  value="Classical"/>
+              <label class="container">Dance
+                <input type="checkbox" class="messageCheckbox"  value="Dance"/>
                 <span class="checkmark"></span>
               </label>
             <label class="container">Latino
@@ -93,164 +90,7 @@
 </div>
       </div>
       </div>
-      <script src="js/ui.js"></script>
- <script>
-localStorage.removeItem("id_party");
-let token = window.localStorage.getItem('userToken');
-if(token===null){
-   window.location.replace('/firstpage.html');
-}
-function logout(){ 
-     localStorage.removeItem('userToken');
-     window.location.replace('/firstpage.html')
- }        
-var currentParty=document.getElementById('petrecereNow');
-currentParty.style.display="none";
-document.addEventListener('DOMContentLoaded',function(){
-function getLocation() {
-if (navigator.geolocation) {
-navigator.geolocation.getCurrentPosition(showPosition);} 
-else {
-         console.log("No navigator")}
-            }
-
-function showPosition(position) {
-  let latitude=position.coords.latitude ;
-  let longitude=position.coords.longitude;
-  console.log(latitude)
-  console.log(longitude);
-  fetch("http://localhost:5000/upload/timeLocation/"+latitude+"/"+longitude,{
-    method:'GET',
-    headers:{
-      'Accept': '*/*',
-      'Content-Type': 'application/json',
-      'Authorization':'Bearer '+token
-    }
-  })
-  .then(response=>response.json())
-  .then(resp=>{
-    console.log(resp)
-    if (resp.status==='OK'){
-      console.log(resp)
-      let titlu=document.getElementById('titlu');
-      titlu.innerHTML="Welcome to the party: "+resp.name_party;
-      window.localStorage.setItem('id_party',resp.id_party)
-      currentParty.style.display="flex";
-    }
-    else{
-      alert(resp.message);
-    }
-  })
-}
-getLocation();
-let submit= document.getElementById('uploadForm');
-submit.addEventListener('submit',function(){
-        event.preventDefault();
-        var file = document.getElementById('myFileInput').files[0];
-        let formData=new FormData();
-        var x = file.name;
-        document.getElementById("demo").innerHTML = x;
-        formData.append('melodie',file);
-        let id_party=window.localStorage.getItem('id_party')
-        formData.append('id_petrecere',id_party);        
-        fetch("http://localhost:5000/upload/song",{
-          method:"POST",
-          headers:{
-            'Accept': '*/*',
-            'Authorization':'Bearer '+token
-          },
-          body:formData
-        })
-        .then(resp=>resp.json())
-        .then(resp=>{
-          alert("Uploaded succesully!")
-        })
-      })
-let style=document.getElementById('stiluri');
-style.addEventListener('submit',function(){
-  event.preventDefault();
-  var array = []
-  var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
-  for (var i = 0; i < checkboxes.length; i++) {
-      array.push(checkboxes[i].value)
-}
-  let id_petrecere=window.localStorage.getItem('id_party')
-  let stiluri={
-    "style": array,
-    "user_party":id_petrecere
-  }
-  fetch("http://localhost:5000/upload/style",{
-    method:"POST",
-    headers:{
-      'Accept': '*/*',
-      'Content-Type': 'application/json',
-      'Authorization':'Bearer '+token
-    },
-    body:JSON.stringify(stiluri)
-    })
-  .then(resp=>resp.json())
-  .then(res=>{
-      alert("Styles updated!")
-  })
-  })
-  })
-document.addEventListener('DOMContentLoaded',function(){
-
-
-window.addEventListener("compassneedscalibration", function (event) {
-            alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
-            event.preventDefault();
-        }, true);
-var i = 0;
-let gyroscope = new Gyroscope({ frequency: 1 })
-var socket = new WebSocket("ws://localhost:8085?token="+token);   
-
-
-let count=0;
-
- socket.onmessage= function (msg) {
-  setTimeout(()=>{
-  let id_party=window.localStorage.getItem('id_party')
-  let match="RESET "+ id_party
-        
-        if(msg.data===match){
-          total=0
-        }
-},1000)
-  }
-  let total=0
-  gyroscope.addEventListener('reading', e => {
-          
-            if (gyroscope.x >= 0.60 || gyroscope.y >= 0.60 || gyroscope.z >= 0.60 || gyroscope.x <= -0.60 || gyroscope.y <= -0.60 || gyroscope.z <= -0.60) {
-                total += 1;
-                console.log("totalul e", total);       
-                console.log("Angular velocity along the X-axis " + gyroscope.x);
-                console.log("Angular velocity along the Y-axis " + gyroscope.y);
-                console.log("Angular velocity along the Z-axis " + gyroscope.z);
-              }
-       
-        });
-    
-    gyroscope.start();
-    socket.onopen = function () {
-  setInterval(() => {
-   
-        let id_party=window.localStorage.getItem('id_party');
-        console.log(id_party)
-        if(id_party!==null){
-            console.log("sunt aici"+total)
-            socket.send("ad "+id_party+","+total);
-         }
-        }, 7000);
-    };
-    socket.onclose = function () {
-        socket.close();
-
-    };
-    socket.onerror = function () {
-        console.log('Error!');
-    };
-  })
-      </script>
+<script src="js/ui.js"></script>
+<script src="scripts/currentParty.js"></script>
       </body>
       </html>

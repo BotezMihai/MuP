@@ -1,3 +1,4 @@
+
 let token = window.localStorage.getItem('userToken');
 if(token===null){
    window.location.replace('/firstpage.html');
@@ -12,7 +13,7 @@ google.charts.load("visualization", "1", {
     'packages': ['corechart']
 });
 google.charts.setOnLoadCallback(drawChart);
-let token=window.localStorage.getItem('userToken')
+
 function drawChart() {
     fetch("/statistic/me",{
         headers:  {
@@ -33,16 +34,12 @@ function drawChart() {
             newlist.push(rsp.message[i].tag)
             newlist.push(parseInt(rsp.message[i].durata))
             lista.push(newlist)
-            console.log(durata)
 
         }
         durata=durata/60;
         let span=document.getElementById('minutes');
         span.innerHTML=durata;
-
-        console.log(lista)
         var data = google.visualization.arrayToDataTable(lista);
-        
         var width = window.matchMedia("(max-width: 670px)");
             if (width.matches) {
                 var options = {

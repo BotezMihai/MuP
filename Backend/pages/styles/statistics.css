@@ -9,7 +9,7 @@
 
 .title {
     font-size: 40px;
-    color: #45be7d;
+    color: #1f2923;
     margin-bottom: 50px;
     text-align: center;
     font-family: "Monoton", cursive;
@@ -91,9 +91,7 @@
 }
 
 @media only screen and (max-width:920px) {
-    .sidenav {
-        width: 25%;
-    }
+    
     .statistics {
         margin-left: 25%;
     }
