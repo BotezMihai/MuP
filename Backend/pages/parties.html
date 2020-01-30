@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Music Party Chooser</title>
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+    <link href="./manifest.json">
+    <script src="service-worker.js"></script>
+    <style>
+        @import url("./styles/parties.css");
+    </style>
+</head>
+
+<body>
+    <div class="responsive-parties">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="close" onclick="closeNav()">&times;</a>
+            <img src="./images/logo_transparent.png" id="logo">
+            <a href="parties.html">Parties nearby</a>
+            <a href="myparties.html">My Parties</a>
+            <a href="party.html">Current party</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="firstpage.html" onclick="logout()">Log out</a>
+        </div>
+        <div class="parties">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <p class="title">All parties </p>
+            <div class="party-cards" id="parties"> 
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/ui.js"></script>
+<script src="scripts/parties.js"></script>
+</html>

@@ -50,7 +50,7 @@
                     <i class="fa fa-lock fa-stack-1x"></i>
                   </span>
                 </p>
-                <input type="username" name="username" class="login-username" id="username"autofocus="true" required="true" placeholder="Username" />
+                <input type="email" name="username" class="login-username" id="username"autofocus="true" required="true" placeholder="Email" />
                 <input type="password" name="password" class="login-password" id="password"required="true" placeholder="Password" />
                 <button type="button"  class="myButton" id="log"  >Login</button>
               </form>
@@ -128,7 +128,7 @@ loginBtn.addEventListener('click',function(){
             if(Respjson.message==='OK')
             {let token=Respjson.token;
              window.localStorage.setItem('userToken',token);
-             window.location.replace("http://localhost:3000/homepage.html")
+             window.location.replace("http://localhost:8084/homepage.html")
             }
           })
     

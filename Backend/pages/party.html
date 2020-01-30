@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Party</title>
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+  <link href="./manifest.json">
+  <script src="service-worker.js"></script>
+    <style>
+     @import url("./styles/myparties.css"
+     );
+     @import url("./styles/party.css");
+    </style>
+</head>
+<body>
+  <audio loop src="http://www.sousound.com/music/healing/healing_01.mp3" muted hidden autoplay="True"></audio>
+  <div class="together">
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
+        <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
+        <a href="parties.html">Parties nearby</a>
+        <a href="myparties.html">My Parties</a>
+        <a href="#">Current party</a>
+        <a href="statistics.html">Statistics</a>
+        <a href="/firstpage.html" onclick="logout()">Logout</a>
+      </div>
+      <div class="options">
+        <span class="menu" onclick="openNav()">&#9776;</span>
+          <div class="title" >
+              <p style="text-align: center;" id="titlu"></p>
+          </div>
+            <div class="currentParty" id="petrecereNow" >
+              <div class="upload-flex songs">
+                <div>
+                  <p class="second-title">Upload a song</p>
+                </div>
+          <div>
+            <form id  =  "uploadForm"
+             enctype   =  "multipart/form-data"
+            >
+           <label id="song">Choose a file<input type="file"  id="myFileInput" size="70"></label>
+           <label id="incarca">Upload<input type="submit" value="Upload" id="submit" class="upload" name="submit"></label>
+           </form>
+          </div>    
+      
+ </div>
+ <div class="upload-flex stiluri">
+          <p class="second-title"> Pick up one or more styles</p>
+         <form id="stiluri">
+           <div class="form-body" id="stil">
+           <div class="half-one">
+              <label class="container">Pop
+               <input type="checkbox" class="messageCheckbox" value="pop"/>
+              <span class="checkmark"></span>
+               </label>
+              <label class="container">Folk
+                <input type="checkbox" class="messageCheckbox"  value="Folk"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="container">Rock
+                <input type="checkbox" class="messageCheckbox"  value="Rock"/>
+                <span class="checkmark"></span>
+              </label>
+              <label class="container">Heavy Metal
+                <input type="checkbox" class="messageCheckbox"  value="Heavy Metal"/>
+                <span class="checkmark"></span>
+              </label>
+           </div>
+           <div class="half-two"> 
+              <label class="container">Dance
+                <input type="checkbox" class="messageCheckbox"  value="Dance"/>
+                <span class="checkmark"></span>
+              </label>
+            <label class="container">Latino
+              <input type="checkbox" class="messageCheckbox" value="Latino"/>
+              <span class="checkmark"></span></label>
+              <label class="container">Reggae
+                <input type="checkbox" class="messageCheckbox"  value="Reggae"/>
+                <span class="checkmark"></span>
+              </label>
+            <label class="container">Disco<input type="checkbox" class="messageCheckbox" value="Disco"/><span class="checkmark"></span></label>
+          </div>
+         </div>
+         <div class="update-container">
+          <label class="stil-submit">Update<input type="submit" class="stil-submit"></label>
+         </div>
+        </form>
+</div>
+      </div>
+      </div>
+<script src="js/ui.js"></script>
+<script src="scripts/currentParty.js"></script>
+      </body>
+      </html>

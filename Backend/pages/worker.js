@@ -1,4 +1,4 @@
-self.addEventListener('message', (e) => {
+/* self.addEventListener('message', (e) => {
     console.log(e.data);
 
     var i = 0;
@@ -26,4 +26,4 @@ self.addEventListener('message', (e) => {
     // socket.send('hello, world!');
 
 
-})
+}) */

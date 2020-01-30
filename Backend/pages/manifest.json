@@ -1,0 +1,23 @@
+{
+    "name": "MUP",
+    "short_name": "MUP",
+    "theme_color": "#4141ac",
+    "background_color": "#b1fcf8",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": ".",
+    "start_url": ".",
+    "icons": [
+      {
+        "src": "http://localhost:5000/2.png",
+        "sizes": "72x72",
+        "type": "image/png"
+      },
+      {
+        "src": "logo192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+
+    ]
+}

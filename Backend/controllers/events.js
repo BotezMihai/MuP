@@ -47,17 +47,41 @@ exports.delete_party = async (req, res) => {
         });
 }
 
-exports.get_parties = (req, res) => {
-    Party.findAll({}).then(parties => {
+exports.get_parties = async (req, res) => {
+    // Party.findAll({}).then(parties => {
+    //     return res.status(200).json({
+    //         party: parties
+    //     });
+    // })
+    console.log(req.userData.userID);
+    var parties=await config.query(`SELECT distinct pe.id,pe.nume, pe.latitudine, pe.longitudine, pe.data FROM petreceri pe where ${req.userData.userID} not in (select id_user from participanti pa where pe.id=pa.id_petrecere);`,
+    {type: config.QueryTypes.SELECT, raw: true})
+    return res.json({
+        message: parties,
+        code: "200"
+    });
+}
+exports.get_my_parties =async (req, res) => {
+    var my_party = await Party.findAll(
+        { where: { id_user: req.userData.userID } }
+    );
+    if (my_party.length == 0) {
+        return res.status(404).json({
+            message: "Nu ai creat nicio petrecere pana in acest moment!",
+            code: "404"
+        })
+    }
+    else {
         return res.status(200).json({
-            party: parties
+            message: my_party
         });
-    })
+    }
+
 }
 
 exports.put_party = async (req, res) => {
     var my_party = await Party.findAll(
-        { where: { id_user: req.userData.userData } }
+        { where: { id_user: req.userData.userID } }
     );
     if (my_party.length != 0) {
         var rows_to_update = {};

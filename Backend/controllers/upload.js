@@ -19,6 +19,12 @@ const Tag = TagModel(config, bd);
 const StiluriModel = require("../models/stiluri");
 const Stiluri = StiluriModel(config, bd);
 
+const PetreceriModel = require("../models/petreceri");
+const Petreceri = PetreceriModel(config, bd);
+
+const ParticipantiModel = require("../models/participanti");
+const Participanti = ParticipantiModel(config, bd);
+
 async function insert_new_song(title, artist, duration, song, album, id_petrecere, tag, an = '-') {
     var inserted_row = await Melodii.create({
         titlu: title,
@@ -38,17 +44,21 @@ async function insert_new_song(title, artist, duration, song, album, id_petrecer
 // de schimbat raza si ora din time_location
 exports.upload_style = async (req, res) => {
     // numele din formularul html
-    const { style } = req.body;
+    const style = req.body.style;
     // const style = ['rock', 'pop'];
     var data = [];
     for (let el of style) {
         let l = {};
         l['stil'] = el;
         l['id_user'] = req.userData.userID;
-        l['id_petrecere'] = req.user_party;
-        data.push(l);
+        l['id_petrecere'] = req.body.user_party;
+        data.push(l); 
     }
     var results = await Stiluri.bulkCreate(data);
+    return res.json({
+        code: "200",
+        message: "Insert successfully"
+    });
 }
 
 exports.upload_song = async (req, res) => {
@@ -57,7 +67,6 @@ exports.upload_song = async (req, res) => {
     var song;
     var form = new formidable.IncomingForm();
     form.parse(req);
-
     form.on('fileBegin', function (name, file) {
         // eventual concatenez cu .mp3
         console.log("aici file begin");
@@ -67,6 +76,7 @@ exports.upload_song = async (req, res) => {
     form.on('file', function (name, file) {
         console.log('Uploaded ' + file.name);
         song = path.join(__dirname, "../uploads/" + file.name);
+        console.log(song);
     });
 
     form.on('field', function (name, value) {
@@ -76,6 +86,7 @@ exports.upload_song = async (req, res) => {
     form.on("end", function () {
         mm.parseFile(song)
             .then(metadata => {
+             
                 console.log(util.inspect(metadata, { showHidden: false, depth: null }));
                 console.log(req.userData.userID);
                 console.log(metadata.common.title);
@@ -198,10 +209,10 @@ exports.upload_song = async (req, res) => {
             });
     });
 }
-
+// lungimea <=1000 de m si ora <=15 minute
 exports.time_location = async (req, res) => {
-    console.log("Sunt in middleware");
-    console.log(req.files);
+    var latitudineURL = req.params.latitudine;
+    var longitudineURL = req.params.longitudine;
     Petreceri.hasMany(Participanti, {
         foreignKey: 'id_petrecere'
     });
@@ -240,25 +251,29 @@ exports.time_location = async (req, res) => {
         var time = date_event[1];
         var new_date = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
         date_event = new Date(new_date);
-        if (date_event - time_now >= 1500 * 60000) {
+        let time_difference = date_event - time_now;
+        if (time_difference >= 15 * 60000) {
             console.log("Nu e inca timpul potrivit");
             return res.status(400).json({
                 message: "Nu poti uploada inca melodii",
                 code: "400"
-            })
+            });
         }
         else {
+            console.log(time_difference)
             var latitude = results[i].petreceri.dataValues.latitudine
             var longitude = results[i].petreceri.dataValues.longitudine;
             let event_location = { "latitude": latitude, "longitude": longitude };
             console.log(event_location);
-            let my_location = { "latitude": req.body.latitude, "longitude": req.body.longitude };
+            let my_location = { "latitude": latitudineURL, "longitude": longitudineURL };
             var distance = geolib.getDistance(event_location, my_location);
             console.log(distance);
             if (distance < 1000) {
                 req.user_party = results[i].petreceri.dataValues.id;
                 return res.status(200).json({
-                    id_party: results[i].petreceri.dataValues.id
+                    id_party: results[i].petreceri.dataValues.id,
+                    name_party: results[i].petreceri.dataValues.nume,
+                    status: "OK"
                 });
             }
         }

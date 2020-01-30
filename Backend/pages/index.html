@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-
+    <link rel="manifest" href="./manifest.json" />
 </head>
 <!-- <style>
     audio {
@@ -15,14 +15,14 @@
     }
 </style> -->
 
-<body>
+<!-- <body>
     <h1>HELLO!</h1>
     <h2>Salut</h2>
     <form action="/upload/song" enctype="multipart/form-data" method="post">
         <input type="file" name="upload" multiple="multiple" accept=".mp3"><br>
         <input type="submit" value="Upload">
     </form>
-    <audio controls muted="True" autoplay="True" loop="True">
+    <audio id="audio" controls autoplay="True" loop="True">
         <source src="1.mp3" type="audio/mpeg">
         Your browser does not support the audio tag.
     </audio>
@@ -30,30 +30,40 @@
         <input type="checkbox" name="style" value="pop"> I have a bike<br>
         <input type="checkbox" name="style" value="rock" checked> I have a car<br>
         <input type="submit" value="Submit">
-    </form>
+    </form> -->
+    <!-- <script src="./main.js"></script>
     <script>
+        alert("hello");
+        var audio=document.getElementById('audio');
+        audio.onended=function(e){
+            alert("gata");
+        };  -->
+        <!-- // if (window.Worker) {
+        //     console.log("aici");
+        //     let myWorker=new Worker('worker.js');
+        //     myWorker.postMessage("start");
 
-        if (window.Worker) {
-            console.log("aici");
-            let myWorker=new Worker('worker.js');
-            myWorker.postMessage("start");
-
-        }
+        // }
 
         // var i = 0;
-
-        // var socket = new WebSocket("ws://localhost:8081");
+        // setInterval(() => {
+        //     console.log(i);
+        //     i++;
+        // // }, 1000);
+        // var socket = new WebSocket("ws://localhost:8085");
         // socket.onopen = function () {
         //     console.log('Connected!');
+        //     socket.send("test")
 
         // };
 
         // socket.onmessage = function (event) {
         //     console.log('Received data: ' + event.data);
-        //     socket.send("hehe");
-        //     // socket.close();
+        //     socket.send(i);
+        //     i++;
+            // socket.close();
         // };
-        
+
         // socket.onclose = function () {
         //     console.log('Lost connection!');
 
@@ -64,33 +74,33 @@
 
         // socket.send('hello, world!');
 
-        window.addEventListener("compassneedscalibration", function (event) {
-            alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
-            event.preventDefault();
+        // window.addEventListener("compassneedscalibration", function (event) {
+        //     alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
+        //     event.preventDefault();
 
 
-        }, true);
+        // }, true);
 
         // window.addEventListener('devicemotion', function (event) {
         //     console.log(event.acceleration.x + ' m/s2');
         // })
 
-        let gyroscope = new Gyroscope({ frequency: 1 });
-        var total = 0;
-        gyroscope.addEventListener('reading', e => {
-            if (gyroscope.x >= 0.60 || gyroscope.y >= 0.60 || gyroscope.z >= 0.60 || gyroscope.x <= -0.60 || gyroscope.y <= -0.60 || gyroscope.z <= -0.60) {
-                total += 1;
-                console.log("totalul e", total);
-                console.log("YESSSSSSSSSSSSSS");
-                console.log("Angular velocity along the X-axis " + gyroscope.x);
-                console.log("Angular velocity along the Y-axis " + gyroscope.y);
-                console.log("Angular velocity along the Z-axis " + gyroscope.z);
+        // let gyroscope = new Gyroscope({ frequency: 1 });
+        // var total = 0;
+        // gyroscope.addEventListener('reading', e => {
+        //     if (gyroscope.x >= 0.60 || gyroscope.y >= 0.60 || gyroscope.z >= 0.60 || gyroscope.x <= -0.60 || gyroscope.y <= -0.60 || gyroscope.z <= -0.60) {
+        //         total += 1;
+        //         console.log("totalul e", total);
+        //         console.log("YESSSSSSSSSSSSSS");
+        //         console.log("Angular velocity along the X-axis " + gyroscope.x);
+        //         console.log("Angular velocity along the Y-axis " + gyroscope.y);
+        //         console.log("Angular velocity along the Z-axis " + gyroscope.z);
 
 
-            }
+        //     }
 
-        });
-        gyroscope.start();
+        // });
+        // gyroscope.start();
 
         // function handleMotionEvent(event) {
 
@@ -161,4 +171,4 @@
     </script>
 </body>
 
-</html>
+</html> -->
