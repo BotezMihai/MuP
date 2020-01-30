@@ -24,18 +24,7 @@
                     </li>
                 </ul>
             </li>
-            <li typeof="sa:ContributorRole" property="schema:author">
-                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
-                    <meta property="schema:givenName" content="Bianca">
-                    <meta property="schema:familyName" content="Ciuraru">
-                    <span property="schema:name">Bianca Ciuraru</span>
-                </span>
-                <ul>
-                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
-                        <a href="mailto:biancaciuraru@yahoo.com" property="schema:email">biancaciuraru@yahoo.com</a>
-                    </li>
-                </ul>
-            </li>
+            
             <li typeof="sa:ContributorRole" property="schema:author">
                 <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
                     <meta property="schema:givenName" content="Ramona">
@@ -108,9 +97,7 @@
         <p>
             Vom folosi o serie de API-uri externe pentru manipularea datelor necesare, API-uri precum:
             <ul class="mvc">
-                <li>Youtube API - pentru a cauta pe youtube un video in functie de titlu/artist in scopul obtinerii id-ului;</li>
-                <li>Youtube player embedded API - pentru a manevra player-ul muzical si pentru a schimba melodia intr-un mod simplu si elegant;</li>
-                <li>Google Maps API - pentru a afla coordonatele utilizatorului, dar si pentru a putea afisa petrecerile din apropierea lui;</li>
+                <li>OpenCage Geocoder API - ENPOINT: https://api.opencagedata.com/geocode/v1/json?q=LAT+LNG&key=ea8adb19433e4345b03b826ca1e82955</li>
                 <li>Gyroscope API -  pentru a detecta orientarea miscarii, a utilizatorilor care danseaza, date folosite de algoritm pentru alegerea melodiilor urmatoare, dar si pentru stabilirea statisticilor;</li>
                 <li>LastFM API - pentru a prelua toate metadatele despre un fisier.</li>
             </ul>
@@ -122,7 +109,7 @@
 
         <b>4.1 Petreceri</b>
         <p>
-            In aceasta pagina se va face o operatie de tip GET pentru listarea tuturor petrecerilor gasite in apropierea utilizatorului. Datele vor fi preluate din baza de date 
+            In aceasta pagina se va face o operatie de tip GET pentru listarea tuturor petrecerilor din baza de date. Datele vor fi preluate din baza de date 
             si vor fi returnate printr-un obiect de tip JSON care va contine locatia, numele si data fiecarei petreceri.<br>
             De asemenea, utilizatorul va primi acces la un formular de creare a unei petreceri, parametrii POST-ului fiind locatia, numele si data petrecerii respective, aceste date urmand sa fie stocate in baza de date.
         </p>
@@ -130,26 +117,33 @@
         <b>4.2 Petrecerile Mele</b>
         <p>
             Toate petrecerile la care userul va participa sau pe care le va organiza vor fi afisate prin intermediul metodei GET care va folosi detalii din baza de date. 
-            Totodata, vor fi disponibile optiuni de stergere a unei petreceri (DELETE va primi ca parametru ID-ul petrecerii pentru a putea fi stearsa din baza de date), de modificare 
-            a acesteia (prin metoda PUT) si de anulare a participarii la o petrecere (DELETE va primi ca parametru ID-ul petrecerii la care utilizatorul vrea sa stearga joinul).
+            Totodata, vor fi disponibile optiuni de stergere a unei petreceri (DELETE va primi ca parametru ID-ul petrecerii pentru a putea fi stearsa din baza de date)
+             si de anulare a participarii la o petrecere (DELETE va primi ca parametru ID-ul petrecerii la care utilizatorul vrea sa stearga joinul).
         </p>
 
         <p>
             Atunci cand se face click pe o petrecere, continutul paginii va fi diferit in functie de tipul petrecerii (userul va fi participant sau organizator).<br>
             In cazul in care acesta va participa la petrecerea respectiva, acesta va avea la dispozitie atat optiunea de a incarca un fisier audio in formal MP3/FLAC care va fi 
-            adaugat la playlistul petrecerii, cat si optiunea de a alege unul sau mai multe stiluri de muzica preferate avand la dispozitie un dropdown cu o multitudine de categorii muzicale (fiecare actiune fiind facuta prin intermediul unui POST).<br>
-            Daca userul va fi organizator al petrecerii, acesta va avea acces la o lista cu toate melodiile incarcate de catre participanti si la stilurile muzicale.
+            adaugat la playlistul petrecerii, cat si optiunea de a alege unul sau mai multe stiluri de muzica preferate avand la dispozitie un formular cu cu o multitudine de categorii muzicale (fiecare actiune fiind facuta prin intermediul unui POST).<br>
+           
         </p>
+        <b>4.2.1 Playerul</b>
+        <p>
+            In momentul in care un user va da startul la o petrecere, se va deschide o comunicare prin socketi pentru a cere o melodie. Cand melodia s-a terminat,
+            se trimite un mesaj serverului cu id-ul petrecerii pentru a primi urmatoarea melodie.
+            Atunci cand nu mai sunt melodii disponibile, se intoarce un mesaj corespunzator.
 
+        </p>
         <b>4.3 Statistici</b>
         <p>
             Aceasta pagina va pune la dispozitia utilizatorului statistici privind activitatea sa la petrecerile la care a participat sau pe care le-a organizat. 
             Detaliile despre timpul petrecut dansand vor fi preluate cu ajutorul API-ului Gyroscope, aceste date urmand a fi stocate in baza de date si afisate utilizatorului printr-o metoda GET.
         </p>
-
-        <b>4.4 Setari</b>
+        <b>4.4 Petrecerea curenta</b>
         <p>
-            Din pagina de setari, userul va putea alege sa renunte la contul creat in aplicatie prin stergerea lui, aceasta operatiune fiind ireversibila, datele contului fiind sterse din baza de date.
+            Pe pagina de upload, la incarcarea documentului, prima data se iau coordonatele userului, care mai apoi sunt folosite pentru a apela ENDPOINT-ul event/timeLocation. Acesta va intoarce un raspuns 
+            in format json. Userul va avea acces la functionalitatile de upload doar daca este in proximitatea locatiei, si de asemenea, ora este cea potrivita, adica cel putin 15 minute inainte de ora de start a petrecerii.
+
         </p>
     </section>
 

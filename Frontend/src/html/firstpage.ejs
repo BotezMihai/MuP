@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Music Party Chooser</title>
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
+        @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+        @import url("firstpage.css");
+        h1 {
+            font-family: 'Monoton', cursive;
+            font-size: 50px;
+            color: #0c0c0c;
+        }
+        
+        h2 {
+            font-size: 25px;
+        }
+        
+        @media only screen and (max-width:400px) {
+            h1 {
+                font-size: 2em;
+            }
+            .modal-content {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <h1>Music Party Chooser</h1>
+        <h2>Please login to access all of our features!</h2>
+        <div class="btns">
+            <button id="myBtn" class="button button1">Login</button>
+            <button id="myBtnr" class="button button1">Register</button>
+        </div>
+    </div>
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form class="login-form">
+                <p class="login-text">
+                    <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-lock fa-stack-1x"></i>
+                  </span>
+                </p>
+                <input type="username" name="username" class="login-username" id="username"autofocus="true" required="true" placeholder="Username" />
+                <input type="password" name="password" class="login-password" id="password"required="true" placeholder="Password" />
+                <button type="button"  class="myButton" id="log"  >Login</button>
+              </form>
+              </div>
+        </div>
+        <div  id ="registerModal" class="modal">
+            <div class="modal-content">
+                <span class="closer">&times;</span>
+            <form class="login-form" id="register" method="post">
+                    <p class="login-text">
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-lock fa-stack-1x"></i>
+                      </span>
+                    </p>
+                    <input type="text" name="nume"class="login-username" autofocus="true" require="true" placeholder="First name"/>
+                    <input type="text"  name="prenume" class="login-username" autofocus="true" require="true" placeholder="Last name"/>
+                    <input type="email" name="email"class="login-username" autofocus="true" required="true" placeholder="Email" />
+                    <input type="password" name="parola" class="login-password" required="true" placeholder="Password" />
+                    <button type="button" id="registration" class="myButton" href="/loggedIn.html" >Register</button>
+                  </form>
+                  </div>
+            </div>
+    <script>
+var modalL = document.getElementById("loginModal");
+var btnL = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+btnL.onclick = function() {
+  modalL.style.display = "block";
+}
+span.onclick = function() {
+  modalL.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modalL) {
+    modalL.style.display = "none";
+  }
+}
+var modalR=document.getElementById('registerModal');
+var btnR = document.getElementById("myBtnr");
+var span = document.getElementsByClassName("closer")[0];
+btnR.onclick = function() {
+  modalR.style.display = "block";
+}
+span.onclick = function() {
+  modalR.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modalR) {
+    modalR.style.display = "none";
+  }
+}
+
+var loginBtn=document.getElementById("log");
+var register=document.getElementById('registration');
+
+loginBtn.addEventListener('click',function(){
+    let name=document.getElementById("username").value
+    let pass=document.getElementById("password").value;
+    var data={
+        "email":name,
+        "parola":pass
+    }
+    console.log(data)
+    fetch("http://localhost:5000/user/login",{
+        method:"POST",
+        headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then((res)=>res.json())
+          .then(Respjson => {
+            console.log(Respjson)
+            if(Respjson.message==='OK')
+            {let token=Respjson.token;
+             window.localStorage.setItem('userToken',token);
+             window.location.replace("http://localhost:3000/homepage")
+            }
+          })
+    
+
+})
+let patients = window.localStorage.getItem('userToken');
+console.log(patients)
+register.addEventListener('click',function(){
+  let formular=document.getElementById('register');
+  let name=formular.nume.value;
+  let prenume=formular.prenume.value;
+  let email=formular.email.value;
+  let parola=formular.parola.value;
+  let data={
+    "email":email,
+    "nume":name,
+    "prenume":prenume,
+    "parola":parola
+  }
+fetch("http://localhost:5000/user/register",{
+  method:"POST",
+  headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then((res)=>res.json())
+          .then(Respjson => {
+            if (Respjson.status ==='OK'){
+              modalR.style.display = "none";
+              alert("The account has been created")
+
+            }
+})
+})
+    </script>
+   
+</body>
+
+</html>

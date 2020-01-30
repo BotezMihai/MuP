@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Parties</title>
+    <link href="./manifest.json">
+    <script src="service-worker.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <style>
+        @import url("./styles/myparties.css");
+    </style>
+</head>
+
+<body>
+    <div class="together">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
+            <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
+            <a href="parties.html">All parties</a>
+            <a href="myparties.html">My parties</a>
+            <a href="party.html">Current party</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="firstpage.html" onclick="logout()">Log out</a>
+        </div>
+        <div class="create" id="creation">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <div class="first">
+                <p class="title">Parties created</p>
+                <div class="buttons">
+                    <button class="add" id="createParty">Create new party</button>
+                    <button class="switch" id="upcoming" onclick="Switch();">Upcoming parties</button>
+                </div>
+            </div>
+            <div class="second" id="created"></div>
+           
+        </div>
+
+        <!--Upcoming parties-->
+        <div class="create" id="future">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <div class="first">
+                <span class="title" id="titluJoined">Upcoming Parties</span>
+                <button class="upcoming" onclick="SwitchAdd();">Parties created</button>
+            </div>
+            <div class="second" id='petreceri'></div>
+        </div>
+    </div>
+
+    <!--Create Party Modal-->
+    <div id="createPartyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form class="create-form">
+                <div>
+                    <label for="party-name">Party Name</label>
+                    <input id="party-name" type="text" required="true" placeholder="Enter Name" />
+                </div>
+                <div>
+                    <label for="location">Party Location</label>
+                    <input id="location" type="text" required="true" autocomplete="off" placeholder="Enter Address" />
+                </div>
+                <div class="date">
+                    <label for="date">Date</label>
+                    <input id="date" type="date" required="true" />
+                </div>
+                <div class="start-hour">
+                    <label for="start-hour">Start Hour</label>
+                    <div class="time">
+                        <input id="start-hour" type="time" name="usr_time" required="true">
+                        
+                    </div>
+                </div>
+                <button class="createButton" id="createParty" onclick="createPetrecere();">Create Party</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/ui.js"></script>
+    <script src="/scripts/myparties.js"></script>
+
+</body>
+
+</html>

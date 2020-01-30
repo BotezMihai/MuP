@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Music Party Choser</title>
+    <style>
+        @import url("./styles/settings.css");
+        @import url("./styles/statistics.css");
+    </style>
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
+            <img src="./images/logo_transparent.png" style="width:150px;height:150px;margin-left:10%;margin-right:10%;">
+            <a href="parties.html">All parties</a>
+            <a href="myparties.html">My parties</a>
+            <a href="party.html">Current party</a>
+            <a href="settings.html">Settings</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="/firstpage.html" onclick="logout()">Log out</a>
+        </div>
+        <div class="statistics" id="individuals">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <span class="title" id="titlu"></span>
+            <div class="row">
+                <div class="dance">
+                    <p>You danced a total number of </p>
+                    <span class="number" id="minutes"></span><span class="minutes">minutes</span>
+                    
+                    <hr/>
+                </div>
+            </div>
+            <h2 class="titlee">Your music styles from the party</h2>
+            <div id="piechart"></div>
+        </div>
+
+</body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/stats.js"></script>
+</html>

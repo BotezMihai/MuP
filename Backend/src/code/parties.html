@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Music Party Chooser</title>
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
+
+    <style>
+        @import url("./styles/parties.css");
+    </style>
+</head>
+
+<body>
+    <div class="responsive-parties">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="close" onclick="closeNav()">&times;</a>
+            <img src="./images/logo_transparent.png" id="logo">
+            <a href="parties.html">Parties nearby</a>
+            <a href="myparties.html">My Parties</a>
+            <a href="party.html">Current party</a>
+            <a href="settings.html">Settings</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="#">Log out</a>
+        </div>
+        <div class="parties">
+            <span class="menu" onclick="openNav()">&#9776;</span>
+            <p class="title">Parties nearby</p>
+            <div class="party-cards" id="parties"> 
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/ui.js"></script>
+<script>
+var wrapper=document.getElementById('parties');
+document.addEventListener("DOMContentLoaded",getData);
+let token = window.localStorage.getItem('userToken');
+let data=[];
+console.log(token)
+async function getData (){
+ let response=await fetch("http://localhost:5000/event/get-parties",{
+        method:'GET',
+        headers:  {
+            'Accept': '*/*',
+            'Content-Type': 'application/json',
+            'Authorization':'Bearer '+token
+           
+        }
+    })
+ let result= await response.json();
+ return result.party;
+}
+getData().then(result=>{
+   let copy=result;
+   for(let i=0;i<result.length;i++){
+     let latitude=result[i].latitudine;
+     var longitudine=result[i].longitudine;
+     let request=latitude+"%2C"+longitudine;
+   
+     getVals(request).then(resultat=>{
+        
+             copy[i].street=resultat;
+         
+            //  result[i].street=resultat;
+            var card=document.createElement('div');
+        card.className='card';
+        card.id=copy[i].id;
+        var container=document.createElement('div'); 
+        container.className='container';
+        var pName=document.createElement('p');
+        pName.innerText='Party : '+ copy[i].nume;
+        var date=document.createElement('p');
+        date.innerHTML="Date :  " + copy[i].data;
+        var location=document.createElement('p');
+        location.innerHTML="Location :  "+ copy[i].street;
+        
+        var button=document.createElement('div');
+        button.className='button_container';
+        var buttonel=document.createElement('button');
+        buttonel.className='btn';
+        buttonel.onclick=function(){
+            partyId=copy[i].id;
+            var object={
+                'id_petrecere':partyId
+            }
+            console.log(object);
+            fetch('http://localhost:5000/party/join-party',{
+                method:'POST',
+                headers:  {
+            'Accept': '*/*',
+            'Content-Type': 'application/json',
+            'Authorization':'Bearer '+token
+           
+        },
+        body:JSON.stringify(object)
+
+            })
+            .then(resp=>resp.json())
+            .then(response=>{
+                console.log(response);
+                alert("Party attented! ");
+                var attented=document.getElementById(partyId);
+                attented.parentNode.removeChild(attented);
+            })
+        }
+        var span=document.createElement('span');
+        span.innerHTML='Attend';
+        buttonel.appendChild(span);
+        button.appendChild(buttonel);
+        container.appendChild(pName);
+        container.appendChild(date);
+        container.appendChild(location);
+        card.appendChild(container);
+        card.appendChild(button);
+        wrapper.appendChild(card);
+        
+     })
+    }
+ });
+
+ async function getVals(request){
+
+     let response= await fetch('https://api.opencagedata.com/geocode/v1/json?q='+request+'&key=466c09a776ed417b8ace9ad07c6527d9')
+     let resp= await response.json();
+     return resp.results[0].formatted;
+ }
+</script>
+</html>
