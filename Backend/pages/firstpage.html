@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,24 +14,6 @@
         @import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
         @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
         @import url("./styles/firstpage.css");
-        h1 {
-            font-family: 'Monoton', cursive;
-            font-size: 50px;
-            color: #0c0c0c;
-        }
-        
-        h2 {
-            font-size: 25px;
-        }
-        
-        @media only screen and (max-width:400px) {
-            h1 {
-                font-size: 2em;
-            }
-            .modal-content {
-                width: 80%;
-            }
-        }
     </style>
 </head>
 
@@ -53,32 +36,32 @@
                     <i class="fa fa-lock fa-stack-1x"></i>
                   </span>
                 </p>
-                <input type="email" name="username" class="login-username" id="username"autofocus="true" required="true" placeholder="Email" />
-                <input type="password" name="password" class="login-password" id="password"required="true" placeholder="Password" />
-                <button type="button"  class="myButton" id="log"  >Login</button>
-              </form>
-              </div>
+                <input type="email" name="username" class="login-username" id="username" autofocus="true" required="true" placeholder="Email" />
+                <input type="password" name="password" class="login-password" id="password" required="true" placeholder="Password" />
+                <button type="button" class="myButton" id="log">Login</button>
+            </form>
         </div>
-        <div  id ="registerModal" class="modal">
-            <div class="modal-content">
-                <span class="closer">&times;</span>
+    </div>
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="closer">&times;</span>
             <form class="login-form" id="register" method="post">
-                    <p class="login-text">
-                      <span class="fa-stack fa-lg">
+                <p class="login-text">
+                    <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-lock fa-stack-1x"></i>
                       </span>
-                    </p>
-                    <input type="text" name="nume"class="login-username" autofocus="true" require="true" placeholder="First name"/>
-                    <input type="text"  name="prenume" class="login-username" autofocus="true" require="true" placeholder="Last name"/>
-                    <input type="email" name="email"class="login-username" autofocus="true" required="true" placeholder="Email" />
-                    <input type="password" name="parola" class="login-password" required="true" placeholder="Password" />
-                    <button type="button" id="registration" class="myButton" href="/loggedIn.html" >Register</button>
-                  </form>
-                  </div>
-            </div>
+                </p>
+                <input type="text" name="nume" class="login-username" autofocus="true" require="true" placeholder="First name" />
+                <input type="text" name="prenume" class="login-username" autofocus="true" require="true" placeholder="Last name" />
+                <input type="email" name="email" class="login-username" autofocus="true" required="true" placeholder="Email" />
+                <input type="password" name="parola" class="login-password" required="true" placeholder="Password" />
+                <button type="button" id="registration" class="myButton" href="/loggedIn.html">Register</button>
+            </form>
+        </div>
+    </div>
     <script>
-var modalL = document.getElementById("loginModal");
+    var modalL = document.getElementById("loginModal");
 var btnL = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
 btnL.onclick = function() {
@@ -127,20 +110,16 @@ loginBtn.addEventListener('click',function(){
           body: JSON.stringify(data)
         }).then((res)=>res.json())
           .then(Respjson => {
-            console.log(Respjson)
             if(Respjson.message==='OK')
             {let token=Respjson.token;
              window.localStorage.setItem('userToken',token);
              window.location.replace("http://localhost:5000/homepage.html")
             }
           })
-    
-
 })
-let patients = window.localStorage.getItem('userToken');
-console.log(patients)
+let token = window.localStorage.getItem('userToken');
 document.addEventListener('DOMContentLoaded',function(){
-  if(patients!==null)
+  if(token!==null)
 {
   window.location.replace('/homepage.html')
 }
@@ -174,7 +153,6 @@ fetch("http://localhost:5000/user/register",{
 })
 })
     </script>
-    <script type="text/js" src="./scripts/loginRegister.js"></script>
 </body>
 
 </html>
