@@ -13,9 +13,8 @@ document.addEventListener('DOMContentLoaded',function(){
 function getLocation() {
 if (navigator.geolocation) {
 navigator.geolocation.getCurrentPosition(showPosition);} 
-else {
-         console.log("No navigator")}
-            }
+else {console.log("No navigator")}
+}
 
 function showPosition(position) {
   let latitude=position.coords.latitude ;
@@ -32,9 +31,7 @@ function showPosition(position) {
   })
   .then(response=>response.json())
   .then(resp=>{
-    console.log(resp)
     if (resp.status==='OK'){
-      console.log(resp)
       let titlu=document.getElementById('titlu');
       titlu.innerHTML="Welcome to the party: "+resp.name_party;
       window.localStorage.setItem('id_party',resp.id_party)
@@ -96,20 +93,13 @@ style.addEventListener('submit',function(){
   })
   })
 document.addEventListener('DOMContentLoaded',function(){
-
-
 window.addEventListener("compassneedscalibration", function (event) {
             alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
             event.preventDefault();
         }, true);
-var i = 0;
 let gyroscope = new Gyroscope({ frequency: 1 })
 var socket = new WebSocket("ws://localhost:8085?token="+token);   
-
-
-let count=0;
-
- socket.onmessage= function (msg) {
+socket.onmessage= function (msg) {
   setTimeout(()=>{
   let id_party=window.localStorage.getItem('id_party')
   let match="RESET "+ id_party
@@ -119,36 +109,30 @@ let count=0;
         }
 },1000)
   }
-  let total=0
-  gyroscope.addEventListener('reading', e => {
+let total=0
+ gyroscope.addEventListener('reading', e => {
           
             if (gyroscope.x >= 0.60 || gyroscope.y >= 0.60 || gyroscope.z >= 0.60 || gyroscope.x <= -0.60 || gyroscope.y <= -0.60 || gyroscope.z <= -0.60) {
-                total += 1;
-                console.log("totalul e", total);       
+                total += 1;      
                 console.log("Angular velocity along the X-axis " + gyroscope.x);
                 console.log("Angular velocity along the Y-axis " + gyroscope.y);
                 console.log("Angular velocity along the Z-axis " + gyroscope.z);
               }
-       
         });
     
-    gyroscope.start();
-    socket.onopen = function () {
-  setInterval(() => {
-   
+gyroscope.start();
+socket.onopen = function () {
+  setInterval(() => {   
         let id_party=window.localStorage.getItem('id_party');
-        console.log(id_party)
         if(id_party!==null){
-            console.log("sunt aici"+total)
             socket.send("ad "+id_party+","+total);
          }
         }, 7000);
     };
-    socket.onclose = function () {
-        socket.close();
-
+socket.onclose = function () {
+      socket.close();
     };
-    socket.onerror = function () {
+socket.onerror = function () {
         console.log('Error!');
     };
   })

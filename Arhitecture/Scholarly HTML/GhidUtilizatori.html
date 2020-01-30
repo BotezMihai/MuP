@@ -24,18 +24,7 @@
                     </li>
                 </ul>
             </li>
-            <li typeof="sa:ContributorRole" property="schema:author">
-                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
-                    <meta property="schema:givenName" content="Bianca">
-                    <meta property="schema:familyName" content="Ciuraru">
-                    <span property="schema:name">Bianca Ciuraru</span>
-                </span>
-                <ul>
-                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
-                        <a href="mailto:biancaciuraru@yahoo.com" property="schema:email">biancaciuraru@yahoo.com</a>
-                    </li>
-                </ul>
-            </li>
+            
             <li typeof="sa:ContributorRole" property="schema:author">
                 <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
                     <meta property="schema:givenName" content="Ramona">
@@ -59,7 +48,7 @@
             <br> <a href="#C3"> 3. Petreceri</a>
             <br> <a href="#C4"> 4. Petrecerile Mele</a>
             <br> <a href="#C5"> 5. Statistici</a>
-            <br> <a href="#C6"> 6. Setari</a>
+            
         </p>
     </section>
 
@@ -75,7 +64,10 @@
         <h4>2. Inregistrare/Autentificare</h4>
         <p>
             Primul contact cu aplicatia se realizeaza cu ajutorul sistemului de inregistrare si autentificare. Inregistrarea consta in completarea unor date personale si alegerea unei parole.
-            Accesul in aplicatie se face pe baza email-ului si a parolei alese la inregistrare. In urma autentificarii, utilizatorul are posibilitatea de a-si stearge contul creat din sectiunea de setari a meniului.
+            Accesul in aplicatie se face pe baza email-ului si a parolei alese la inregistrare. In urma autentificarii.
+            <figure typeof="sa:Image">
+              <img src="login.PNG">
+              </figure>
         </p>
     </section>
 
@@ -84,16 +76,25 @@
         <p> 
             Imediat dupa logare, utilizatorul va fi redirectionat pe pagina principala unde va avea acces la un meniu, una dintre optiunile sale fiind "Petreceri". In aceasta pagina vor fi listate toate petrecerile disponibile in viitor, in apropierea utilizatorului. 
             Acesta va putea da join la una sau mai multe petreceri care nu au loc simultan sau va avea posibilitatea sa organizeze propria petrecere. Odata creata petrecerea, ea va fi disponibila in sectiunea de "Petrecerile Mele".
+       <figure typeof="sa:Image">
+        <img src="allparties.PNG">
+       
+            <img src="myprties.PNG">
+        </figure>
         </p>
     </section>
 
     <section id="C4">
-        <h4>4. Petrecerile Mele</h4>
+        <h4>4. Petrecere curenta </h4>
         <p>
-            O alta optiune a meniului este cea de "Petrecerile Mele". Fiecarui utilizator ii vor aparea petrecerile la care a dat join sau cele pe care le organizeaza. <br>
+            O alta optiune a meniului este cea de "Current party". Fiecarui utilizator ii vor aparea petrecerile la care a dat join sau cele pe care le organizeaza. <br>
             Atunci cand se acceseaza o petrecere la care va participa, functionalitatile disponibile sunt incarcarea unei melodii in format MP3/FLAC si alegerea genurilor muzicale dintr-o lista de genuri, 
             cu restrictia ca aceste functionalitati vor fi disponibile doar cu cateva minute inainte de inceperea petrecerii daca utilizatorul se afla la o anumita distanta de locatia acesteia. O alta functionalitate este cea de a sterge joinul la petrecerea respectiva. <br>
-            Daca petrecerea selectata este una pe care userul o organizeaza, functionalitatile sunt modificarea detaliilor petrecerii si stergerea acesteia, dar si vizualizarea playlistului creat prin incarcarile participantilor si genurile lor preferate.
+            Daca petrecerea selectata este una pe care userul o organizeaza, functionalitatea este pornirea acesteia si 0 stergerea acesteia.
+            <figure typeof="sa:Image">
+                <img src="current.PNG">
+               
+            </figure>
         </p>
     </section>
 
@@ -107,19 +108,11 @@
         <b>5.1 Individuale</b>
         <p>
             Aceasta functionalitate consta in afisarea unor detalii Individuale precum timpul petrecut dansand, melodia favorita/detestata, genul de muzica favorit/detestat.
+       <figure typeof="sa:Image">
+           <img src="stast.PNG">
+       </figure>
         </p>
 
-        <b>5.2 Globale</b>
-        <p>
-            Aceste statistici se vor face luand in considerare preferintele tuturor participantilor la petrecerea respectiva. Vor fi afisate melodiile si stilurile muzicale pe care au dansat cei mai multi utilizatori sau care au fost alese de catre acestia.
-        </p>
-    </section>
-
-    <section id="C6">
-        <h4>6. Setari</h4>
-        <p>
-            O alta functionalitate a aplicatiei consta in posibilitatea utilizatorului de a-si sterge contul creat in aplicatie. Odata sters, contul nu va mai putea fi recuperat, utilizatorul fiind nevoit sa isi creeze altul.
-        </p>
     </section>
     
 </body>
