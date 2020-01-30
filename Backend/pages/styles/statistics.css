@@ -72,29 +72,6 @@
     box-shadow: 0 0 10px rgba(255, 255, 255);
 }
 
-.buttons {
-    width: 220px;
-    text-align: center;
-    background-color: rgb(91, 17, 104);
-    margin-top: -40px;
-}
-
-.switch {
-    background-color: rgb(91, 17, 104);
-    border: none;
-    color: white;
-    font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 18px;
-    padding: 15px 0;
-    text-decoration: none;
-    cursor: pointer;
-    outline: none;
-}
-
-::-webkit-scrollbar {
-    width: 0;
-}
 
 .chart h2 {
     color: #16b553;

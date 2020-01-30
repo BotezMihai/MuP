@@ -148,6 +148,8 @@ submit.addEventListener('submit',function(){
         event.preventDefault();
         var file = document.getElementById('myFileInput').files[0];
         let formData=new FormData();
+        var x = file.name;
+        document.getElementById("demo").innerHTML = x;
         formData.append('melodie',file);
         let id_party=window.localStorage.getItem('id_party')
         formData.append('id_petrecere',id_party);        
