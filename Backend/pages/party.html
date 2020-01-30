@@ -7,6 +7,7 @@
     <title>Party</title>
     <link href="https://fonts.googleapis.com/css?family=Monoton|Roboto:100&display=swap" rel="stylesheet">
   <link href="./manifest.json">
+  <script src="service-worker.js"></script>
     <style>
      @import url("./styles/myparties.css"
      );
@@ -14,7 +15,7 @@
     </style>
 </head>
 <body>
-  <audio loop src="http://www.sousound.com/music/healing/healing_01.mp3" hidden muted  autoplay="True"></audio>
+  <audio loop src="http://www.sousound.com/music/healing/healing_01.mp3" muted hidden autoplay="True"></audio>
   <div class="together">
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closeNav" onclick="closeNav()">&times;</a>
@@ -204,14 +205,17 @@ var socket = new WebSocket("ws://localhost:8085?token="+token);
 
 
 let count=0;
+
  socket.onmessage= function (msg) {
-      var today = new Date();
-      count+=1;
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      console.log(count); 
-      console.log(msg)
-      total=0;
-    }
+  setTimeout(()=>{
+  let id_party=window.localStorage.getItem('id_party')
+  let match="RESET "+ id_party
+        
+        if(msg.data===match){
+          total=0
+        }
+},1000)
+  }
   let total=0
   gyroscope.addEventListener('reading', e => {
           
