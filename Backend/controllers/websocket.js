@@ -83,31 +83,49 @@ async function id_songs_used_party(id_party) {
 
 async function search_new_song(ws, id_melodie, id_petrecere) {
 
-    var results_info_song = await config.query(`select * from melodii_user inner join melodii on melodii_user.titlu_melodie=melodii.titlu 
-                                    inner join tag on tag.id_melodie=melodii.id where melodii.id=:id_melodie and melodii_user.id_petrecere=:id_petrecere`,
+    var results_info_song = await config.query(`select * from melodii  
+                                    inner join tag on tag.id_melodie=melodii.id where melodii.id=:id_melodie and melodii.id_petrecere=:id_petrecere`,
         { replacements: { id_melodie: id_melodie, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true });
     console.log(results_info_song);
     var id_songs_used = await id_songs_used_party(id_petrecere);
-    var result_info_songs_unused = await config.query(`select * from melodii_user inner join melodii on melodii_user.titlu_melodie=melodii.titlu 
-    inner join tag on tag.id_melodie=melodii.id where melodii.id not in (:ids) and melodii_user.id_petrecere=:id_petrecere`,
+    var result_info_songs_unused = await config.query(`select * from melodii
+    inner join tag on tag.id_melodie=melodii.id where melodii.id not in (:ids) and melodii.id_petrecere=:id_petrecere`,
         { replacements: { ids: id_songs_used, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true }
     );
     console.log(result_info_songs_unused);
-    // cautare dupa stilul melodiei cu cei mai multi dansatori
-    for (let i = 0; i < results_info_song.length; i++) {
-        let tag = results_info_song[i].tag;
-        for (let j = 0; j < result_info_songs_unused.length; j++) {
-            console.log("compar", tag.trim(), result_info_songs_unused[j].tag.trim());
-            if (result_info_songs_unused[j].tag.trim() === tag.trim()) {
-                var datetime = get_time_nowNS();
-                var result_insert = await Playing.create({
-                    id_melodie: result_info_songs_unused[j].id_melodie,
-                    id_petrecere: id_petrecere,
-                    start: datetime
-                });
+    // cautare dupa stilul melodiei cu cei mai multi dansatori!!!caut o melodie cu acelasi stil
+    if (results_info_song.length != 0) {
+        for (let i = 0; i < results_info_song.length; i++) {
+            let tag = results_info_song[i].tag;
+            for (let j = 0; j < result_info_songs_unused.length; j++) {
+                console.log("compar", tag.trim(), result_info_songs_unused[j].tag.trim());
+                if (result_info_songs_unused[j].tag.trim() === tag.trim()) {
+                    var datetime = get_time_nowNS();
+                    var result_insert = await Playing.create({
+                        id_melodie: result_info_songs_unused[j].id_melodie,
+                        id_petrecere: id_petrecere,
+                        start: datetime
+                    });
+                    var message_to_sent = {
+                        "reset": true,
+                        "message": result_info_songs_unused[j]
+                    };
+                    var json = JSON.stringify(message_to_sent);
+                    ws.send(json);
+                    send_broadcasting(id_petrecere);
+                    return 0;
+                }
+            }
+        }
+    } else {
+        console.log("aici");
+        var song = await config.query(`select * from melodii where id=:id_melodie`,
+            { replacements: { id_melodie: id_melodie }, type: config.QueryTypes.SELECT, raw: true });
+        for (let element of result_info_songs_unused) {
+            if (element.artist.trim() == song[0].artist.trim()) {
                 var message_to_sent = {
                     "reset": true,
-                    "message": result_info_songs_unused[j]
+                    "message": element
                 };
                 var json = JSON.stringify(message_to_sent);
                 ws.send(json);
@@ -115,6 +133,7 @@ async function search_new_song(ws, id_melodie, id_petrecere) {
                 return 0;
             }
         }
+        console.log("n am gasit!"); 
     }
     // caut dupa stilurile de la utilizatori
     var style = await get_stiluri_desc(id_petrecere);
@@ -140,21 +159,16 @@ async function search_new_song(ws, id_melodie, id_petrecere) {
             }
         }
     }
-    var result_info_songs_unused_last = await config.query(`select * from melodii 
-     where melodii.id not in (:ids) and melodii.id_petrecere=:id_petrecere`,
-        { replacements: { ids: id_songs_used, id_petrecere: id_petrecere }, type: config.QueryTypes.SELECT, raw: true }
-    );
-    // returnez o melodie care nu i s a mai dat play
-    if (result_info_songs_unused_last.length != 0) {
+    if (result_info_songs_unused.length != 0) {
         var datetime = get_time_nowNS();
         var result_insert = await Playing.create({
-            id_melodie: result_info_songs_unused_last[0].id,
-            id_petrecere: result_info_songs_unused_last[0].id_petrecere,
+            id_melodie: result_info_songs_unused[0].id_melodie,
+            id_petrecere: result_info_songs_unused[0].id_petrecere,
             start: datetime
         });
         var message_to_sent = {
             "reset": true,
-            "message": result_info_songs_unused_last[0]
+            "message": result_info_songs_unused[0]
         };
         var json = JSON.stringify(message_to_sent);
         ws.send(json);
@@ -301,7 +315,6 @@ wss.on('connection', (ws, req) => {
                         where: { id_petrecere: id_petrecere },
                         raw: true
                     });
-                    console.log(results);
                     var new_song = await search_new_song(ws, results[0].id_melodie, id_petrecere);
                     return 0;
                 }
