@@ -26,18 +26,6 @@
             </li>
             <li typeof="sa:ContributorRole" property="schema:author">
                 <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
-                    <meta property="schema:givenName" content="Bianca">
-                    <meta property="schema:familyName" content="Ciuraru">
-                    <span property="schema:name">Bianca Ciuraru</span>
-                </span>
-                <ul>
-                    <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
-                        <a href="mailto:biancaciuraru@yahoo.com" property="schema:email">biancaciuraru@yahoo.com</a>
-                    </li>
-                </ul>
-            </li>
-            <li typeof="sa:ContributorRole" property="schema:author">
-                <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
                     <meta property="schema:givenName" content="Ramona">
                     <meta property="schema:familyName" content="Nechita">
                     <span property="schema:name">Ramona Nechita</span>
@@ -76,7 +64,7 @@
         </p>
         <p>
             Autentificarea utilizatorului se realizeaza prin jwt pentru o securitate sporita. Fiecare utilizator primeste un token unic la logare pe care aplicatia il foloseste 
-            pentru a accesa o resursă protejată (precum o API). In timpul logarii se va face o metoda de tip POST care va verifica daca datele introduse sunt corecte, in caz afirmativ utilizatorul primind aceesul in aplicatie.
+            pentru a accesa o resursă protejată. In timpul logarii se va face o metoda de tip POST care va verifica daca datele introduse sunt corecte, in caz afirmativ utilizatorul primind aceesul in aplicatie.
         </p>
     </section>
 
@@ -87,14 +75,15 @@
             astfel controller-ul va interactiona cu aceste entitati si nu direct cu baza de date. View-ul va primi ca raspuns JSON-uri. De asemenea, vom avea si layere de filtrare.
             Vom folosi controllere pentru a grupa functionalitatile comune astfel:
             <ul class="mvc">
-                <li>LoginController: cu functionalitatile de login, register, logout;</li>
+                <li>UserController: cu functionalitatile de login, register;</li>
                 <li>UploadController: upload melodii, genuri muzicale;</li>
                 <li>MonitorController: monitorizeaza aspecte ce tin de miscare;</li>
                 <li>StatisticController: responsabil de statistici;</li>
-                <li>PartyController: join party, leave party, create party.</li>
+                <li>PartyController: Tine de petrecerile la care ai dat join:join party, leave party.</li>
+                <li>EventController: tot ceea ce tine petreceri.</li>
             </ul>
         </p>
-
+        <p> Pe langa aceste controllere vom mai avea un websocket server care va fi responsabil de comunicarea cu front-ul atunci cande se actualizeaza timpul petrecut dansand de catre un user plus acesta va oferi si melodii noi pe baza unui algoritm specializat pentru asta.</p>
         <p>
             Aplicatia va implementa si va folosi un algoritm specializat in alegerea melodiilor care are ca scop maximizarea numarului celor care danseaza (de exemplu, daca dupa schimbarea 
             unei melodii numarul celor care danseaza scade, dupa terminarea melodiei se va trece la stilul de muzica al melodiei cu numarul de dansatori maxim din istoric, 
