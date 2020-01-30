@@ -8,7 +8,7 @@ const bd = require("sequelize");
 
 const PlayingModel = require("../models/playing");
 const Playing = PlayingModel(config, bd);
-
+ 
 const DansatoriModel = require("../models/dansatori");
 const Dansatori = DansatoriModel(config, bd);
 
@@ -133,7 +133,7 @@ async function search_new_song(ws, id_melodie, id_petrecere) {
                 return 0;
             }
         }
-        console.log("n am gasit!"); 
+        console.log("n am gasit!");
     }
     // caut dupa stilurile de la utilizatori
     var style = await get_stiluri_desc(id_petrecere);
@@ -323,9 +323,7 @@ wss.on('connection', (ws, req) => {
                 ws.send("CODE: 400");
             }
         } else {
-            console.log("sunt aici papusa");
             console.log(message);
-
         }
     });
 });

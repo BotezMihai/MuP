@@ -18,13 +18,13 @@
                     <meta property="schema:familyName" content="Botez">
                     <span property="schema:name">Mihai Botez</span>
                 </span>
-                <ul> 
+                <ul>
                     <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
                         <a href="mailto:mihai.botezz@gmail.com" property="schema:email">mihai.botezz@gmail.com</a>
                     </li>
                 </ul>
             </li>
-            
+
             <li typeof="sa:ContributorRole" property="schema:author">
                 <span typeof="schema:Person" resource="https://en.wikipedia.org/wiki/John_Henry_Holland">
                     <meta property="schema:givenName" content="Ramona">
@@ -33,7 +33,8 @@
                 </span>
                 <ul>
                     <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
-                        <a href="mailto:ramona.nechita99@gmail.com" property="schema:email">ramona.nechita99@gmail.com</a>
+                        <a href="mailto:ramona.nechita99@gmail.com"
+                            property="schema:email">ramona.nechita99@gmail.com</a>
                     </li>
                 </ul>
             </li>
@@ -42,111 +43,216 @@
 
     <section>
         <h4> Cuprins </h4>
-        <p> 
-                 <a href="#C1"> 1. Introducere</a>
+        <p>
+            <a href="#C1"> 1. Introducere</a>
             <br> <a href="#C2"> 2. Inregistrare/Autentificare</a>
             <br> <a href="#C3"> 3. Structura Aplicatiei</a>
-            <br> <a href="#C4"> 4. Functionalitati</a> 
+            <br> <a href="#C4"> 4. Functionalitati</a>
         </p>
     </section>
 
     <section id="C1">
         <h4>1. Introducere</h4>
         <p>
-            MUP se considera a fi un instrument "inteligent" care va automatiza alegerea muzicii difuzate la o petrecere.
-            Fiecare persoana care va merge la o petrecere aleasa de el va putea adauga melodii in playlistul petrecerii ori va putea alege unul sau mai multe genuri muzicale preferate.
+            MUP se considera a fi un instrument "inteligent" care va automatiza alegerea muzicii difuzate la o
+            petrecere.
+            Fiecare persoana care va merge la o petrecere aleasa de el va putea adauga melodii in playlistul petrecerii
+            ori va putea alege unul sau mai multe genuri muzicale preferate.
         </p>
     </section>
 
     <section id="C2">
         <h4>2. Inregistrare/Autentificare</h4>
         <p>
-            Pentru a avea acces la functionalitatile aplicatiei este necesar ca utilizatorul sa-si creeze un cont, fiind stocate in baza de date anumite informatii despre utilizator, precum: id, nume, prenume, email, parola.
+            Pentru a avea acces la functionalitatile aplicatiei este necesar ca utilizatorul sa-si creeze un cont, fiind
+            stocate in baza de date anumite informatii despre utilizator, precum: id, nume, prenume, email, parola.
         </p>
         <p>
-            Autentificarea utilizatorului se realizeaza prin jwt pentru o securitate sporita. Fiecare utilizator primeste un token unic la logare pe care aplicatia il foloseste 
-            pentru a accesa o resursă protejată. In timpul logarii se va face o metoda de tip POST care va verifica daca datele introduse sunt corecte, in caz afirmativ utilizatorul primind aceesul in aplicatie.
+            Autentificarea utilizatorului se realizeaza prin jwt pentru o securitate sporita. Fiecare utilizator
+            primeste un token unic la logare pe care aplicatia il foloseste
+            pentru a accesa o resursă protejată. In timpul logarii se va face o metoda de tip POST care va verifica daca
+            datele introduse sunt corecte, in caz afirmativ utilizatorul primind aceesul in aplicatie.
         </p>
     </section>
 
     <section id="C3">
         <h4>3. Structura Aplicatiei</h4>
-        <p> 
-            Aplicatia va fi construita avand la baza pattern-ul MVC, de asemenea aceasta va respecta principiile REST API. Vom folosi typeorm pentru a genera entitatile bazei de date, 
-            astfel controller-ul va interactiona cu aceste entitati si nu direct cu baza de date. View-ul va primi ca raspuns JSON-uri. De asemenea, vom avea si layere de filtrare.
+        <p>
+            Aplicatia va fi construita avand la baza pattern-ul MVC, de asemenea aceasta va respecta principiile REST
+            API. Vom folosi typeorm pentru a genera entitatile bazei de date,
+            astfel controller-ul va interactiona cu aceste entitati si nu direct cu baza de date. View-ul va primi ca
+            raspuns JSON-uri. De asemenea, vom avea si layere de filtrare.
             Vom folosi controllere pentru a grupa functionalitatile comune astfel:
             <ul class="mvc">
                 <li>UserController: cu functionalitatile de login, register;</li>
                 <li>UploadController: upload melodii, genuri muzicale;</li>
-                <li>MonitorController: monitorizeaza aspecte ce tin de miscare;</li>
                 <li>StatisticController: responsabil de statistici;</li>
                 <li>PartyController: Tine de petrecerile la care ai dat join:join party, leave party.</li>
                 <li>EventController: tot ceea ce tine petreceri.</li>
             </ul>
         </p>
-        <p> Pe langa aceste controllere vom mai avea un websocket server care va fi responsabil de comunicarea cu front-ul atunci cande se actualizeaza timpul petrecut dansand de catre un user plus acesta va oferi si melodii noi pe baza unui algoritm specializat pentru asta.</p>
+        <p> Pe langa aceste controllere vom mai avea un websocket server care va fi responsabil de comunicarea cu
+            front-ul atunci cand se actualizeaza timpul petrecut dansand de catre un user plus acesta va oferi si
+            melodii noi pe baza unui algoritm specializat pentru asta.</p>
         <p>
-            Aplicatia va implementa si va folosi un algoritm specializat in alegerea melodiilor care are ca scop maximizarea numarului celor care danseaza (de exemplu, daca dupa schimbarea 
-            unei melodii numarul celor care danseaza scade, dupa terminarea melodiei se va trece la stilul de muzica al melodiei cu numarul de dansatori maxim din istoric, 
-            iar daca numarul de dansatori creste va creste si popularitatea stilului de muzica actual ceea ce va fi folosit la generarea urmatoarei melodii).
+            Aplicatia va implementa si va folosi un algoritm specializat in alegerea melodiilor care are ca scop
+            maximizarea numarului celor care danseaza.
+            Etapele alegerii unei melodii sunt urmatoarele:
+            <ul>
+                <li>
+                    Daca in seara petrecerii nu s-a mai dat play la nicio melodie, atunci se ordoneaza descrescator
+                    stilurile(dupa numarul celor care prefera stilul respectiv) incarcate de useri pentru petrecerea
+                    respectiva. Se parcurge aceasta lista pana cand se gaseste o melodie care are acelasi tag ca si
+                    stilul.
+                </li>
+                <li>
+                    Cand avem cel putin o melodie in playlist-ul petrecerii curente, algoritmul va determina melodia pe
+                    care s-a dansat cel mai mult si va determina o noua melodie in felul urmator:
+                    <ul>
+                        <li>
+                            daca gasim o melodie cu acelasi stil o returnam
+                        </li>
+                        <li>
+                            daca la punctul anterior nu s-a gasit se incearca gasirea unei melodii care are acelasi
+                            artist cu cea pe care s-a dansat cel mai mult
+                        </li>
+                        <li>
+                            daca nu s-a gasit nici acum se alege melodia conform primei melodii din playlist
+                        </li>
+                        <li>
+                            in final, daca pe niciunul dintre cazurile de mai sus nu s-a gasit o melodie, se returneaza
+                            una random.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
         </p>
 
         <p>
-            Stocarea datelor despre utilizatori, petreceri, dansatori si stiluri se va face intr-o baza de date relationala, iar melodiile incarcate de utilizatori vor fi stocate in foldere pe server.
+            Stocarea datelor despre utilizatori, petreceri, dansatori si stiluri se va face intr-o baza de date
+            relationala, iar melodiile incarcate de utilizatori vor fi stocate in foldere pe server.
         </p>
-
+        <p>
+            Pentru accesul la baza de date am folosit un ORM, sequelize care faciliteaza accesul si ofera o interfata
+            simpla.
+        </p>
         <p>
             Vom folosi o serie de API-uri externe pentru manipularea datelor necesare, API-uri precum:
             <ul class="mvc">
-                <li>OpenCage Geocoder API - ENPOINT: https://api.opencagedata.com/geocode/v1/json?q=LAT+LNG&key=ea8adb19433e4345b03b826ca1e82955</li>
-                <li>Gyroscope API -  pentru a detecta orientarea miscarii, a utilizatorilor care danseaza, date folosite de algoritm pentru alegerea melodiilor urmatoare, dar si pentru stabilirea statisticilor;</li>
-                <li>LastFM API - pentru a prelua toate metadatele despre un fisier.</li>
+                <li>OpenCage Geocoder API - ENPOINT, acesta este folosit pentru a face conversia din latitudine si
+                    longitudine in adresa, dar si din adresa in latitudine si longitudine: <ul>
+                        <li>https://api.opencagedata.com/geocode/v1/json?q=LAT+LNG&key=ea8adb19433e4345b03b826ca1e82955
+                        </li>
+                        <li>https://api.opencagedata.com/geocode/v1/json?q=PLACENAME&key=YOUR-API-KEY</li>
+                    </ul>
+                <li>Gyroscope API - pentru a detecta orientarea miscarii, a utilizatorilor care danseaza, date folosite
+                    de algoritm pentru alegerea melodiilor urmatoare, dar si pentru stabilirea statisticilor. Pentru ca
+                    giroscopul sa nu se activeze si la miscari subtile am setat o senzitivitate de cel putin 0.6. De
+                    asemenea frecventa acestuia este 1, ceea ce inseamna ca girsocopul va citi date o data pe secunda;
+                </li>
+                <li>LastFM API - pentru a prelua toate metadatele despre un fisier. Vom folosi acest API pentru a prelua
+                    date despre melodii cand acestea nu pot fi gasite cu pachetul music-metadata din node.js. Structura
+                    unui apel:
+                    <ul>
+                        <li> Pentru a prelua informatii despre un cantec se apeleaza urmatorul endpoint:
+                            http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + API_KEY + "&artist=" +
+                            artist + "&track=" + title + "&format=json";</li>
+                        <li>Pentru a cauta taguri pentru o melodie in caz ca music-metadata nu ne returneaza niciun tag
+                            vom apela urmatorul endpoint:
+                            "http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&artist=" + artist + "&api_key="
+                            + API_KEY + "&format=json";</li>
+                        <li> Pentru a gasi artistul stiind numele melodiei(in caz ca cele 2 endpointuri de mai sus nu ne
+                            returneaza artistul): http://ws.audioscrobbler.com/2.0/?method=track.search&track=" + title
+                            + "&api_key=" + API_KEY + "&format=json"</li>
+                    </ul>
+                </li>
             </ul>
+            Toate aceste API ne vor returna fisiere JSON pe care le vom parsa si vom obtine informatia necesara.
         </p>
     </section>
 
     <section id="C4">
         <h4>4. Functionalitati</h4>
-
+        <p>Toate functionalitatile enumerate mai jos necesita token-ul de acces care este procesat de un middleware ce
+            verifica token-ul.</p>
         <b>4.1 Petreceri</b>
         <p>
-            In aceasta pagina se va face o operatie de tip GET pentru listarea tuturor petrecerilor din baza de date. Datele vor fi preluate din baza de date 
-            si vor fi returnate printr-un obiect de tip JSON care va contine locatia, numele si data fiecarei petreceri.<br>
-            De asemenea, utilizatorul va primi acces la un formular de creare a unei petreceri, parametrii POST-ului fiind locatia, numele si data petrecerii respective, aceste date urmand sa fie stocate in baza de date.
+            In aceasta pagina se va face o operatie de tip GET pentru listarea tuturor petrecerilor din baza de date.
+            Datele vor fi preluate din baza de date
+            si vor fi returnate printr-un obiect de tip JSON care va contine locatia, numele si data fiecarei
+            petreceri.<br>
+            De asemenea, utilizatorul va primi acces la un formular de creare a unei petreceri, parametrii POST-ului
+            fiind locatia, numele si data petrecerii respective, aceste date urmand sa fie stocate in baza de date.
         </p>
 
         <b>4.2 Petrecerile Mele</b>
         <p>
-            Toate petrecerile la care userul va participa sau pe care le va organiza vor fi afisate prin intermediul metodei GET care va folosi detalii din baza de date. 
-            Totodata, vor fi disponibile optiuni de stergere a unei petreceri (DELETE va primi ca parametru ID-ul petrecerii pentru a putea fi stearsa din baza de date)
-             si de anulare a participarii la o petrecere (DELETE va primi ca parametru ID-ul petrecerii la care utilizatorul vrea sa stearga joinul).
+            Toate petrecerile la care userul va participa sau pe care le va organiza vor fi afisate prin intermediul
+            metodei GET care va folosi detalii din baza de date.
+            Totodata, vor fi disponibile optiuni de stergere a unei petreceri (DELETE va primi ca parametru ID-ul
+            petrecerii pentru a putea fi stearsa din baza de date)
+            si de anulare a participarii la o petrecere (DELETE va primi ca parametru ID-ul petrecerii la care
+            utilizatorul vrea sa stearga joinul).
         </p>
 
         <p>
-            Atunci cand se face click pe o petrecere, continutul paginii va fi diferit in functie de tipul petrecerii (userul va fi participant sau organizator).<br>
-            In cazul in care acesta va participa la petrecerea respectiva, acesta va avea la dispozitie atat optiunea de a incarca un fisier audio in formal MP3/FLAC care va fi 
-            adaugat la playlistul petrecerii, cat si optiunea de a alege unul sau mai multe stiluri de muzica preferate avand la dispozitie un formular cu cu o multitudine de categorii muzicale (fiecare actiune fiind facuta prin intermediul unui POST).<br>
-           
+            Atunci cand se face click pe o petrecere, continutul paginii va fi diferit in functie de tipul petrecerii
+            (userul va fi participant sau organizator).<br>
+            In cazul in care acesta va participa la petrecerea respectiva, acesta va avea la dispozitie atat optiunea de
+            a incarca un fisier audio in formal MP3/FLAC care va fi
+            adaugat la playlistul petrecerii, cat si optiunea de a alege unul sau mai multe stiluri de muzica preferate
+            avand la dispozitie un formular cu cu o multitudine de categorii muzicale (fiecare actiune fiind facuta prin
+            intermediul unui POST).<br>
+
         </p>
         <b>4.2.1 Playerul</b>
         <p>
-            In momentul in care un user va da startul la o petrecere, se va deschide o comunicare prin socketi pentru a cere o melodie. Cand melodia s-a terminat,
+            In momentul in care un user va da startul la o petrecere, se va deschide o comunicare prin socketi pentru a
+            cere o melodie. Cand melodia s-a terminat,
             se trimite un mesaj serverului cu id-ul petrecerii pentru a primi urmatoarea melodie.
-            Atunci cand nu mai sunt melodii disponibile, se intoarce un mesaj corespunzator.
+            Atunci cand nu mai sunt melodii disponibile, se intoarce un mesaj corespunzator. Aceasta comunicare va avea
+            loc prin socketi iar mesajul
+            va avea urmatorul format <i>"NS ID_PETRECERE" </i>
 
         </p>
         <b>4.3 Statistici</b>
         <p>
-            Aceasta pagina va pune la dispozitia utilizatorului statistici privind activitatea sa la petrecerile la care a participat sau pe care le-a organizat. 
-            Detaliile despre timpul petrecut dansand vor fi preluate cu ajutorul API-ului Gyroscope, aceste date urmand a fi stocate in baza de date si afisate utilizatorului printr-o metoda GET.
+            Aceasta pagina va pune la dispozitia utilizatorului statistici privind activitatea sa la petrecerile la care
+            a participat sau pe care le-a organizat.
+            Detaliile despre timpul petrecut dansand vor fi preluate cu ajutorul API-ului Gyroscope, aceste date urmand
+            a fi stocate in baza de date si afisate utilizatorului printr-o metoda GET.
         </p>
         <b>4.4 Petrecerea curenta</b>
         <p>
-            Pe pagina de upload, la incarcarea documentului, prima data se iau coordonatele userului, care mai apoi sunt folosite pentru a apela ENDPOINT-ul event/timeLocation. Acesta va intoarce un raspuns 
-            in format json. Userul va avea acces la functionalitatile de upload doar daca este in proximitatea locatiei, si de asemenea, ora este cea potrivita, adica cel putin 15 minute inainte de ora de start a petrecerii.
+            Pe pagina de upload, la incarcarea documentului, prima data se iau coordonatele userului, care mai apoi sunt
+            folosite pentru a apela ENDPOINT-ul event/timeLocation. Acesta va intoarce un raspuns
+            in format json. Userul va avea acces la functionalitatile de upload doar daca este in proximitatea locatiei,
+            si de asemenea, ora este cea potrivita, adica cel putin 15 minute inainte de ora de start a petrecerii.
 
         </p>
+        <b>4.5 Websocket server</b>
+        <p>
+            Acesta va fi primi 2 tipuri de mesaje (NS id_party) pentru intorcerea unei noi melodii si (AD id_petrecere,
+            total) pentru actualizarea miscarii unui user. Web socket server-ul va parsa mesajul ca sa vada ce tip e
+            acesta, iar daca intalneste un mesaj cu un format
+            necunoscut va sesiza si nu va face nimic. Pentru implementarea acestuia s-a folosi pachetul "ws" din
+            node.js. Acesta se deschide la portul 8086.
+            Atunci cand o melodie se termina in player se declanseaza un event care cere o alta melodie de la websocket
+            server, de asemenea atunci cand ws trimite o melodie va trimite si un mesaje de tip (RESET ID_PARTY)
+            broadcast, iar toti userii care sunt la petrecerea respectiva vor trebui sa-si actualizeze contorul care
+            monitorizeaza miscarea.
+            O data la 7 secunde server-ul primeste de la front starea contorului si actualizeaza in baza de data in
+            tabelul dansatori.
+            Pentru a actualiza timpul petrecut dansand verifica tabelul playlist si se ia cea mai mare data de start mai mica decat timpul requestului.
+        </p>
+        <b>4.6 Task scheduler</b>
+        <p>
+            De asemenea avem implementat un task scheduler care o data la 5 ore sterge petrecerile care nu mai sunt relevante.
+        </p>
+
     </section>
 
 </body>
+
 </html>
